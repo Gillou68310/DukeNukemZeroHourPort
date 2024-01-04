@@ -1,0 +1,25 @@
+{
+    "version": 4,
+    "configurations": [
+        {
+            "name": "dukenukemzerohour",
+            "includePath": [
+                "${workspaceFolder}/DukeNukemZeroHour/include",
+                "${workspaceFolder}/DukeNukemZeroHour/libs/libultra/include/2.0I",
+                "${workspaceFolder}/DukeNukemZeroHour/libs/libmus/include"
+            ],
+            "defines": [
+                "F3DEX_GBI_2",
+                "_LANGUAGE_C",
+                "_MIPS_SZLONG=32",
+                "_FINALROM",
+                "NON_MATCHING",
+                "__CTX__",
+                "AVOID_UB"
+            ],
+            "cStandard": "c89",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "${default}"
+        }
+    ]
+}

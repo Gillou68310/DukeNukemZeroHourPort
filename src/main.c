@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include <ultra64.h>
 #include <macros.h>
+#include <assert.h>
 
 #include "fast3d/gfx_opengl.h"
 #include "fast3d/gfx_sdl.h"
@@ -27,13 +28,16 @@ extern volatile s64 D_800FE9E0;
 void load_assets(void);
 void mainLoop(void *arg);
 void game_loop_one_iteration(void);
+void __MusIntDmaProcess(void);
+u32 __MusIntSamplesCurrent(u32 samples);
 
 float __libm_qnan_f = 0x7F810000;
 u32	osMemSize = 0x800000;
 s32 osTvType = OS_TV_NTSC;
 OSViMode osViModeTable[42];
-static u8 gMemory[0x800000];
 
+static s16 gAudioBuffer[0x10000];
+static u8 gMemory[0x800000];
 static struct AudioAPI *audio_api;
 static struct GfxWindowManagerAPI *wm_api;
 static struct GfxRenderingAPI *rendering_api;
@@ -46,6 +50,29 @@ static void save_config(void)
 static void on_fullscreen_changed(bool is_now_fullscreen)
 {
     configFullscreen = is_now_fullscreen;
+}
+
+static void audio_task(void)
+{
+    Acmd *cmdp;
+    u32 samples;
+    s32 commands;
+    s32 frame_samples;
+    Acmd audio_command_list[1];
+
+    samples = audio_api->buffered();
+
+    /* process dma buffers (find free ones) */
+    __MusIntDmaProcess();
+
+    /* call driver to generate audio commands and download samples */
+    frame_samples = __MusIntSamplesCurrent(samples);
+    cmdp = alAudioFrame(audio_command_list, &commands, gAudioBuffer, frame_samples);
+    assert(cmdp == audio_command_list);
+    assert(commands == 0);
+
+    if(frame_samples > 0)
+        audio_api->play((uint8_t*)gAudioBuffer, frame_samples<<2);
 }
 
 int main(UNUSED int argc, UNUSED char *argv[])
@@ -65,12 +92,14 @@ int main(UNUSED int argc, UNUSED char *argv[])
 
     //wm_api->set_fullscreen_changed_callback(on_fullscreen_changed);
     wm_api->set_swap_interval(0);
-    wm_api->set_target_fps(30);
+    wm_api->set_target_fps(60);
     wm_api->set_keyboard_callbacks(keyboard_on_key_down, keyboard_on_key_up, keyboard_on_all_keys_up);
     rendering_api->set_texture_filter(FILTER_LINEAR);
 
     if (audio_api == NULL)
-        audio_api = &audio_null;
+        audio_api = &audio_sdl;
+
+    audio_api->init();
 
     gCacheMemStart = &gMemory[0];
     gCacheMemEnd = &gMemory[0x800000];
@@ -83,8 +112,9 @@ int main(UNUSED int argc, UNUSED char *argv[])
         gfx_start_frame();
         game_loop_one_iteration();
         gfx_run(gDisplayList[0]);
+        audio_task();
         gfx_end_frame();
-        D_800FE9E0 += 2;
+        D_800FE9E0++;
     } while (1);
 
     return 0;

@@ -227,8 +227,24 @@ u32 osAiGetLength(void)
 
 s32 osAiSetFrequency(u32 freq)
 {
-    /*TODO*/
-    return 0;
+    u32 a1;
+    s32 a2;
+    u32 viClock;
+
+    viClock = 0x02E6D354;
+
+    a1 = viClock / (float) freq + .5f;
+
+    if (a1 < 0x84) {
+        return -1;
+    }
+
+    a2 = (a1 / 66) & 0xff;
+    if (a2 > 16) {
+        a2 = 16;
+    }
+
+    return viClock / (s32) a1;
 }
 
 s32 osAiSetNextBuffer(void *buf, size_t size)

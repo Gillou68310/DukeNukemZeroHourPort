@@ -71,7 +71,7 @@ SRC_DIRS := $(SRC_DIR)/code0 $(SRC_DIR)/code0/data $(SRC_DIR)/code1 $(SRC_DIR)/s
 C_FILES := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.c))
 CXX_FILES := $(foreach dir,$(SRC_DIRS),$(wildcard $(dir)/*.cpp))
 
-ASSETS_DIRS := $(ASSETS_DIR)/files $(ASSETS_DIR)/sounds
+ASSETS_DIRS := $(ASSETS_DIR)/files
 BIN_FILES := $(foreach dir,$(ASSETS_DIRS),$(wildcard $(dir)/*.bin))
 
 # Object files
@@ -84,6 +84,7 @@ OBJECTS := $(filter-out %.s.o, $(OBJECTS))
 $(BUILD_DIR)/$(LIBULTRA_DIR)/src/%.o: CPPFLAGS += -I $(LIBULTRA_DIR)/include/2.0I/PR
 $(BUILD_DIR)/$(LIBMUS_DIR)/src/%.o: CPPFLAGS += -I $(LIBULTRA_DIR)/include/2.0I/PR -D_OLD_AUDIO_LIBRARY
 $(BUILD_DIR)/$(PC_DIR)/%.o: CPPFLAGS += -DENABLE_OPENGL
+$(BUILD_DIR)/$(PC_DIR)/assets.c.o: CPPFLAGS += -I $(LIBULTRA_DIR)/include/2.0I/PR -I $(LIBMUS_DIR)/src
 
 all: $(BUILD_DIR)/$(TARGET)
 

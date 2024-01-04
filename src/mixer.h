@@ -5,10 +5,6 @@
 #include <stdint.h>
 #include <ultra64.h>
 
-#ifdef VERSION_SH
-#define NEW_AUDIO_UCODE
-#endif
-
 #undef aSegment
 #undef aClearBuffer
 #undef aSetBuffer
@@ -35,6 +31,7 @@
 #undef aFilter
 #undef aHiLoGain
 #undef aUnknown25
+#undef aPoleFilter
 
 void aClearBufferImpl(uint16_t addr, int nbytes);
 void aLoadADPCMImpl(int num_entries_times_16, const int16_t *book_source_addr);
@@ -81,6 +78,7 @@ void aUnknown25Impl(uint8_t f, uint16_t count, uint16_t out_addr, uint16_t in_ad
 #define aSetLoop(pkt, a) aSetLoopImpl(a)
 #define aADPCMdec(pkt, f, s) aADPCMdecImpl(f, s)
 #define aResample(pkt, f, p, s) aResampleImpl(f, p, s)
+#define	aPoleFilter(pkt, f, g, s) do { } while(0) /*TODO?*/
 
 #ifndef NEW_AUDIO_UCODE
 #define aSetVolume(pkt, f, v, t, r) aSetVolumeImpl(f, v, t, r)

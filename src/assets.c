@@ -4,6 +4,7 @@
 #include "common.h"
 #include "ld_symbols.h"
 #include "code0/code0.h"
+#include "code0/audio.h"
 #include "code0/edl.h"
 #include "code0/engine.h"
 #include "code0/9410.h"
@@ -12,6 +13,9 @@
 #include "code0/data/D8D20.h"
 #include "static/mapinfo.h"
 #include "static/tileinfo.h"
+#include "code0/data/D8D20.h"
+#include "libmus_data.h"
+#include "player.h"
 
 #define SWAP_S16(A) ((s16)__builtin_bswap16(A))
 #define SWAP_S32(A) ((s32)__builtin_bswap32(A))
@@ -48,20 +52,48 @@ typedef struct
     char *filename;
 } Blks;
 
+typedef struct
+{
+    MusicInfo *info;
+    char *filename;
+    s32 bank;
+} Audio;
+
 /*TODO: swap all palettes and remove the swap from fast3d*/
 
-u8 gBlksBuffer[0x200000];
+u8 blks_ROM_START[0x200000];
 static u8 *_pBlksBuffer;
 
 static u8 _mapBuffer[0x800000];
 static u8 *_pMapBuffer;
 
-u8 gAssetsTileBuffer[0x800000];
+u8 tiles_ROM_START[0x800000];
 static u8 *_pTileBuffer;
 
-u8 gModelsBuffer[0x1000000];
+u8 models_ROM_START[0x1000000];
 static u8 *_pModelsBuffer;
 
+static u8 _PBanksBuffer[0x40000];
+static u8 *_pPBanksBuffer;
+
+static u8 _WBanksBuffer[0x1000000];
+static u8 *_pWBanksBuffer;
+
+static u8 _songBuffer[0x10000];
+static u8 *_pSongBuffer;
+
+static u8 _sfxBuffer[0x10000];
+
+u8* sounds_bank0_ptr_ROM_START;
+u8* sounds_bank0_ptr_ROM_END;
+
+u8* sounds_bank0_wbk_ROM_START;
+u8* sounds_bank0_wbk_ROM_END;
+
+u8* sounds_sfx_bfx_ROM_START;
+u8* sounds_sfx_bfx_ROM_END;
+
+/*TODO: create buffer out of these*/
 static u8 _files_1009A60[0x28200];
 static u8 _files_10271A0[0x28200];
 static u8 _files_1041D90[0x28200];
@@ -1940,6 +1972,30 @@ static Blks _blks[] = {
     {&D_800D9B6C, "DEA7D0"},
 };
 
+static Audio _audio[] = {
+    {&gMusic.music[0], "present_day2", 3},
+    {&gMusic.music[1], "present_day1", 3},
+    {&gMusic.music[2], "title_screen", 3},
+    {&gMusic.music[3], "western1", 1},
+    {&gMusic.music[4], "western2", 1},
+    {&gMusic.music[5], "western_mine_cart", 2},
+    {&gMusic.music[6], "victorian1", 4},
+    {&gMusic.music[7], "victorian2", 4},
+    {&gMusic.music[8], "final_alien_mother", 6},
+    {&gMusic.music[9], "boss", 5},
+    {&gMusic.music[10], "present_day_boss_hog", 3},
+    {&gMusic.music[11], "training_base", -1},
+    {&gMusic.ambient[0], "ambient1", 7},
+    {&gMusic.ambient[1], "ambient2", 8},
+    {&gMusic.ambient[2], "ambient3", 9},
+    {&gMusic.ambient[3], "ambient4", 10},
+    {&gMusic.ambient[4], "ambient5", 11},
+    {&gMusic.ambient[5], "ambient6", 12},
+    {&gMusic.ambient[6], "ambient7", 13},
+    {&gMusic.ambient[7], "ambient8", 14},
+    {&gMusic.ambient[8], "ambient9", 15},
+};
+
 static void load_model(Model *model)
 {
     s32 i, size, count;
@@ -1987,7 +2043,7 @@ static void load_model(Model *model)
         info->offset = SWAP_S32(info->offset);
         info++;
     }
-    model->model->fileoff = _pModelsBuffer - gModelsBuffer;
+    model->model->fileoff = _pModelsBuffer - models_ROM_START;
     model->model->vertex_info->fileoff = ((model->model->fileoff + model->model->unk8) + 3) & ~3;
     _pModelsBuffer += size;
 }
@@ -1996,10 +2052,10 @@ static void load_models(void)
 {
     s32 i;
 
-    _pModelsBuffer = gModelsBuffer;
+    _pModelsBuffer = models_ROM_START;
     for (i = 0; i < ARRAY_COUNT(_models); i++)
         load_model(&_models[i]);
-    assert(((intptr_t)_pModelsBuffer - (intptr_t)gModelsBuffer) <= sizeof(gModelsBuffer));
+    assert(((intptr_t)_pModelsBuffer - (intptr_t)models_ROM_START) <= sizeof(models_ROM_START));
 }
 
 static void load_blk(Blks *blk)
@@ -2039,7 +2095,7 @@ static void load_blk(Blks *blk)
         ptr2->unk4 = SWAP_U16(ptr2->unk4);
         ptr2++;
     }
-    blk->info->fileoff = _pBlksBuffer - gBlksBuffer;
+    blk->info->fileoff = _pBlksBuffer - blks_ROM_START;
     _pBlksBuffer += size;
 }
 
@@ -2047,10 +2103,10 @@ static void load_blks(void)
 {
     s32 i;
 
-    _pBlksBuffer = gBlksBuffer;
+    _pBlksBuffer = blks_ROM_START;
     for (i = 0; i < ARRAY_COUNT(_blks); i++)
         load_blk(&_blks[i]);
-    assert(((intptr_t)_pBlksBuffer - (intptr_t)gBlksBuffer) <= sizeof(gBlksBuffer));
+    assert(((intptr_t)_pBlksBuffer - (intptr_t)blks_ROM_START) <= sizeof(blks_ROM_START));
 }
 
 static void load_map(MapInfo *map, s32 id)
@@ -2230,7 +2286,7 @@ static void load_tile(TileInfo *tile)
     fread(buf, 3, 1, fp);
     fseek(fp, 0L, SEEK_SET);
 
-    tile->fileoff = _pTileBuffer - gAssetsTileBuffer;
+    tile->fileoff = _pTileBuffer - tiles_ROM_START;
     if (buf[0] == 'E' && buf[1] == 'D' && buf[2] == 'L')
     {
         ptr = malloc(size);
@@ -2253,10 +2309,10 @@ static void load_tile(TileInfo *tile)
 static void load_tiles(void)
 {
     s32 i;
-    _pTileBuffer = gAssetsTileBuffer;
+    _pTileBuffer = tiles_ROM_START;
     for (i = 0; i < ARRAY_COUNT(gTileInfo); i++)
         load_tile(&gTileInfo[i]);
-    assert(((intptr_t)_pTileBuffer - (intptr_t)gAssetsTileBuffer) <= sizeof(gAssetsTileBuffer));
+    assert(((intptr_t)_pTileBuffer - (intptr_t)tiles_ROM_START) <= sizeof(tiles_ROM_START));
 }
 
 static void swap_odd_lines(void *data, u32 numBytes, u32 bytesPerRow)
@@ -2373,8 +2429,252 @@ static void load_special_models(void)
         load_special_model(&_special_models[i]);
 }
 
+static void load_bank(s32 id)
+{
+    s32 i, j, size;
+    FILE *fp;
+    char buf[256];
+    ptr_bank_t *ptrfile_addr;
+    ALWaveTable	**wave_list;
+    ALWaveTable	*wave;
+    ALADPCMloop *loop;
+    ALADPCMBook *book;
+    u8* wbank;
+
+    sprintf(buf, "assets/sounds/bank%d.wbk.bin", id);
+    fp = fopen(buf, "rb");
+    assert(fp != NULL);
+    fseek(fp, 0L, SEEK_END);
+    size = ftell(fp);
+    fseek(fp, 0L, SEEK_SET);
+    fread(_pWBanksBuffer, size, 1, fp);
+    fclose(fp);
+
+    wbank = _pWBanksBuffer;
+    _pWBanksBuffer += size;
+
+    sprintf(buf, "assets/sounds/bank%d.ptr.bin", id);
+    fp = fopen(buf, "rb");
+    assert(fp != NULL);
+    fseek(fp, 0L, SEEK_END);
+    size = ftell(fp);
+    fseek(fp, 0L, SEEK_SET);
+    fread(_pPBanksBuffer, size, 1, fp);
+    fclose(fp);
+
+    ptrfile_addr = (ptr_bank_t*)_pPBanksBuffer;
+    ptrfile_addr->count = SWAP_S32(ptrfile_addr->count);
+    assert(ptrfile_addr->flags == 0);
+    ptrfile_addr->basenote = (unsigned char*)SWAP_S32((intptr_t)ptrfile_addr->basenote);
+    ptrfile_addr->detune = (float*)SWAP_S32((intptr_t)ptrfile_addr->detune);
+    ptrfile_addr->wave_list = (ALWaveTable	**)SWAP_S32((intptr_t)ptrfile_addr->wave_list);
+    wave_list = (ALWaveTable **)((intptr_t)ptrfile_addr + (intptr_t)ptrfile_addr->wave_list);
+
+    for(i=0; i<ptrfile_addr->count; i++)
+        wave_list[i] = (ALWaveTable *)SWAP_S32((intptr_t)wave_list[i]);
+
+    for(i=0; i<ptrfile_addr->count; i++)
+    {
+        wave = (ALWaveTable*)((intptr_t)ptrfile_addr + (intptr_t)wave_list[i]);
+        s32 book_len, next;
+
+        wave->base = (u8 *)SWAP_S32((s32)wave->base); /*offset in wbank*/
+        wave->len = SWAP_S32(wave->len); /*offset in wbank*/
+        assert(wave->type == AL_ADPCM_WAVE);
+        assert(wave->flags == 0);
+        wave->waveInfo.adpcmWave.loop = (ALADPCMloop*)SWAP_S32((intptr_t)wave->waveInfo.adpcmWave.loop);
+        wave->waveInfo.adpcmWave.book = (ALADPCMBook*)SWAP_S32((intptr_t)wave->waveInfo.adpcmWave.book);
+        assert(wave->waveInfo.adpcmWave.book != 0); /*ALRAWWaveInfo?*/
+
+        if((i+1)<ptrfile_addr->count)
+            next = (intptr_t)wave_list[i+1];
+        else
+            next = (intptr_t)ptrfile_addr->wave_list;
+
+        if(wave->waveInfo.adpcmWave.loop != 0)
+        {
+            book_len = (intptr_t)wave->waveInfo.adpcmWave.loop - (intptr_t)wave->waveInfo.adpcmWave.book;
+            assert(((next - (intptr_t)wave->waveInfo.adpcmWave.loop) == (sizeof(ALADPCMloop))) || 
+                ((next - (intptr_t)wave->waveInfo.adpcmWave.loop) == (sizeof(ALADPCMloop))+4)); /*always 1 element?*/
+            assert(book_len == 0x88); /*always 1 element with 64 books?*/
+        }
+        else
+        {
+            book_len = next - (intptr_t)wave->waveInfo.adpcmWave.book;
+            assert(book_len == 0x88); /*always 1 element with 64 books?*/
+        }
+        if(wave->waveInfo.adpcmWave.loop)
+        {
+            loop = (ALADPCMloop*)((intptr_t)ptrfile_addr + (intptr_t)wave->waveInfo.adpcmWave.loop); 
+            loop->start = SWAP_U32(loop->start);
+            loop->end = SWAP_U32(loop->end);
+            loop->count = SWAP_U32(loop->count);
+
+            for(int j=0; j<16; j++)
+                loop->state[j] = SWAP_S16(loop->state[j]);
+        }
+        if(wave->type == AL_ADPCM_WAVE)
+        {
+            book = (ALADPCMBook*)((intptr_t)ptrfile_addr + (intptr_t)wave->waveInfo.adpcmWave.book); 
+            book->order = SWAP_S32(book->order);
+            assert(book->order == 2);
+            book->npredictors = SWAP_U32(book->npredictors);
+            assert(book->npredictors == 4);
+
+            for(int j=0; j<64; j++)
+                book->book[j] = SWAP_S16(book->book[j]);
+        }	
+    }
+    _pPBanksBuffer += size;
+
+    if(id == 0)
+    {
+        sounds_bank0_ptr_ROM_START = (u8*)ptrfile_addr;
+        sounds_bank0_ptr_ROM_END = _pPBanksBuffer;
+
+        sounds_bank0_wbk_ROM_START = wbank;
+        sounds_bank0_wbk_ROM_END = _pWBanksBuffer;
+    }
+
+    for(i=0; i<ARRAY_COUNT(_audio); i++)
+    {
+        if(id == _audio[i].bank)
+        {
+            _audio[i].info->wbank_start = wbank;
+            _audio[i].info->pbank_start = (u8*)ptrfile_addr;
+            _audio[i].info->pbank_end = _pPBanksBuffer;
+        }
+    }
+}
+
+static void load_song(Audio* audio)
+{
+    s32 i, j, size;
+    FILE *fp;
+    song_t *song_addr;
+    char buf[256];
+    unsigned char **list;
+    unsigned short* wave_table;
+
+    sprintf(buf, "assets/sounds/%s.bin", audio->filename);
+    fp = fopen(buf, "rb");
+    assert(fp != NULL);
+    fseek(fp, 0L, SEEK_END);
+    size = ftell(fp);
+    fseek(fp, 0L, SEEK_SET);
+    fread(_pSongBuffer, size, 1, fp);
+    fclose(fp);
+
+    song_addr = (song_t*)_pSongBuffer;
+
+    song_addr->version = SWAP_S32(song_addr->version);
+    song_addr->num_channels = SWAP_S32(song_addr->num_channels);
+    song_addr->num_waves = SWAP_S32(song_addr->num_waves);
+    assert(song_addr->flags == 0);
+    assert((intptr_t)song_addr->drum_table == (intptr_t)song_addr->env_table);
+
+    song_addr->data_list = (unsigned char **)SWAP_S32((intptr_t)song_addr->data_list);
+    song_addr->volume_list = (unsigned char **)SWAP_S32((intptr_t)song_addr->volume_list);
+    song_addr->pbend_list = (unsigned char **)SWAP_S32((intptr_t)song_addr->pbend_list);
+    song_addr->env_table = (unsigned char *)SWAP_S32((intptr_t)song_addr->env_table);
+    song_addr->drum_table = (drum_t*)SWAP_S32((intptr_t)song_addr->drum_table);
+    song_addr->wave_table = (unsigned short*)SWAP_S32((intptr_t)song_addr->wave_table);
+    song_addr->master_track = (unsigned char *)SWAP_S32((intptr_t)song_addr->master_track);
+
+    list = (unsigned char **)((intptr_t)song_addr + (intptr_t)song_addr->data_list);
+    for(i=0; i<song_addr->num_channels; i++)
+        list[i] = (unsigned char *)SWAP_S32((intptr_t)list[i]);
+
+    list = (unsigned char **)((intptr_t)song_addr + (intptr_t)song_addr->volume_list);
+    for(i=0; i<song_addr->num_channels; i++)
+        list[i] = (unsigned char *)SWAP_S32((intptr_t)list[i]);
+
+    list = (unsigned char **)((intptr_t)song_addr + (intptr_t)song_addr->pbend_list);
+    for(i=0; i<song_addr->num_channels; i++)
+        list[i] = (unsigned char *)SWAP_S32((intptr_t)list[i]);
+
+    wave_table = (unsigned short *)((intptr_t)song_addr + (intptr_t)song_addr->wave_table);
+    for(i=0; i<song_addr->num_waves; i++)
+        wave_table[i] = SWAP_U16(wave_table[i]);
+
+    _pSongBuffer += size;
+    audio->info->music_start = (u8*)song_addr;
+    audio->info->music_end = _pSongBuffer;
+}
+
+static void load_songs(void)
+{
+    s32 i;
+    
+    _pSongBuffer = _songBuffer;
+    for (i = 0; i < ARRAY_COUNT(_audio); i++)
+        load_song(&_audio[i]);
+    assert(((intptr_t)_pSongBuffer - (intptr_t)_songBuffer) <= sizeof(_songBuffer));
+}
+
+static void load_banks(void)
+{
+    s32 i;
+    
+    _pPBanksBuffer = _PBanksBuffer;
+    _pWBanksBuffer = _WBanksBuffer;
+    for (i = 0; i < 16; i++)
+        load_bank(i);
+    assert(((intptr_t)_pPBanksBuffer - (intptr_t)_PBanksBuffer) <= sizeof(_PBanksBuffer));
+    assert(((intptr_t)_pWBanksBuffer - (intptr_t)_WBanksBuffer) <= sizeof(_WBanksBuffer));
+}
+
+static void load_sfx(void)
+{
+    s32 i, size;
+    fx_header_t *header;
+    FILE *fp;
+    char buf[256];
+    unsigned short *wave_table;
+    fx_t *effects;
+
+    sprintf(buf, "assets/sounds/sfx.bfx.bin");
+    fp = fopen(buf, "rb");
+    assert(fp != NULL);
+    fseek(fp, 0L, SEEK_END);
+    size = ftell(fp);
+    fseek(fp, 0L, SEEK_SET);
+    fread(_sfxBuffer, size, 1, fp);
+    fclose(fp);
+
+    header = (fx_header_t *)_sfxBuffer;
+
+    header->number_of_components = SWAP_S32(header->number_of_components);
+    header->number_of_effects = SWAP_S32(header->number_of_effects);
+    header->num_waves = SWAP_S32(header->num_waves);
+    assert(header->flags == 0);
+    assert(header->ptr_addr == 0);
+    header->wave_table = (u16 *)SWAP_S32((intptr_t)header->wave_table);
+
+    wave_table = (unsigned short *)((intptr_t)header + (intptr_t)header->wave_table);
+    for (i=0; i<header->num_waves; i++)
+        wave_table[i] = SWAP_U16(wave_table[i]);
+
+    for (i=0; i<header->number_of_components; i++)
+    {
+        header->effects[i].fxdata = (u8 *)SWAP_S32((intptr_t)header->effects[i].fxdata);
+        header->effects[i].priority = SWAP_S32(header->effects[i].priority);
+    }
+
+    sounds_sfx_bfx_ROM_START = _sfxBuffer;
+    sounds_sfx_bfx_ROM_END = &_sfxBuffer[size];
+}
+
+void load_audio(void)
+{
+    load_banks();
+    load_songs();
+    load_sfx();
+}
+
 void load_assets(void)
 {
+    load_audio();
     load_models();
     load_blks();
     load_special_models();

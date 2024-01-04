@@ -4,8 +4,10 @@
         {
             "name": "dukenukemzerohour",
             "includePath": [
+                "${workspaceFolder}/src",
                 "${workspaceFolder}/DukeNukemZeroHour/include",
                 "${workspaceFolder}/DukeNukemZeroHour/libs/libultra/include/2.0I",
+                "${workspaceFolder}/DukeNukemZeroHour/libs/libultra/include/2.0I/PR",
                 "${workspaceFolder}/DukeNukemZeroHour/libs/libmus/include"
             ],
             "defines": [

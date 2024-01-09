@@ -24,6 +24,8 @@ extern u8 *gCacheMemStart;
 extern u8 *gCacheMemEnd;
 extern Gfx *gDisplayList[];
 extern volatile s64 D_800FE9E0;
+extern s32 gScreenWidth;
+extern s32 gScreenHeight;
 
 void load_assets(void);
 void mainLoop(void *arg);
@@ -83,8 +85,6 @@ int main(UNUSED int argc, UNUSED char *argv[])
     rendering_api = &gfx_opengl_api;
     wm_api = &gfx_sdl;
 
-    gfx_current_native_viewport.width = 512;
-    gfx_current_native_viewport.height = 384;
     gfx_framebuffers_enabled = false;
     gfx_msaa_level = 1;
 
@@ -111,6 +111,8 @@ int main(UNUSED int argc, UNUSED char *argv[])
     {
         gfx_start_frame();
         game_loop_one_iteration();
+        gfx_current_native_viewport.width = gScreenWidth;
+        gfx_current_native_viewport.height = gScreenHeight;
         gfx_run(gDisplayList[0]);
         audio_task();
         gfx_end_frame();

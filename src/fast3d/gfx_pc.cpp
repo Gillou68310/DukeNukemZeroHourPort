@@ -56,7 +56,6 @@ using namespace std;
 // #define MAX_LIGHTS 2
 #define MAX_LIGHTS 32
 #define MAX_VERTICES 128
-#define MAX_VERTEX_COLORS 64
 
 #define TEXTURE_CACHE_MAX_SIZE 1024
 
@@ -87,13 +86,6 @@ using namespace std;
 
 struct RGBA {
     uint8_t r, g, b, a;
-};
-
-struct NormalColor {
-    union {
-        struct { uint8_t r, g, b, a; };
-        struct { int8_t x, y, z, w; };
-    };
 };
 
 struct LoadedVertex {
@@ -156,8 +148,6 @@ static struct RSP {
     } texture_scaling_factor;
 
     struct LoadedVertex loaded_vertices[MAX_VERTICES + 4];
-
-    const struct NormalColor *vertex_colors; //[MAX_VERTEX_COLORS];
 } rsp;
 
 struct RawTexMetadata {
@@ -968,13 +958,6 @@ static void calculate_normal_dir(const Light_t* light, float coeffs[3]) {
     gfx_normalize_vector(coeffs);
 }
 
-static void calculate_normal_dir(const struct NormalColor *vcn, float coeffs[3]) {
-    const float light_dir[3] = { vcn->x / 127.f, vcn->y / 127.f, vcn->z / 127.f };
-
-    gfx_transposed_matrix_mul(coeffs, light_dir, rsp.modelview_matrix_stack[rsp.modelview_matrix_stack_size - 1]);
-    gfx_normalize_vector(coeffs);
-}
-
 static void gfx_matrix_mul(float res[4][4], const float a[4][4], const float b[4][4]) {
     float tmp[4][4];
     for (int i = 0; i < 4; i++) {
@@ -1075,8 +1058,6 @@ static void gfx_sp_vertex(size_t n_vertices, size_t dest_index, const Vtx* verti
         short U = v->tc[0] * rsp.texture_scaling_factor.s >> 16;
         short V = v->tc[1] * rsp.texture_scaling_factor.t >> 16;
 
-        //const struct NormalColor *vcn = &rsp.vertex_colors[v->colour >> 2];
-
         if (rsp.geometry_mode & G_LIGHTING) {
             if (rsp.lights_changed) {
                 for (int i = 0; i < rsp.current_num_lights - 1; i++) {
@@ -1122,10 +1103,6 @@ static void gfx_sp_vertex(size_t n_vertices, size_t dest_index, const Vtx* verti
                     dotx /= 127.0f;
                     doty /= 127.0f;
                 } else {
-                    float tvcn[3];
-                    /*calculate_normal_dir(vcn, tvcn);
-                    dotx = tvcn[0];
-                    doty = tvcn[1];*/
                     assert(0);
                 }
 
@@ -1747,6 +1724,12 @@ static void gfx_calc_and_set_viewport(const Vp_t* viewport) {
 
 static void gfx_sp_movemem(uint8_t index, uint8_t offset, const void* data) {
     switch (index) {
+        case G_MV_MMTX:
+        case G_MV_PMTX:
+        case G_MV_POINT:
+        case G_MV_MATRIX:
+            assert(0);
+            break;
         case G_MV_VIEWPORT:
             gfx_calc_and_set_viewport((const Vp_t*)data);
             break;
@@ -1782,7 +1765,15 @@ static void gfx_sp_movemem(uint8_t index, uint8_t offset, const void* data) {
 }
 
 static void gfx_sp_moveword(uint8_t index, uint16_t offset, uintptr_t data) {
+    int n;
     switch (index) {
+        case G_MW_MATRIX:
+        case G_MW_FORCEMTX:
+            assert(0);
+            break;
+        case G_MW_CLIP:
+            /*TODO?*/
+            break;
         case G_MW_NUMLIGHT:
 #ifdef F3DEX_GBI_2
             rsp.current_num_lights = data / 24 + 1; // add ambient light
@@ -1799,6 +1790,12 @@ static void gfx_sp_moveword(uint8_t index, uint16_t offset, uintptr_t data) {
             break;
         case G_MW_SEGMENT:
             segmentPointers[(offset >> 2) & 0xff] = data;
+            break;
+        case G_MW_LIGHTCOL:
+            n = offset / 24;
+            rsp.current_lights[n].col[0] = ((data >> 24) & 0xFF);
+            rsp.current_lights[n].col[1] = ((data >> 16) & 0xFF);
+            rsp.current_lights[n].col[2] = ((data >> 8) & 0xFF);
             break;
         case G_MW_PERSPNORM:
             // the default z range is around [100, 10000]
@@ -2335,16 +2332,6 @@ static void gfx_sp_set_other_mode(uint32_t shift, uint32_t num_bits, uint64_t mo
     rdp.tex_detail = (rdp.other_mode_h & (2U << G_MDSFT_TEXTDETAIL)) == G_TD_DETAIL;
 }
 
-static void gfx_sp_set_vertex_colors(uint32_t count, const struct NormalColor *vcn) {
-    // common sense dictates that we should copy the colors as the command is supposed to do,
-    // but it actually doesn't seem to matter
-    // SUPPORT_CHECK(count <= sizeof(rsp.vertex_colors) / sizeof(rsp.vertex_colors[0]));
-    // for (uint32_t i = 0; i < count; ++i) {
-    //     rsp.vertex_colors[i] = vcn[i];
-    // }
-    rsp.vertex_colors = vcn;
-}
-
 static void gfx_dp_set_other_mode(uint32_t h, uint32_t l) {
     rdp.other_mode_h = h;
     rdp.other_mode_l = l;
@@ -2498,9 +2485,6 @@ static void gfx_run_dl(Gfx* cmd) {
                 gfx_sp_set_other_mode(C0(8, 8) + 32, C0(0, 8), (uint64_t)cmd->words.w1 << 32);
 #endif
                 break;
-            /*case G_COL:
-                gfx_sp_set_vertex_colors(C0(0, 16) / 4, (NormalColor *)seg_addr(cmd->words.w1));
-                break;*/
 
             // RDP Commands:
             case G_SETTIMG: {

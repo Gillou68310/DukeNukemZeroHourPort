@@ -84,6 +84,12 @@ using namespace std;
 #define C0(pos, width) ((cmd->words.w0 >> (pos)) & ((1U << width) - 1))
 #define C1(pos, width) ((cmd->words.w1 >> (pos)) & ((1U << width) - 1))
 
+struct Viewport
+{
+	float vscale[4];
+	float vtrans[4];
+} viewport;
+
 struct RGBA {
     uint8_t r, g, b, a;
 };
@@ -204,6 +210,7 @@ static struct RDP {
     uint8_t prim_lod_fraction;
     struct RGBA env_color, prim_color, fog_color, fill_color, grayscale_color;
     struct XYWidthHeight viewport, scissor;
+    struct Viewport vp;
     bool viewport_or_scissor_changed;
     void* z_buf_address;
     void* color_image_address;
@@ -1180,14 +1187,17 @@ static void gfx_sp_vertex(size_t n_vertices, size_t dest_index, const Vtx* verti
 }
 
 static void gfx_sp_modify_vertex(uint16_t vtx_idx, uint8_t where, uint32_t val) {
-    SUPPORT_CHECK(where == G_MWO_POINT_ST);
+    SUPPORT_CHECK(where == G_MWO_POINT_XYSCREEN);
 
-    int16_t s = (int16_t)(val >> 16);
-    int16_t t = (int16_t)val;
+    int16_t x = (int16_t)(val >> 16);
+    int16_t y = (int16_t)val;
 
     struct LoadedVertex* v = &rsp.loaded_vertices[vtx_idx];
-    v->u = s;
-    v->v = t;
+    v->x = x / 4.f;
+    v->y = y / 4.f;
+
+    v->x = ((v->x-rdp.vp.vtrans[0])*v->w)/rdp.vp.vscale[0];
+    v->y = -((v->y-rdp.vp.vtrans[1])*v->w)/rdp.vp.vscale[1]; /*Why inverted?*/
 }
 
 static void gfx_sp_tri1(uint8_t vtx1_idx, uint8_t vtx2_idx, uint8_t vtx3_idx, bool is_rect) {
@@ -1716,6 +1726,11 @@ static void gfx_calc_and_set_viewport(const Vp_t* viewport) {
     rdp.viewport.y = y;
     rdp.viewport.width = width;
     rdp.viewport.height = height;
+
+    rdp.vp.vscale[0] = viewport->vscale[0] / 4.0f;
+    rdp.vp.vscale[1] = viewport->vscale[1] / 4.0f;
+    rdp.vp.vtrans[0] = viewport->vtrans[0] / 4.0f;
+    rdp.vp.vtrans[1] = viewport->vtrans[1] / 4.0f;;
 
     gfx_adjust_viewport_or_scissor(&rdp.viewport);
 
@@ -2412,6 +2427,9 @@ static void gfx_run_dl(Gfx* cmd) {
 #else
                 gfx_sp_vertex(C0(0, 16) / sizeof(Vtx), C0(16, 4), (const Vtx*)seg_addr(cmd->words.w1));
 #endif
+                break;
+            case G_MODIFYVTX:
+                gfx_sp_modify_vertex(C0(1,15), C0(16,8), cmd->words.w1);
                 break;
             case G_DL:
                 if (C0(16, 1) == 0) {

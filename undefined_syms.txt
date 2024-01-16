@@ -1,3 +1,6 @@
+_models_ROM_START = 0;
+_blks_ROM_START = 0;
+_tiles_ROM_START = 0;
 _tiles_ROM_END = 0;
 _sounds_training_base_ROM_START = 0;
 _sounds_bank1_ptr_ROM_START = 0;

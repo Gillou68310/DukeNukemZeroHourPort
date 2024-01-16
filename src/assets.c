@@ -61,16 +61,16 @@ typedef struct
 
 /*TODO: swap all palettes and remove the swap from fast3d*/
 
-u8 blks_ROM_START[0x200000];
+static u8 _BlksBuffer[0x200000];
 static u8 *_pBlksBuffer;
 
 static u8 _mapBuffer[0x800000];
 static u8 *_pMapBuffer;
 
-u8 tiles_ROM_START[0x800000];
+static u8 _tileBuffer[0x800000];
 static u8 *_pTileBuffer;
 
-u8 models_ROM_START[0x1000000];
+static u8 _modelBuffer[0x1000000];
 static u8 *_pModelsBuffer;
 
 static u8 _PBanksBuffer[0x40000];
@@ -2043,8 +2043,10 @@ static void load_model(Model *model)
         info->offset = SWAP_S32(info->offset);
         info++;
     }
-    model->model->fileoff = _pModelsBuffer - models_ROM_START;
-    model->model->vertex_info->fileoff = ((model->model->fileoff + model->model->unk8) + 3) & ~3;
+    model->model->fileoff = 0;
+    model->model->vertex_info->fileoff = 0;
+    model->model->ramaddr = _pModelsBuffer;
+    model->model->vertex_info->ramaddr = (u8*)((((intptr_t)model->model->ramaddr + model->model->unk8) + 3) & ~3);
     _pModelsBuffer += size;
 }
 
@@ -2052,10 +2054,10 @@ static void load_models(void)
 {
     s32 i;
 
-    _pModelsBuffer = models_ROM_START;
+    _pModelsBuffer = _modelBuffer;
     for (i = 0; i < ARRAY_COUNT(_models); i++)
         load_model(&_models[i]);
-    assert(((intptr_t)_pModelsBuffer - (intptr_t)models_ROM_START) <= sizeof(models_ROM_START));
+    assert(((intptr_t)_pModelsBuffer - (intptr_t)_modelBuffer) <= sizeof(_modelBuffer));
 }
 
 static void load_blk(Blks *blk)
@@ -2095,7 +2097,10 @@ static void load_blk(Blks *blk)
         ptr2->unk4 = SWAP_U16(ptr2->unk4);
         ptr2++;
     }
-    blk->info->fileoff = _pBlksBuffer - blks_ROM_START;
+    blk->info->fileoff = 0;
+    blk->info->ramaddr = _pBlksBuffer;
+    blk->info->unk18 = (_D8D20UnkStruct3 *)blk->info->ramaddr;
+    blk->info->unk1C = &((_D8D20UnkStruct1 *)blk->info->ramaddr)[blk->info->unk14];
     _pBlksBuffer += size;
 }
 
@@ -2103,10 +2108,10 @@ static void load_blks(void)
 {
     s32 i;
 
-    _pBlksBuffer = blks_ROM_START;
+    _pBlksBuffer = _BlksBuffer;
     for (i = 0; i < ARRAY_COUNT(_blks); i++)
         load_blk(&_blks[i]);
-    assert(((intptr_t)_pBlksBuffer - (intptr_t)blks_ROM_START) <= sizeof(blks_ROM_START));
+    assert(((intptr_t)_pBlksBuffer - (intptr_t)_BlksBuffer) <= sizeof(_BlksBuffer));
 }
 
 static void load_map(MapInfo *map, s32 id)
@@ -2274,6 +2279,7 @@ static void load_tile(TileInfo *tile)
 {
     s32 i, dsize, size;
     u8 *ptr;
+    u8 val;
     FILE *fp;
     char buf[256];
 
@@ -2286,7 +2292,8 @@ static void load_tile(TileInfo *tile)
     fread(buf, 3, 1, fp);
     fseek(fp, 0L, SEEK_SET);
 
-    tile->fileoff = _pTileBuffer - tiles_ROM_START;
+    tile->fileoff = 0;
+    tile->ramaddr = _pTileBuffer;
     if (buf[0] == 'E' && buf[1] == 'D' && buf[2] == 'L')
     {
         ptr = malloc(size);
@@ -2303,16 +2310,29 @@ static void load_tile(TileInfo *tile)
         _pTileBuffer += size;
         tile->filesize = size;
     }
+
+    if (!(tile->flags & 0x80))
+    {
+        ptr = tile->ramaddr;
+        for (i = 0; i < 16; i++)
+        {
+            val = *ptr;
+            *ptr = *(ptr + 1);
+            *(ptr + 1) = val;
+            ptr += 2;
+        }
+    }
+
     fclose(fp);
 }
 
 static void load_tiles(void)
 {
     s32 i;
-    _pTileBuffer = tiles_ROM_START;
+    _pTileBuffer = _tileBuffer;
     for (i = 0; i < ARRAY_COUNT(gTileInfo); i++)
         load_tile(&gTileInfo[i]);
-    assert(((intptr_t)_pTileBuffer - (intptr_t)tiles_ROM_START) <= sizeof(tiles_ROM_START));
+    assert(((intptr_t)_pTileBuffer - (intptr_t)_tileBuffer) <= sizeof(_tileBuffer));
 }
 
 static void swap_odd_lines(void *data, u32 numBytes, u32 bytesPerRow)
@@ -2363,8 +2383,9 @@ static void load_swapped_texture(SwappedTexture *tex)
     assert(decompressEDL(ptr, tex->data) == 0);
     free(ptr);
 
-    D_800E0D18[tex->id].romstart = tex->data;
-    D_800E0D18[tex->id].romend = &tex->data[tex->size];
+    D_800E0D18[tex->id].romstart = 0;
+    D_800E0D18[tex->id].romend = 0;
+    D_800E0D18[tex->id].handle = &tex->data;
 
     func_8007FD8C(tex->data, tex->info);
 }
@@ -2402,8 +2423,9 @@ static void load_special_model(SpecialModel *model)
     assert(decompressEDL(ptr, model->data) == 0);
     free(ptr);
 
-    D_800E0D18[model->id].romstart = model->data;
-    D_800E0D18[model->id].romend = &model->data[model->size];
+    D_800E0D18[model->id].romstart = 0;
+    D_800E0D18[model->id].romend = 0;
+    D_800E0D18[model->id].handle = &model->data;
     offset = D_800E0D18[model->id].offset;
 
     for (i = 0; i < model->offset_count; i++)

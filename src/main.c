@@ -27,6 +27,7 @@ extern volatile s64 D_800FE9E0;
 extern s32 gScreenWidth;
 extern s32 gScreenHeight;
 
+void init_save(void);
 void load_assets(void);
 void mainLoop(void *arg);
 void game_loop_one_iteration(void);
@@ -105,6 +106,7 @@ int main(UNUSED int argc, UNUSED char *argv[])
     gCacheMemEnd = &gMemory[0x800000];
     memset(gMemory, 0, sizeof(gMemory));
 
+    init_save();
     load_assets();
     mainLoop(NULL);
     do

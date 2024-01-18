@@ -1,11 +1,74 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdint.h>
+#include <stdlib.h>
+#include <dirent.h>
+#include <assert.h> 
 #include <PR/os.h>
 #include "PR/sched.h"
 #include "macros.h"
 
-/*TODO: make sure all mixer commands are from mixer.h and not PR/abi.h*/
+#define MAXSAVES 16
+#define SAVEFOLDER "save"
+
+typedef struct
+{
+    s32 size;
+    u32 game_code;
+    u16 company_code;
+    u8 ext_name[PFS_FILE_EXT_LEN];
+    u8 game_name[PFS_FILE_NAME_LEN];
+} Save;
+
+static Save _save[MAXSAVES];
+static s32 _saveCount;
+
+void init_save(void)
+{
+    FILE * f;
+    DIR *d;
+    struct dirent *dir;
+    s32 i, j;
+    char buf[32];
+
+    _saveCount = 0;
+    memset(_save, 0, sizeof(_save));
+    mkdir(SAVEFOLDER);
+    d = opendir(SAVEFOLDER);
+    if (d)
+    {
+        while ((dir = readdir(d)) != NULL)
+        {
+            if (!memcmp(dir->d_name, "save", 4))
+            {
+                i = atoi(&dir->d_name[4]);
+                if((i >= 0) && (i < MAXSAVES))
+                {
+                    j = strlen(dir->d_name)-4;
+                    if (!memcmp(&dir->d_name[j], ".dat", 4))
+                    {
+                        sprintf(buf, "%s/%s", SAVEFOLDER, dir->d_name);
+                        f = fopen(buf, "rb");
+                        fread(&_save[i].game_code, 1, sizeof(u32), f);
+                        fread(&_save[i].company_code, 1, sizeof(u16), f);
+                        fread(_save[i].game_name, 1, PFS_FILE_NAME_LEN, f);
+                        fread(_save[i].ext_name, 1, PFS_FILE_EXT_LEN, f);
+                        fclose(f);
+                    }
+                    else if (!memcmp(&dir->d_name[j], ".bin", 4))
+                    {
+                        sprintf(buf, "%s/%s", SAVEFOLDER, dir->d_name);
+                        f = fopen(buf, "rb");
+                        fseek(f, 0L, SEEK_END);
+                        _save[i].size = ftell(f);
+                        fclose(f);
+                    }
+                }
+            }
+        }
+        closedir(d);
+    }
+}
 
 s32 osPiStartDma(UNUSED OSIoMesg *mb, UNUSED s32 priority, UNUSED s32 direction,
                  uintptr_t devAddr, void *vAddr, u32 nbytes,
@@ -35,26 +98,11 @@ s32 osJamMesg(UNUSED OSMesgQueue *mq, UNUSED OSMesg msg, UNUSED s32 flag)
 
 s32 osSendMesg(UNUSED OSMesgQueue *mq, UNUSED OSMesg msg, UNUSED s32 flag)
 {
-    /*s32 index;
-    if (mq->validCount >= mq->msgCount) {
-        return -1;
-    }
-    index = (mq->first + mq->validCount) % mq->msgCount;
-    mq->msg[index] = msg;
-    mq->validCount++;*/
     return 0;
 }
 
 s32 osRecvMesg(UNUSED OSMesgQueue *mq, UNUSED OSMesg *msg, UNUSED s32 flag)
 {
-    /*if (mq->validCount == 0) {
-        return -1;
-    }
-    if (msg != NULL) {
-        *msg = *(mq->first + mq->msg);
-    }
-    mq->first = (mq->first + 1) % mq->msgCount;
-    mq->validCount--;*/
     return 0;
 }
 
@@ -97,45 +145,17 @@ s32 osEepromProbe(UNUSED OSMesgQueue *mq)
 
 s32 osEepromLongRead(UNUSED OSMesgQueue *mq, u8 address, u8 *buffer, int nbytes)
 {
-    u8 content[512];
-    s32 ret = -1;
-
-    FILE *fp = fopen("save.bin", "rb");
-    if (fp == NULL)
-    {
-        return -1;
-    }
-    if (fread(content, 1, 512, fp) == 512)
-    {
-        memcpy(buffer, content + address * 8, nbytes);
-        ret = 0;
-    }
-    fclose(fp);
-    return ret;
+    assert(0);
 }
 
 s32 osEepromLongWrite(UNUSED OSMesgQueue *mq, u8 address, u8 *buffer, int nbytes)
 {
-    u8 content[512] = {0};
-    if (address != 0 || nbytes != 512)
-    {
-        osEepromLongRead(mq, 0, content, 512);
-    }
-    memcpy(content + address * 8, buffer, nbytes);
-
-    FILE *fp = fopen("save.bin", "wb");
-    if (fp == NULL)
-    {
-        return -1;
-    }
-    s32 ret = fwrite(content, 1, 512, fp) == 512 ? 0 : -1;
-    fclose(fp);
-    return ret;
+    assert(0);
 }
 
 s32 osMotorInit(UNUSED OSMesgQueue *mq, UNUSED OSPfs *pfs, UNUSED int channel)
 {
-    return 0;
+    return PFS_ERR_DEVICE;
 }
 
 s32 __osMotorAccess(OSPfs *pfs, s32 cmd)
@@ -151,21 +171,49 @@ OSPiHandle *osCartRomInit(void)
 
 s32 osPfsNumFiles(OSPfs *pfs, s32 *max_files, s32 *files_used)
 {
+    *files_used = _saveCount;
+    *max_files = MAXSAVES;
     return 0;
 }
 
 s32 osPfsFreeBlocks(OSPfs *pfs, s32 *leftoverBytes)
 {
+    *leftoverBytes = 131072;
     return 0;
 }
 
 s32 osPfsDeleteFile(OSPfs *pfs, u16 companyCode, u32 gameCode, u8 *gameName, u8 *extName)
 {
+    s32 file_no;
+    char buf[32];
+
+    osPfsFindFile(pfs, companyCode, gameCode, gameName, extName, &file_no);
+    if (file_no == -1)
+        return PFS_ERR_INVALID;
+
+    sprintf(buf, "%s/save%d.bin", SAVEFOLDER, file_no);
+    remove(buf);
+    sprintf(buf, "%s/save%d.dat", SAVEFOLDER, file_no);
+    remove(buf);
+    memset(&_save[file_no], 0, sizeof(Save));
+    _saveCount--;
     return 0;
 }
 
 s32 osPfsFileState(OSPfs *pfs, s32 fileNo, OSPfsState *state)
 {
+    char buf[32];
+
+    assert((state != NULL) && (fileNo >= 0) && (fileNo < MAXSAVES));
+    if(_save[fileNo].size == 0)
+        return PFS_ERR_INVALID;
+
+    state->file_size = _save[fileNo].size;
+    state->game_code = _save[fileNo].game_code;
+    state->company_code = _save[fileNo].company_code;
+
+    memcpy(state->game_name, _save[fileNo].game_name, PFS_FILE_NAME_LEN);
+    memcpy(state->ext_name, _save[fileNo].ext_name, PFS_FILE_EXT_LEN);
     return 0;
 }
 
@@ -176,22 +224,92 @@ s32 osPfsInitPak(OSMesgQueue *mq, OSPfs *pfs, s32 channel)
 
 s32 osPfsRepairId(OSPfs *pfs)
 {
-    return 0;
+    assert(0);
 }
 
 s32 osPfsReadWriteFile(OSPfs *pfs, s32 file_no, u8 flag, int offset, int size_in_bytes, u8 *data_buffer)
 {
+    FILE* f;
+    char buf[32];
+
+    assert((file_no>=0)&&(file_no<MAXSAVES));
+    assert(offset == 0);
+    assert(_save[file_no].size == size_in_bytes);
+
+    sprintf(buf, "%s/save%d.bin", SAVEFOLDER, file_no);
+    if(flag == OS_READ)
+    {
+        f = fopen(buf, "rb");
+        fread(data_buffer, 1, size_in_bytes, f);
+        fclose(f);
+    }
+    else
+    {
+        f = fopen(buf, "wb");
+        fwrite(data_buffer, 1, size_in_bytes, f);
+        fclose(f);
+    } 
+
     return 0;
 }
 
 s32 osPfsAllocateFile(OSPfs *pfs, u16 company_code, u32 game_code, u8 *game_name, u8 *ext_name, int file_size_in_bytes, s32 *file_no)
 {
-    return 0;
+    FILE* f;
+    s32 i;
+    char buf[32];
+
+    osPfsFindFile(pfs, company_code, game_code, game_name, ext_name, file_no);
+    if (*file_no != -1)
+        return PFS_ERR_EXIST;
+
+    for(i = 0; i<MAXSAVES; i++)
+    {
+        if(_save[i].size == 0)
+        {
+            _save[i].size = file_size_in_bytes;
+            _save[i].game_code = game_code;
+            _save[i].company_code = company_code;
+
+            memcpy(_save[i].game_name, game_name, PFS_FILE_NAME_LEN);
+            memcpy(_save[i].ext_name, ext_name, PFS_FILE_EXT_LEN);
+
+            sprintf(buf, "%s/save%d.dat", SAVEFOLDER, i);
+            f = fopen(buf, "wb");
+            fwrite(&_save[i].game_code, 1, sizeof(u32), f);
+            fwrite(&_save[i].company_code, 1, sizeof(u16), f);
+            fwrite(_save[i].game_name, 1, PFS_FILE_NAME_LEN, f);
+            fwrite(_save[i].ext_name, 1, PFS_FILE_EXT_LEN, f);
+            fclose(f);
+            _saveCount++;
+            *file_no = i;
+            return 0;
+        }
+    }
+
+    *file_no = -1;
+    return PFS_DIR_FULL;
 }
 
 s32 osPfsFindFile(OSPfs *pfs, u16 companyCode, u32 gameCode, u8 *gameName, u8 *extName, s32 *fileNo)
 {
-    return 0;
+    s32 i;
+
+    for(i = 0; i<MAXSAVES; i++)
+    {
+        if((_save[i].size != 0) &&
+           (_save[i].game_code == gameCode) &&
+           (_save[i].company_code == companyCode) &&
+           (!memcmp(_save[i].game_name, gameName, PFS_FILE_NAME_LEN)) && 
+           (!memcmp(_save[i].ext_name, extName, PFS_FILE_EXT_LEN)))
+        {
+            *fileNo = i;
+            return 0;
+        }
+    }
+
+    *fileNo = -1;
+    return PFS_ERR_INVALID;
 }
 
 s32 osContStartQuery(OSMesgQueue *mq)
@@ -249,7 +367,6 @@ s32 osAiSetFrequency(u32 freq)
 
 s32 osAiSetNextBuffer(void *buf, size_t size)
 {
-    /*TODO*/
     return 0;
 }
 

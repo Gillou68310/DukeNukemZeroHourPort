@@ -732,11 +732,24 @@ static void gfx_opengl_set_sampler_parameters(int tile, bool linear_filter, uint
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, gfx_cm_to_opengl(cmt));
 }
 
-static void gfx_opengl_set_depth_test_and_mask(bool depth_test, bool z_upd) {
+static void gfx_opengl_set_depth_test_and_mask(int32_t depth_test, bool z_upd) {
     if (depth_test || z_upd) {
         glEnable(GL_DEPTH_TEST);
         glDepthMask(z_upd ? GL_TRUE : GL_FALSE);
-        glDepthFunc(depth_test ? GL_LEQUAL : GL_ALWAYS);
+
+        switch(depth_test)
+        {
+            case 0:
+                glDepthFunc(GL_ALWAYS);
+                break;
+            case 1:
+                glDepthFunc(GL_LEQUAL);
+                break;
+            case 2:
+                glDepthFunc(GL_LESS);
+                break;
+        }
+        
         current_depth_mask = z_upd;
     } else {
         glDisable(GL_DEPTH_TEST);

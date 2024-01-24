@@ -214,6 +214,11 @@ static struct RDP {
     bool viewport_or_scissor_changed;
     void* z_buf_address;
     void* color_image_address;
+
+    struct {
+        float z;
+        float deltaZ;
+    } prim_depth;
 } rdp;
 
 static struct RenderingState {
@@ -1250,9 +1255,27 @@ static void gfx_sp_tri1(uint8_t vtx1_idx, uint8_t vtx2_idx, uint8_t vtx3_idx, bo
         }
     }
 
-    bool depth_test = (rsp.geometry_mode & G_ZBUFFER) == G_ZBUFFER;
-    bool depth_mask = (rdp.other_mode_l & Z_UPD) == Z_UPD;
-    uint8_t depth_test_and_mask = (depth_test ? 1 : 0) | (depth_mask ? 2 : 0);
+    int32_t depth_test = 0;
+    if((rsp.geometry_mode & G_ZBUFFER) || (rdp.other_mode_l & G_ZS_PRIM))
+    {
+        if(rdp.other_mode_l & Z_CMP)
+        {
+            switch(rdp.other_mode_l & 0xC00)
+            {
+                case ZMODE_DEC:
+                case ZMODE_INTER:
+                    depth_test = 1;
+                    break;
+                case ZMODE_OPA:
+                case ZMODE_XLU:
+                    depth_test = (rdp.other_mode_l & G_ZS_PRIM) ? 2 : 1; /*TODO: rdp.prim_depth.z == 1.0f?*/
+                    break;
+            }
+        }
+    }
+
+    bool depth_mask = (rdp.other_mode_l & Z_UPD);
+    uint8_t depth_test_and_mask = (depth_test << 1) | (depth_mask&1);
     if (depth_test_and_mask != rendering_state.depth_test_and_mask) {
         gfx_flush();
         gfx_rapi->set_depth_test_and_mask(depth_test, depth_mask);
@@ -1264,7 +1287,7 @@ static void gfx_sp_tri1(uint8_t vtx1_idx, uint8_t vtx2_idx, uint8_t vtx3_idx, bo
         rendering_state.depth_zfar = rsp.depth_zfar;
     }
 
-    bool zmode_decal = (rdp.other_mode_l & ZMODE_DEC) == ZMODE_DEC;
+    bool zmode_decal = (rdp.other_mode_l & 0xC00) == ZMODE_DEC;
     if (zmode_decal != rendering_state.decal_mode) {
         gfx_flush();
         gfx_rapi->set_zmode_decal(zmode_decal);
@@ -2139,24 +2162,26 @@ static void gfx_draw_rectangle(int32_t ulx, int32_t uly, int32_t lrx, int32_t lr
     struct LoadedVertex* lr = &rsp.loaded_vertices[MAX_VERTICES + 2];
     struct LoadedVertex* ur = &rsp.loaded_vertices[MAX_VERTICES + 3];
 
+    const float Z = (rdp.other_mode_l & G_ZS_PRIM) ? rdp.prim_depth.z : -1.0f;
+
     ul->x = ulxf;
     ul->y = ulyf;
-    ul->z = -1.0f;
+    ul->z = Z;
     ul->w = 1.0f;
 
     ll->x = ulxf;
     ll->y = lryf;
-    ll->z = -1.0f;
+    ll->z = Z;
     ll->w = 1.0f;
 
     lr->x = lrxf;
     lr->y = lryf;
-    lr->z = -1.0f;
+    lr->z = Z;
     lr->w = 1.0f;
 
     ur->x = lrxf;
     ur->y = ulyf;
-    ur->z = -1.0f;
+    ur->z = Z;
     ur->w = 1.0f;
 
     // The coordinates for texture rectangle shall bypass the viewport setting
@@ -2351,6 +2376,11 @@ static void gfx_sp_set_other_mode(uint32_t shift, uint32_t num_bits, uint64_t mo
 static void gfx_dp_set_other_mode(uint32_t h, uint32_t l) {
     rdp.other_mode_h = h;
     rdp.other_mode_l = l;
+}
+
+static void gfx_dp_set_prim_depth(uint16_t z, uint16_t dz) {
+	rdp.prim_depth.z = (z&0x7FFF) / 32768.f;
+	rdp.prim_depth.deltaZ = (dz&0x7FFF) / 32768.f;
 }
 
 static inline void *seg_addr(uintptr_t w1) {
@@ -2696,6 +2726,9 @@ static void gfx_run_dl(Gfx* cmd) {
                 break;
             case G_RDPFLUSH_EXT:
                 gfx_flush();
+                break;
+            case G_SETPRIMDEPTH:
+                gfx_dp_set_prim_depth(C1(16, 16), C1(0, 16));
                 break;
             case G_RDPPIPESYNC:
             case G_RDPFULLSYNC:

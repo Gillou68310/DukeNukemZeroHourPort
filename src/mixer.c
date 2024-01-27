@@ -18,7 +18,9 @@
 #define HAS_NEON 0
 #endif
 
+#ifndef _MSC_VER
 #pragma GCC optimize ("unroll-loops")
+#endif
 
 #if HAS_SSE41
 #define LOADLH(l, h) _mm_castpd_si128(_mm_loadh_pd(_mm_load_sd((const double *)(l)), (const double *)(h)))

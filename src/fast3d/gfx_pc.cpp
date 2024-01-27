@@ -8,20 +8,12 @@
 #include <cstdio>
 
 #include <map>
-#include <set>
-#include <unordered_map>
 #include <vector>
-#include <list>
-#include <stack>
-#include <string>
-#include <iostream>
-#include <memory>
-#include <limits>
 
 #ifndef _LANGUAGE_C
 #define _LANGUAGE_C
 #endif
-#include <PR/gbi.h>
+#include <ultra64.h>
 
 #include "gfx_pc.h"
 #include "gfx_cc.h"
@@ -32,8 +24,6 @@
 uintptr_t gfxFramebuffer;
 
 using namespace std;
-
-#define ALIGN(x, a) (((x) + (a - 1)) & ~(a - 1))
 
 #define SUPPORT_CHECK(x) assert(x)
 
@@ -83,6 +73,18 @@ using namespace std;
 
 #define C0(pos, width) ((cmd->words.w0 >> (pos)) & ((1U << width) - 1))
 #define C1(pos, width) ((cmd->words.w1 >> (pos)) & ((1U << width) - 1))
+
+#ifdef _WIN32
+#define SWAP_S16(A) ((s16)_byteswap_ushort(A))
+#define SWAP_S32(A) ((s32)_byteswap_ulong(A))
+#define SWAP_U16(A) ((u16)_byteswap_ushort(A))
+#define SWAP_U32(A) ((u32)_byteswap_ulong(A))
+#else
+#define SWAP_S16(A) ((s16)__builtin_bswap16(A))
+#define SWAP_S32(A) ((s32)__builtin_bswap32(A))
+#define SWAP_U16(A) ((u16)__builtin_bswap16(A))
+#define SWAP_U32(A) ((u32)__builtin_bswap32(A))
+#endif
 
 struct Viewport
 {
@@ -656,7 +658,7 @@ static void import_texture_rgba32(int tile, const LoadedTexture& loaded_texture,
     const uint32_t *src = (const uint32_t *)addr;
 
     for (uint32_t i = 0; i < size_bytes; i += 4, ++dest, ++src) {
-        *dest = __builtin_bswap32(*src);
+        *dest = SWAP_U32(*src);
     }
 
     const uint32_t width = rdp.texture_tile[tile].line_size_bytes / 2;
@@ -1962,7 +1964,7 @@ static void gfx_dp_load_tlut(uint8_t tile, uint32_t uls, uint32_t ult, uint32_t 
     const uint16_t *src = base;
     uint16_t *dst = rdp.palette + palofs;
     for (uint32_t i = 0; i < count; ++i) {
-        *dst++ = __builtin_bswap16(*src++);
+        *dst++ = SWAP_U16(*src++);
     }
 
     rdp.textures_changed[0] = rdp.textures_changed[1] = true;
@@ -2736,7 +2738,7 @@ static void gfx_run_dl(Gfx* cmd) {
             case G_RDPTILESYNC:
                 break;
             default:
-                printf("Unknown GBI opcode 0x%02x at %p.\nw0 %08x\nw1 %08x", opcode, cmd, cmd->words.w0, cmd->words.w1);
+                printf("Unknown GBI opcode 0x%02x at %p.\nw0 %08x\nw1 %08x", opcode, cmd, (void*)cmd->words.w0, (void*)cmd->words.w1);
                 break;
         }
         ++cmd;

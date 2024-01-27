@@ -2,11 +2,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <math.h>
-
-#include <SDL2/SDL.h>
-
-#include <ultra64.h>
-
+#include <SDL.h>
 #include "controller_api.h"
 
 #define DEADZONE 4960

@@ -8,6 +8,11 @@
 #include "PR/sched.h"
 #include "macros.h"
 
+#ifdef _MSC_VER
+#include <direct.h>
+#define mkdir _mkdir
+#endif
+
 #define MAXSAVES 16
 #define SAVEFOLDER "save"
 
@@ -25,7 +30,7 @@ static s32 _saveCount;
 
 void init_save(void)
 {
-    FILE * f;
+    FILE *f;
     DIR *d;
     struct dirent *dir;
     s32 i, j;
@@ -42,7 +47,7 @@ void init_save(void)
             if (!memcmp(dir->d_name, "save", 4))
             {
                 i = atoi(&dir->d_name[4]);
-                if((i >= 0) && (i < MAXSAVES))
+                if ((i >= 0) && (i < MAXSAVES))
                 {
                     j = strlen(dir->d_name)-4;
                     if (!memcmp(&dir->d_name[j], ".dat", 4))
@@ -146,11 +151,13 @@ s32 osEepromProbe(UNUSED OSMesgQueue *mq)
 s32 osEepromLongRead(UNUSED OSMesgQueue *mq, u8 address, u8 *buffer, int nbytes)
 {
     assert(0);
+    return 0;
 }
 
 s32 osEepromLongWrite(UNUSED OSMesgQueue *mq, u8 address, u8 *buffer, int nbytes)
 {
     assert(0);
+    return 0;
 }
 
 s32 osMotorInit(UNUSED OSMesgQueue *mq, UNUSED OSPfs *pfs, UNUSED int channel)
@@ -202,10 +209,8 @@ s32 osPfsDeleteFile(OSPfs *pfs, u16 companyCode, u32 gameCode, u8 *gameName, u8 
 
 s32 osPfsFileState(OSPfs *pfs, s32 fileNo, OSPfsState *state)
 {
-    char buf[32];
-
     assert((state != NULL) && (fileNo >= 0) && (fileNo < MAXSAVES));
-    if(_save[fileNo].size == 0)
+    if (_save[fileNo].size == 0)
         return PFS_ERR_INVALID;
 
     state->file_size = _save[fileNo].size;
@@ -225,11 +230,12 @@ s32 osPfsInitPak(OSMesgQueue *mq, OSPfs *pfs, s32 channel)
 s32 osPfsRepairId(OSPfs *pfs)
 {
     assert(0);
+    return 0;
 }
 
 s32 osPfsReadWriteFile(OSPfs *pfs, s32 file_no, u8 flag, int offset, int size_in_bytes, u8 *data_buffer)
 {
-    FILE* f;
+    FILE *f;
     char buf[32];
 
     assert((file_no>=0)&&(file_no<MAXSAVES));
@@ -237,7 +243,7 @@ s32 osPfsReadWriteFile(OSPfs *pfs, s32 file_no, u8 flag, int offset, int size_in
     assert(_save[file_no].size == size_in_bytes);
 
     sprintf(buf, "%s/save%d.bin", SAVEFOLDER, file_no);
-    if(flag == OS_READ)
+    if (flag == OS_READ)
     {
         f = fopen(buf, "rb");
         fread(data_buffer, 1, size_in_bytes, f);
@@ -248,14 +254,14 @@ s32 osPfsReadWriteFile(OSPfs *pfs, s32 file_no, u8 flag, int offset, int size_in
         f = fopen(buf, "wb");
         fwrite(data_buffer, 1, size_in_bytes, f);
         fclose(f);
-    } 
+    }
 
     return 0;
 }
 
 s32 osPfsAllocateFile(OSPfs *pfs, u16 company_code, u32 game_code, u8 *game_name, u8 *ext_name, int file_size_in_bytes, s32 *file_no)
 {
-    FILE* f;
+    FILE *f;
     s32 i;
     char buf[32];
 
@@ -263,9 +269,9 @@ s32 osPfsAllocateFile(OSPfs *pfs, u16 company_code, u32 game_code, u8 *game_name
     if (*file_no != -1)
         return PFS_ERR_EXIST;
 
-    for(i = 0; i<MAXSAVES; i++)
+    for (i = 0; i<MAXSAVES; i++)
     {
-        if(_save[i].size == 0)
+        if (_save[i].size == 0)
         {
             _save[i].size = file_size_in_bytes;
             _save[i].game_code = game_code;
@@ -295,12 +301,12 @@ s32 osPfsFindFile(OSPfs *pfs, u16 companyCode, u32 gameCode, u8 *gameName, u8 *e
 {
     s32 i;
 
-    for(i = 0; i<MAXSAVES; i++)
+    for (i = 0; i<MAXSAVES; i++)
     {
-        if((_save[i].size != 0) &&
+        if ((_save[i].size != 0) &&
            (_save[i].game_code == gameCode) &&
            (_save[i].company_code == companyCode) &&
-           (!memcmp(_save[i].game_name, gameName, PFS_FILE_NAME_LEN)) && 
+           (!memcmp(_save[i].game_name, gameName, PFS_FILE_NAME_LEN)) &&
            (!memcmp(_save[i].ext_name, extName, PFS_FILE_EXT_LEN)))
         {
             *fileNo = i;
@@ -351,37 +357,42 @@ s32 osAiSetFrequency(u32 freq)
 
     viClock = 0x02E6D354;
 
-    a1 = viClock / (float) freq + .5f;
+    a1 = viClock / (float)freq + .5f;
 
-    if (a1 < 0x84) {
+    if (a1 < 0x84)
+    {
         return -1;
     }
 
     a2 = (a1 / 66) & 0xff;
-    if (a2 > 16) {
+    if (a2 > 16)
+    {
         a2 = 16;
     }
 
-    return viClock / (s32) a1;
+    return viClock / (s32)a1;
 }
 
-s32 osAiSetNextBuffer(void *buf, size_t size)
+s32 osAiSetNextBuffer(void *buf, u32 size)
 {
     return 0;
 }
 
 s32 osEPiStartDma(UNUSED OSPiHandle *pihandle, OSIoMesg *mb, UNUSED s32 direction)
 {
-    memcpy(mb->dramAddr, (const void *) mb->devAddr, mb->size);
+    memcpy(mb->dramAddr, (const void *)mb->devAddr, mb->size);
     osSendMesg(mb->hdr.retQueue, mb, OS_MESG_NOBLOCK);
+    return 0;
 }
 
 OSIntMask osGetIntMask(void)
 {
+    return 0;
 }
 
 OSIntMask osSetIntMask(OSIntMask mask)
 {
+    return 0;
 }
 
 u32 osAiGetStatus()
@@ -427,5 +438,9 @@ void osViSetSpecialFeatures(UNUSED u32 func)
 }
 
 void osViSwapBuffer(UNUSED void *vaddr)
+{
+}
+
+void __osError(s16 arg0, s16 arg1, ...)
 {
 }

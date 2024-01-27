@@ -39,6 +39,17 @@ u32	osMemSize = 0x800000;
 s32 osTvType = OS_TV_NTSC;
 OSViMode osViModeTable[42];
 
+long long int rspbootTextStart[1];
+long long int rspbootTextEnd[1];
+long long int gspF3DLX2_NoN_fifoTextStart[1];
+long long int gspF3DLX2_NoN_fifoTextEnd[1];
+long long int aspMainTextStart[1];
+long long int aspMainTextEnd[1];
+long long int gspF3DEX2_NoN_fifoDataStart[1];
+long long int gspF3DEX2_NoN_fifoDataEnd[1];
+long long int aspMainDataStart[1];
+long long int aspMainDataEnd[1];
+
 static s16 gAudioBuffer[0x10000];
 static u8 gMemory[0x800000];
 static struct AudioAPI *audio_api;
@@ -74,8 +85,8 @@ static void audio_task(void)
     assert(cmdp == audio_command_list);
     assert(commands == 0);
 
-    if(frame_samples > 0)
-        audio_api->play((uint8_t*)gAudioBuffer, frame_samples<<2);
+    if (frame_samples > 0)
+        audio_api->play((uint8_t *)gAudioBuffer, frame_samples<<2);
 }
 
 int main(UNUSED int argc, UNUSED char *argv[])

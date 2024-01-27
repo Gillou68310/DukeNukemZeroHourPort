@@ -1,4 +1,5 @@
-build/
 save/
 .vscode/
 config.txt
+projects/msvc/*
+projects/unix/*

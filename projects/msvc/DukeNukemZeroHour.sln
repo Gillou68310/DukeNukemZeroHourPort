@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32819.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DukeNukemZeroHour", "DukeNukemZeroHour.vcxproj", "{977004B7-1A21-4F94-81A9-139853EDC22B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{977004B7-1A21-4F94-81A9-139853EDC22B}.Debug|x64.ActiveCfg = Debug|x64
+		{977004B7-1A21-4F94-81A9-139853EDC22B}.Debug|x64.Build.0 = Debug|x64
+		{977004B7-1A21-4F94-81A9-139853EDC22B}.Debug|x86.ActiveCfg = Debug|Win32
+		{977004B7-1A21-4F94-81A9-139853EDC22B}.Debug|x86.Build.0 = Debug|Win32
+		{977004B7-1A21-4F94-81A9-139853EDC22B}.Release|x64.ActiveCfg = Release|x64
+		{977004B7-1A21-4F94-81A9-139853EDC22B}.Release|x64.Build.0 = Release|x64
+		{977004B7-1A21-4F94-81A9-139853EDC22B}.Release|x86.ActiveCfg = Release|Win32
+		{977004B7-1A21-4F94-81A9-139853EDC22B}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {326EAB3A-6FE2-421A-9DBD-76B0A0890975}
+	EndGlobalSection
+EndGlobal

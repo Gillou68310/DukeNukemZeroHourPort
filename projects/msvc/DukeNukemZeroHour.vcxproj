@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{977004b7-1a21-4f94-81a9-139853edc22b}</ProjectGuid>
+    <RootNamespace>Project1</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LANGUAGE_C;F3DEX_GBI_2;_FINALROM;NON_MATCHING;MODERN;AVOID_UB;_OLD_AUDIO_LIBRARY;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>../../src;../../DukeNukemZeroHour/include;../../DukeNukemZeroHour/libs/libmus/src;../../DukeNukemZeroHour/libs/libmus/include;../../DukeNukemZeroHour/libs/libultra/include/2.0I;../../DukeNukemZeroHour/libs/libultra/include/2.0I/PR;../../libs/SDL2-2.28.5/include;../../libs/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <DisableSpecificWarnings>4244</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>../../libs/SDL2-2.28.5/lib/x86/SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>cp $(ProjectDir)/../../libs/SDL2-2.28.5/lib/x86/SDL2.dll $(OutDir)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LANGUAGE_C;F3DEX_GBI_2;_FINALROM;NON_MATCHING;MODERN;AVOID_UB;_OLD_AUDIO_LIBRARY;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>../../src;../../DukeNukemZeroHour/include;../../DukeNukemZeroHour/libs/libmus/src;../../DukeNukemZeroHour/libs/libmus/include;../../DukeNukemZeroHour/libs/libultra/include/2.0I;../../DukeNukemZeroHour/libs/libultra/include/2.0I/PR;../../libs/SDL2-2.28.5/include;../../libs/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <DisableSpecificWarnings>4244</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>../../libs/SDL2-2.28.5/lib/x86/SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>cp $(ProjectDir)/../../libs/SDL2-2.28.5/lib/x86/SDL2.dll $(OutDir)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;_LANGUAGE_C;F3DEX_GBI_2;_FINALROM;NON_MATCHING;MODERN;AVOID_UB;_OLD_AUDIO_LIBRARY;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>../../src;../../DukeNukemZeroHour/include;../../DukeNukemZeroHour/libs/libmus/src;../../DukeNukemZeroHour/libs/libmus/include;../../DukeNukemZeroHour/libs/libultra/include/2.0I;../../DukeNukemZeroHour/libs/libultra/include/2.0I/PR;../../libs/SDL2-2.28.5/include;../../libs/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <DisableSpecificWarnings>4244</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>../../libs/SDL2-2.28.5/lib/x64/SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>cp $(ProjectDir)/../../libs/SDL2-2.28.5/lib/x64/SDL2.dll $(OutDir)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;_LANGUAGE_C;F3DEX_GBI_2;_FINALROM;NON_MATCHING;MODERN;AVOID_UB;_OLD_AUDIO_LIBRARY;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>../../src;../../DukeNukemZeroHour/include;../../DukeNukemZeroHour/libs/libmus/src;../../DukeNukemZeroHour/libs/libmus/include;../../DukeNukemZeroHour/libs/libultra/include/2.0I;../../DukeNukemZeroHour/libs/libultra/include/2.0I/PR;../../libs/SDL2-2.28.5/include;../../libs/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <DisableSpecificWarnings>4244</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>../../libs/SDL2-2.28.5/lib/x64/SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>cp $(ProjectDir)/../../libs/SDL2-2.28.5/lib/x64/SDL2.dll $(OutDir)</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libmus\src\aud_dma.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libmus\src\aud_samples.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libmus\src\aud_sched.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libmus\src\aud_thread.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libmus\src\lib_memory.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libmus\src\player.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libmus\src\player_fx.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\auxbus.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\bnkf.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cents2ratio.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\copy.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cseq.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspdelete.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspgetchlvol.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspgetfxmix.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspgetpan.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspgetpriority.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspgetprogram.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspgetseq.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspgetstate.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspgettempo.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspgetvol.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\csplayer.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspplay.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspsendmidi.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspsetbank.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspsetchlvol.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspsetfxmix.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspsetpan.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspsetpriority.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspsetprogram.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspsetseq.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspsettempo.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspsetvol.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspstop.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\drvrNew.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\env.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\event.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\filter.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\heapalloc.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\heapcheck.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\heapinit.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\load.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\mainbus.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\resample.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\reverb.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\save.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seq.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpdelete.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpgetchlvol.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpgetfxmix.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpgetpan.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpgetpriority.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpgetprogram.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpgetseq.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpgetstate.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpgettempo.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpgetvol.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqplayer.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqploop.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpplay.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpsendmidi.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpsetbank.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpsetchlvol.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpsetfxmix.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpsetpan.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpsetpriority.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpsetprogram.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpsetseq.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpsettempo.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpsetvol.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpstop.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\sl.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\sndpallocate.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\sndpdeallocate.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\sndpdelete.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\sndpgetsound.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\sndpgetstate.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\sndplayer.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\sndpplay.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\sndpplayat.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\sndpsetfxmix.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\sndpsetpan.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\sndpsetpitch.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\sndpsetpriority.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\sndpsetsound.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\sndpsetvol.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\sndpstop.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\synaddplayer.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\synallocfx.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\synallocvoice.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\syndelete.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\synfreefx.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\synfreevoice.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\syngetfxref.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\syngetpriority.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\synremoveplayer.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\synsetfxmix.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\synsetfxparam.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\synsetpan.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\synsetpitch.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\synsetpriority.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\synsetvol.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\synstartvoice.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\synstartvoiceparam.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\synstopvoice.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\synthesizer.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\cosf.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\coss.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\lookat.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\lookathil.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\lookatref.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\mtxcatf.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\mtxcatl.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\mtxutil.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\normalize.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\ortho.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\perspective.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\position.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\poslight.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\poslighthil.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\random.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\rotate.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\rotateRPY.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\scale.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\sinf.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\sins.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\translate.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\16DF0.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\16FF0.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\17B30.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\1A7C0.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\1E7A0.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\20490.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\21500.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\24610.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\2ABE0.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\35D90.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\35EA0.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\36410.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\37090.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\3FAD0.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\416A0.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\41940.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\4590.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\4600.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\59D40.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\609D0.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\64530.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\6ACA0.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\7A430.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\7BA50.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\7F6A0.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\7FCE0.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\82480.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\84490.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\87010.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\8E670.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\8EFE0.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\9410.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\95500.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\A06F0.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\assert.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\audio.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\cache1d.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\code0.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\controller.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\D8D20.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\DA790.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\DADB0.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\DB030.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\DB1E0.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\DB580.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\DB670.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\DC310.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\DC3F0.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\DC480.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\DC6E0.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\DC880.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\DCA70.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\DCD60.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\DCE10.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\DD100.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\DD460.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\DE050.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\E0640.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\modelinfo.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\debug.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\edl.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\engine.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\FDE0.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\graphics.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\main.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\pragmas.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code1\code1.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code1\EB300.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\static\105F50.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\static\119280.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\static\11B300.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\static\11D520.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\static\F6D70.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\static\mapinfo.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\static\radarang.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\static\sintable.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\static\spinit.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\static\strinfo.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\static\tileinfo.c" />
+    <ClCompile Include="..\..\src\assets.c" />
+    <ClCompile Include="..\..\src\audio\audio_null.c" />
+    <ClCompile Include="..\..\src\audio\audio_sdl.c" />
+    <ClCompile Include="..\..\src\configfile.c" />
+    <ClCompile Include="..\..\src\controller\controller_entry_point.c" />
+    <ClCompile Include="..\..\src\controller\controller_keyboard.c" />
+    <ClCompile Include="..\..\src\controller\controller_recorded_tas.c" />
+    <ClCompile Include="..\..\src\controller\controller_sdl.c" />
+    <ClCompile Include="..\..\src\dukemain.c" />
+    <ClCompile Include="..\..\src\fast3d\gfx_cc.cpp" />
+    <ClCompile Include="..\..\src\fast3d\gfx_opengl.cpp" />
+    <ClCompile Include="..\..\src\fast3d\gfx_pc.cpp" />
+    <ClCompile Include="..\..\src\fast3d\gfx_sdl2.cpp" />
+    <ClCompile Include="..\..\src\fast3d\glad\glad.c" />
+    <ClCompile Include="..\..\src\libultra.c" />
+    <ClCompile Include="..\..\src\mixer.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\16DF0.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\16FF0.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\17B30.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\1A7C0.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\1E7A0.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\20490.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\21500.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\24610.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\2ABE0.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\35D90.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\35EA0.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\36410.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\37090.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\3FAD0.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\416A0.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\41940.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\4590.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\4600.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\59D40.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\609D0.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\64530.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\6ACA0.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\7A430.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\7BA50.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\7F6A0.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\7FCE0.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\82480.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\84490.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\87010.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\8E670.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\8EFE0.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\9410.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\95500.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\A06F0.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\audio.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\cache1d.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\code0.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\controller.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\data\D8D20.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\data\DA790.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\data\DE050.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\data\E0640.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\data\modelinfo.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\debug.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\edl.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\engine.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\FDE0.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\graphics.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\main.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\pragmas.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code1\code1.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code1\EB300.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\common.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\include_asm.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\static\105F50.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\static\119280.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\static\11B300.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\static\11D520.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\static\F6D70.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\static\mapinfo.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\static\radarang.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\static\sintable.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\static\spinit.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\static\strinfo.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\static\tileinfo.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\types.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libmus\src\aud_dma.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libmus\src\aud_samples.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libmus\src\aud_sched.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libmus\src\aud_thread.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libmus\src\libmus.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libmus\src\libmus_config.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libmus\src\libmus_data.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libmus\src\lib_memory.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libmus\src\n_abi.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libmus\src\n_libaudio_sc.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libmus\src\n_libaudio_sn_sc.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libmus\src\n_synthInternals.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libmus\src\player.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libmus\src\player_fifo.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libmus\src\player_fx.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libmus\src\synthInternals.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\include\2.0I\macros.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\include\2.0I\PR\abi.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\include\2.0I\PR\gbi.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\include\2.0I\PR\gu.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\include\2.0I\PR\libaudio.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\include\2.0I\PR\mbi.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\include\2.0I\PR\os.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\include\2.0I\PR\os_internal.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\include\2.0I\PR\R4300.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\include\2.0I\PR\rcp.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\include\2.0I\PR\sched.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\include\2.0I\PR\sptask.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\include\2.0I\PR\ucode.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\include\2.0I\PR\ultraerror.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\include\2.0I\PR\ultratypes.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\include\2.0I\ultra64.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cseq.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cseqp.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\initfx.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seq.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqp.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\sndp.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\synthInternals.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\guint.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\sintable.h" />
+    <ClInclude Include="..\..\src\audio\audio_api.h" />
+    <ClInclude Include="..\..\src\audio\audio_null.h" />
+    <ClInclude Include="..\..\src\audio\audio_sdl.h" />
+    <ClInclude Include="..\..\src\configfile.h" />
+    <ClInclude Include="..\..\src\controller\controller_api.h" />
+    <ClInclude Include="..\..\src\controller\controller_keyboard.h" />
+    <ClInclude Include="..\..\src\controller\controller_recorded_tas.h" />
+    <ClInclude Include="..\..\src\controller\controller_sdl.h" />
+    <ClInclude Include="..\..\src\dirent.h" />
+    <ClInclude Include="..\..\src\fast3d\gfx_api.h" />
+    <ClInclude Include="..\..\src\fast3d\gfx_cc.h" />
+    <ClInclude Include="..\..\src\fast3d\gfx_opengl.h" />
+    <ClInclude Include="..\..\src\fast3d\gfx_pc.h" />
+    <ClInclude Include="..\..\src\fast3d\gfx_rendering_api.h" />
+    <ClInclude Include="..\..\src\fast3d\gfx_screen_config.h" />
+    <ClInclude Include="..\..\src\fast3d\gfx_sdl.h" />
+    <ClInclude Include="..\..\src\fast3d\gfx_window_manager_api.h" />
+    <ClInclude Include="..\..\src\fast3d\glad\glad.h" />
+    <ClInclude Include="..\..\src\fast3d\glad\khrplatform.h" />
+    <ClInclude Include="..\..\src\ld_symbols.h" />
+    <ClInclude Include="..\..\src\mixer.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

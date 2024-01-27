@@ -1189,7 +1189,7 @@ FilteringMode gfx_opengl_get_texture_filter(void) {
     return current_filter_mode;
 }
 
-struct GfxRenderingAPI gfx_opengl_api = { 
+extern "C" struct GfxRenderingAPI gfx_opengl_api = {
     gfx_opengl_get_name,
     gfx_opengl_get_max_texture_size,
     gfx_opengl_get_clip_parameters,

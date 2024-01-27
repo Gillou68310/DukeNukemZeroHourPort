@@ -17,10 +17,17 @@
 #include "libmus_data.h"
 #include "player.h"
 
+#ifdef _WIN32
+#define SWAP_S16(A) ((s16)_byteswap_ushort(A))
+#define SWAP_S32(A) ((s32)_byteswap_ulong(A))
+#define SWAP_U16(A) ((u16)_byteswap_ushort(A))
+#define SWAP_U32(A) ((u32)_byteswap_ulong(A))
+#else
 #define SWAP_S16(A) ((s16)__builtin_bswap16(A))
 #define SWAP_S32(A) ((s32)__builtin_bswap32(A))
 #define SWAP_U16(A) ((u16)__builtin_bswap16(A))
 #define SWAP_U32(A) ((u32)__builtin_bswap32(A))
+#endif
 
 typedef struct
 {

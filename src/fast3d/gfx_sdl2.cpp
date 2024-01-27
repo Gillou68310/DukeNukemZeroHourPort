@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include <SDL.h>
-#include <unistd.h>
 #include <time.h>
+
+#ifndef _WIN32
+#include <unistd.h>
+#endif
 
 #include <PR/ultratypes.h>
 
@@ -102,7 +105,7 @@ const SDL_Scancode scancode_rmapping_nonextended[][2] = {
 
 #ifdef _WIN32
 // on win32 we use waitable timers instead of nanosleep
-typedef HANDLE WINAPI (*CREATEWAITABLETIMEREXAFN)(LPSECURITY_ATTRIBUTES, LPCSTR, DWORD, DWORD);
+typedef HANDLE (WINAPI*CREATEWAITABLETIMEREXAFN)(LPSECURITY_ATTRIBUTES, LPCSTR, DWORD, DWORD);
 static HANDLE timer;
 static CREATEWAITABLETIMEREXAFN pfnCreateWaitableTimerExA;
 #endif
@@ -476,7 +479,7 @@ static void gfx_sdl_onkeyup(int scancode)
     }
 }
 
-struct GfxWindowManagerAPI gfx_sdl = { 
+extern "C" struct GfxWindowManagerAPI gfx_sdl = { 
     gfx_sdl_init,
     gfx_sdl_close,
     gfx_sdl_set_fullscreen_changed_callback,

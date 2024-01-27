@@ -1,0 +1,1166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="include\DukeNukemZeroHour">
+      <UniqueIdentifier>{024e41f7-75e4-41ab-a991-4eacb2b1763b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\DukeNukemZeroHour\code0">
+      <UniqueIdentifier>{28e79a0f-a30b-4caa-8508-3a6729783d4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\DukeNukemZeroHour\code0\data">
+      <UniqueIdentifier>{0f9811ab-bd67-409c-a180-f0d6ceb78659}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\DukeNukemZeroHour\code1">
+      <UniqueIdentifier>{98988930-4c49-44f0-8c7a-aae7b3155863}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\DukeNukemZeroHour\static">
+      <UniqueIdentifier>{1d37e485-7062-44c8-bd35-47e02f99fb00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Port">
+      <UniqueIdentifier>{e9f33828-1602-4ac3-8cf7-d24188ace543}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Port\audio">
+      <UniqueIdentifier>{d10e8c5e-afcd-4f1b-ae5b-151f7465e387}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Port\fast3d">
+      <UniqueIdentifier>{63baf55b-d4f0-4f48-af04-9f2c8612240a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Port\fast3d\glad">
+      <UniqueIdentifier>{82db9769-8373-485f-8c08-cc3798b86295}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Port\controller">
+      <UniqueIdentifier>{9df2e3a0-1570-4801-9d09-749a980406f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Libs">
+      <UniqueIdentifier>{330f1eb2-4efa-49d2-aad9-c9e95076bcdf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Libs\Ultra">
+      <UniqueIdentifier>{23a0cdaa-9f00-40a1-9346-be5712e4809c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Libs\Ultra\audio">
+      <UniqueIdentifier>{b896aca8-3d4e-47a4-b19a-222fad8802af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Libs\Ultra\gu">
+      <UniqueIdentifier>{230beb00-d521-496d-9fe5-58547a1feed0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Libs\Ultra\2.0I">
+      <UniqueIdentifier>{e2275a60-260a-4014-8dd0-00904162da22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Libs\Ultra\2.0I\PR">
+      <UniqueIdentifier>{66171ce4-f855-49dc-8da8-eb8347efe608}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Libs\Mus">
+      <UniqueIdentifier>{89e4995b-18c4-4242-b2dd-4845fa9b92eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="src\DukeNukemZeroHour">
+      <UniqueIdentifier>{edd868cf-778b-4b08-aa3e-21ac00c0bf45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\DukeNukemZeroHour\code0">
+      <UniqueIdentifier>{e2c7f4af-f3a0-458e-b86a-cfa6638abfd5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\DukeNukemZeroHour\code0\data">
+      <UniqueIdentifier>{a1ae91a6-0b50-4381-91fc-ea97fb6376b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\DukeNukemZeroHour\code1">
+      <UniqueIdentifier>{0c1161f4-69cf-40cc-92b6-81496bc629ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\DukeNukemZeroHour\static">
+      <UniqueIdentifier>{be915ce6-bea6-4476-8a82-f4e08dd2aade}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Port">
+      <UniqueIdentifier>{7576c6d0-fd05-4263-8731-f5795114003b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Port\audio">
+      <UniqueIdentifier>{985d88d9-5072-484f-9e7e-ba105e0b2eaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Port\controller">
+      <UniqueIdentifier>{1485b0e1-6b52-42f6-8b83-f3327cfe2f83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Port\fast3d">
+      <UniqueIdentifier>{742a3f25-6c0f-482b-80cd-d7c9a69a7614}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Port\fast3d\glad">
+      <UniqueIdentifier>{b525e6a7-baeb-4925-b422-be8df29e4e5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Libs">
+      <UniqueIdentifier>{5d6dd09f-0e40-43da-be5c-e32f70efa00e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Libs\Ultra">
+      <UniqueIdentifier>{e8f3ebe7-b4fa-4106-bf20-02a74c85ea4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Libs\Ultra\audio">
+      <UniqueIdentifier>{ae7f2adc-7187-469e-b469-dab6ce287489}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Libs\Ultra\gu">
+      <UniqueIdentifier>{30d8337b-1b7b-43c7-9511-7753b3b6cf64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Libs\Mus">
+      <UniqueIdentifier>{29529539-9fdc-4889-8ffd-155b6d044025}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\1A7C0.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\1E7A0.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\2ABE0.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\3FAD0.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\6ACA0.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\7A430.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\7BA50.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\7F6A0.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\7FCE0.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\8E670.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\8EFE0.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\16DF0.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\16FF0.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\17B30.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\35D90.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\35EA0.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\59D40.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\416A0.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\609D0.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\4590.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\4600.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\9410.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\20490.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\21500.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\24610.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\36410.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\37090.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\41940.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\64530.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\82480.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\84490.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\87010.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\95500.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\A06F0.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\assert.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\audio.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\cache1d.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\code0.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\controller.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\debug.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\edl.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\engine.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\FDE0.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\graphics.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\main.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\pragmas.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\D8D20.c">
+      <Filter>src\DukeNukemZeroHour\code0\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\DA790.c">
+      <Filter>src\DukeNukemZeroHour\code0\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\DADB0.c">
+      <Filter>src\DukeNukemZeroHour\code0\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\DB1E0.c">
+      <Filter>src\DukeNukemZeroHour\code0\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\DB030.c">
+      <Filter>src\DukeNukemZeroHour\code0\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\DB580.c">
+      <Filter>src\DukeNukemZeroHour\code0\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\DB670.c">
+      <Filter>src\DukeNukemZeroHour\code0\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\DC3F0.c">
+      <Filter>src\DukeNukemZeroHour\code0\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\DC6E0.c">
+      <Filter>src\DukeNukemZeroHour\code0\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\DC310.c">
+      <Filter>src\DukeNukemZeroHour\code0\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\DC480.c">
+      <Filter>src\DukeNukemZeroHour\code0\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\DC880.c">
+      <Filter>src\DukeNukemZeroHour\code0\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\DCA70.c">
+      <Filter>src\DukeNukemZeroHour\code0\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\DCD60.c">
+      <Filter>src\DukeNukemZeroHour\code0\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\DCE10.c">
+      <Filter>src\DukeNukemZeroHour\code0\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\DD100.c">
+      <Filter>src\DukeNukemZeroHour\code0\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\DD460.c">
+      <Filter>src\DukeNukemZeroHour\code0\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\DE050.c">
+      <Filter>src\DukeNukemZeroHour\code0\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\E0640.c">
+      <Filter>src\DukeNukemZeroHour\code0\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\modelinfo.c">
+      <Filter>src\DukeNukemZeroHour\code0\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code1\code1.c">
+      <Filter>src\DukeNukemZeroHour\code1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code1\EB300.c">
+      <Filter>src\DukeNukemZeroHour\code1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\static\11B300.c">
+      <Filter>src\DukeNukemZeroHour\static</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\static\11D520.c">
+      <Filter>src\DukeNukemZeroHour\static</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\static\105F50.c">
+      <Filter>src\DukeNukemZeroHour\static</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\static\119280.c">
+      <Filter>src\DukeNukemZeroHour\static</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\static\F6D70.c">
+      <Filter>src\DukeNukemZeroHour\static</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\static\mapinfo.c">
+      <Filter>src\DukeNukemZeroHour\static</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\static\radarang.c">
+      <Filter>src\DukeNukemZeroHour\static</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\static\sintable.c">
+      <Filter>src\DukeNukemZeroHour\static</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\static\spinit.c">
+      <Filter>src\DukeNukemZeroHour\static</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\static\strinfo.c">
+      <Filter>src\DukeNukemZeroHour\static</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\static\tileinfo.c">
+      <Filter>src\DukeNukemZeroHour\static</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\assets.c">
+      <Filter>src\Port</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\configfile.c">
+      <Filter>src\Port</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\libultra.c">
+      <Filter>src\Port</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\mixer.c">
+      <Filter>src\Port</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\audio\audio_null.c">
+      <Filter>src\Port\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\audio\audio_sdl.c">
+      <Filter>src\Port\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\controller\controller_entry_point.c">
+      <Filter>src\Port\controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\controller\controller_keyboard.c">
+      <Filter>src\Port\controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\controller\controller_recorded_tas.c">
+      <Filter>src\Port\controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\controller\controller_sdl.c">
+      <Filter>src\Port\controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\fast3d\gfx_cc.cpp">
+      <Filter>src\Port\fast3d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\fast3d\gfx_opengl.cpp">
+      <Filter>src\Port\fast3d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\fast3d\gfx_pc.cpp">
+      <Filter>src\Port\fast3d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\fast3d\gfx_sdl2.cpp">
+      <Filter>src\Port\fast3d</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\fast3d\glad\glad.c">
+      <Filter>src\Port\fast3d\glad</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libmus\src\player.c">
+      <Filter>src\Libs\Mus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libmus\src\aud_thread.c">
+      <Filter>src\Libs\Mus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libmus\src\player_fx.c">
+      <Filter>src\Libs\Mus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libmus\src\lib_memory.c">
+      <Filter>src\Libs\Mus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libmus\src\aud_sched.c">
+      <Filter>src\Libs\Mus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libmus\src\aud_samples.c">
+      <Filter>src\Libs\Mus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libmus\src\aud_dma.c">
+      <Filter>src\Libs\Mus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\translate.c">
+      <Filter>src\Libs\Ultra\gu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\sins.c">
+      <Filter>src\Libs\Ultra\gu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\sinf.c">
+      <Filter>src\Libs\Ultra\gu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\scale.c">
+      <Filter>src\Libs\Ultra\gu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\rotateRPY.c">
+      <Filter>src\Libs\Ultra\gu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\rotate.c">
+      <Filter>src\Libs\Ultra\gu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\random.c">
+      <Filter>src\Libs\Ultra\gu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\poslighthil.c">
+      <Filter>src\Libs\Ultra\gu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\poslight.c">
+      <Filter>src\Libs\Ultra\gu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\position.c">
+      <Filter>src\Libs\Ultra\gu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\perspective.c">
+      <Filter>src\Libs\Ultra\gu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\ortho.c">
+      <Filter>src\Libs\Ultra\gu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\normalize.c">
+      <Filter>src\Libs\Ultra\gu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\mtxutil.c">
+      <Filter>src\Libs\Ultra\gu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\mtxcatf.c">
+      <Filter>src\Libs\Ultra\gu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\mtxcatl.c">
+      <Filter>src\Libs\Ultra\gu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\lookatref.c">
+      <Filter>src\Libs\Ultra\gu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\lookathil.c">
+      <Filter>src\Libs\Ultra\gu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\lookat.c">
+      <Filter>src\Libs\Ultra\gu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\coss.c">
+      <Filter>src\Libs\Ultra\gu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\cosf.c">
+      <Filter>src\Libs\Ultra\gu</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\synthesizer.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\synstartvoiceparam.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\synstopvoice.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\synstartvoice.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\synsetvol.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\synsetpitch.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\synsetpriority.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\synsetpan.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\synsetfxmix.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\synsetfxparam.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\synremoveplayer.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\syngetpriority.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\synfreevoice.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\syngetfxref.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\synfreefx.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\syndelete.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\synallocvoice.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\synaddplayer.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\synallocfx.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\sndpstop.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\sndpsetvol.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\sndpsetsound.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\sndpsetpriority.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\sndpsetpan.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\sndpsetpitch.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\sndpplayat.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\sndpsetfxmix.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\sndpplay.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\sndpgetstate.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\sndplayer.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\sndpgetsound.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\sndpdeallocate.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\sndpdelete.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\sndpallocate.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\sl.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpstop.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpsetvol.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpsettempo.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpsetseq.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpsetpriority.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpsetprogram.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpsetpan.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpsetchlvol.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpsetfxmix.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpsetbank.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpplay.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpsendmidi.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqploop.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqplayer.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpgetvol.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpgettempo.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpgetstate.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpgetseq.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpgetprogram.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpgetpriority.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpgetpan.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpgetchlvol.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpgetfxmix.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqpdelete.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seq.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\save.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\reverb.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\resample.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\mainbus.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\load.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\heapinit.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\heapcheck.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\heapalloc.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\filter.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\event.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\env.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\drvrNew.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspstop.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspsetvol.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspsettempo.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspsetseq.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspsetprogram.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspsetpriority.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspsetpan.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspsetfxmix.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspsetchlvol.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspsetbank.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspsendmidi.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspplay.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\csplayer.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspgetvol.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspgettempo.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspgetstate.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspgetseq.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspgetprogram.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspgetpriority.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspgetpan.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspgetfxmix.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspgetchlvol.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cspdelete.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cseq.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\copy.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cents2ratio.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\bnkf.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\auxbus.c">
+      <Filter>src\Libs\Ultra\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\dukemain.c">
+      <Filter>src\Port</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\1A7C0.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\1E7A0.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\2ABE0.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\3FAD0.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\6ACA0.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\7A430.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\7BA50.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\7F6A0.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\7FCE0.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\8E670.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\8EFE0.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\16DF0.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\16FF0.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\17B30.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\35D90.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\35EA0.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\59D40.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\416A0.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\609D0.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\4590.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\4600.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\9410.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\20490.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\21500.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\24610.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\36410.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\37090.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\41940.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\64530.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\82480.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\84490.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\87010.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\95500.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\A06F0.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\audio.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\cache1d.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\code0.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\controller.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\debug.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\edl.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\engine.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\FDE0.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\graphics.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\main.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\pragmas.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\data\D8D20.h">
+      <Filter>include\DukeNukemZeroHour\code0\data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\data\DA790.h">
+      <Filter>include\DukeNukemZeroHour\code0\data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\data\DE050.h">
+      <Filter>include\DukeNukemZeroHour\code0\data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\data\E0640.h">
+      <Filter>include\DukeNukemZeroHour\code0\data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\data\modelinfo.h">
+      <Filter>include\DukeNukemZeroHour\code0\data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code1\code1.h">
+      <Filter>include\DukeNukemZeroHour\code1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code1\EB300.h">
+      <Filter>include\DukeNukemZeroHour\code1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\static\11B300.h">
+      <Filter>include\DukeNukemZeroHour\static</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\static\11D520.h">
+      <Filter>include\DukeNukemZeroHour\static</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\static\105F50.h">
+      <Filter>include\DukeNukemZeroHour\static</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\static\119280.h">
+      <Filter>include\DukeNukemZeroHour\static</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\static\F6D70.h">
+      <Filter>include\DukeNukemZeroHour\static</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\static\mapinfo.h">
+      <Filter>include\DukeNukemZeroHour\static</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\static\radarang.h">
+      <Filter>include\DukeNukemZeroHour\static</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\static\sintable.h">
+      <Filter>include\DukeNukemZeroHour\static</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\static\spinit.h">
+      <Filter>include\DukeNukemZeroHour\static</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\static\strinfo.h">
+      <Filter>include\DukeNukemZeroHour\static</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\static\tileinfo.h">
+      <Filter>include\DukeNukemZeroHour\static</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\common.h">
+      <Filter>include\DukeNukemZeroHour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\include_asm.h">
+      <Filter>include\DukeNukemZeroHour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\types.h">
+      <Filter>include\DukeNukemZeroHour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\configfile.h">
+      <Filter>include\Port</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\ld_symbols.h">
+      <Filter>include\Port</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\mixer.h">
+      <Filter>include\Port</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\controller\controller_api.h">
+      <Filter>include\Port\controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\controller\controller_keyboard.h">
+      <Filter>include\Port\controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\controller\controller_recorded_tas.h">
+      <Filter>include\Port\controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\controller\controller_sdl.h">
+      <Filter>include\Port\controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\fast3d\gfx_api.h">
+      <Filter>include\Port\fast3d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\fast3d\gfx_cc.h">
+      <Filter>include\Port\fast3d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\fast3d\gfx_opengl.h">
+      <Filter>include\Port\fast3d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\fast3d\gfx_pc.h">
+      <Filter>include\Port\fast3d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\fast3d\gfx_rendering_api.h">
+      <Filter>include\Port\fast3d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\fast3d\gfx_screen_config.h">
+      <Filter>include\Port\fast3d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\fast3d\gfx_sdl.h">
+      <Filter>include\Port\fast3d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\fast3d\gfx_window_manager_api.h">
+      <Filter>include\Port\fast3d</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\fast3d\glad\glad.h">
+      <Filter>include\Port\fast3d\glad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\fast3d\glad\khrplatform.h">
+      <Filter>include\Port\fast3d\glad</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\audio\audio_api.h">
+      <Filter>include\Port\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\audio\audio_null.h">
+      <Filter>include\Port\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\audio\audio_sdl.h">
+      <Filter>include\Port\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libmus\src\player.h">
+      <Filter>include\Libs\Mus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libmus\src\synthInternals.h">
+      <Filter>include\Libs\Mus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libmus\src\player_fx.h">
+      <Filter>include\Libs\Mus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libmus\src\player_fifo.h">
+      <Filter>include\Libs\Mus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libmus\src\n_synthInternals.h">
+      <Filter>include\Libs\Mus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libmus\src\n_libaudio_sn_sc.h">
+      <Filter>include\Libs\Mus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libmus\src\n_abi.h">
+      <Filter>include\Libs\Mus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libmus\src\n_libaudio_sc.h">
+      <Filter>include\Libs\Mus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libmus\src\libmus_data.h">
+      <Filter>include\Libs\Mus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libmus\src\libmus_config.h">
+      <Filter>include\Libs\Mus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libmus\src\libmus.h">
+      <Filter>include\Libs\Mus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libmus\src\lib_memory.h">
+      <Filter>include\Libs\Mus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libmus\src\aud_thread.h">
+      <Filter>include\Libs\Mus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libmus\src\aud_sched.h">
+      <Filter>include\Libs\Mus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libmus\src\aud_samples.h">
+      <Filter>include\Libs\Mus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libmus\src\aud_dma.h">
+      <Filter>include\Libs\Mus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\synthInternals.h">
+      <Filter>include\Libs\Ultra\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\sndp.h">
+      <Filter>include\Libs\Ultra\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seqp.h">
+      <Filter>include\Libs\Ultra\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\seq.h">
+      <Filter>include\Libs\Ultra\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\initfx.h">
+      <Filter>include\Libs\Ultra\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cseqp.h">
+      <Filter>include\Libs\Ultra\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\src\audio\cseq.h">
+      <Filter>include\Libs\Ultra\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\sintable.h">
+      <Filter>include\Libs\Ultra\gu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\src\gu\guint.h">
+      <Filter>include\Libs\Ultra\gu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\include\2.0I\macros.h">
+      <Filter>include\Libs\Ultra\2.0I</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\include\2.0I\ultra64.h">
+      <Filter>include\Libs\Ultra\2.0I</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\include\2.0I\PR\abi.h">
+      <Filter>include\Libs\Ultra\2.0I\PR</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\include\2.0I\PR\gbi.h">
+      <Filter>include\Libs\Ultra\2.0I\PR</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\include\2.0I\PR\gu.h">
+      <Filter>include\Libs\Ultra\2.0I\PR</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\include\2.0I\PR\libaudio.h">
+      <Filter>include\Libs\Ultra\2.0I\PR</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\include\2.0I\PR\mbi.h">
+      <Filter>include\Libs\Ultra\2.0I\PR</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\include\2.0I\PR\os.h">
+      <Filter>include\Libs\Ultra\2.0I\PR</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\include\2.0I\PR\os_internal.h">
+      <Filter>include\Libs\Ultra\2.0I\PR</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\include\2.0I\PR\R4300.h">
+      <Filter>include\Libs\Ultra\2.0I\PR</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\include\2.0I\PR\sched.h">
+      <Filter>include\Libs\Ultra\2.0I\PR</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\include\2.0I\PR\sptask.h">
+      <Filter>include\Libs\Ultra\2.0I\PR</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\include\2.0I\PR\ultraerror.h">
+      <Filter>include\Libs\Ultra\2.0I\PR</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\include\2.0I\PR\ultratypes.h">
+      <Filter>include\Libs\Ultra\2.0I\PR</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\dirent.h">
+      <Filter>include\Port</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\include\2.0I\PR\ucode.h">
+      <Filter>include\Libs\Ultra\2.0I\PR</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\libs\libultra\include\2.0I\PR\rcp.h">
+      <Filter>include\Libs\Ultra\2.0I\PR</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

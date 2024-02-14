@@ -1,5 +1,6 @@
 save/
 .vscode/
 config.txt
+assets.bin
 projects/msvc/*
 projects/unix/*

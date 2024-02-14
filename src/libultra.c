@@ -8,9 +8,11 @@
 #include "PR/sched.h"
 #include "macros.h"
 
-#ifdef _MSC_VER
+#ifdef _WIN32
 #include <direct.h>
-#define mkdir _mkdir
+#define mkdir(A,B) _mkdir(A)
+#else
+#include <sys/stat.h>
 #endif
 
 #define MAXSAVES 16
@@ -38,7 +40,7 @@ void init_save(void)
 
     _saveCount = 0;
     memset(_save, 0, sizeof(_save));
-    mkdir(SAVEFOLDER);
+    mkdir(SAVEFOLDER, 0777);
     d = opendir(SAVEFOLDER);
     if (d)
     {

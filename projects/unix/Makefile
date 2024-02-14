@@ -55,7 +55,7 @@ OBJDIR = _obj
 
 # base CFLAGS, LDLIBS, and LDFLAGS
 OPTFLAGS ?= -O2
-WARNFLAGS ?= -Wall -Wno-missing-braces -Wno-unused-variable -Wno-unused-function
+WARNFLAGS ?= -Wall -Wno-missing-braces -Wno-unused-variable -Wno-unused-function -Wno-unused-result
 CFLAGS += $(WARNFLAGS) $(OPTFLAGS)
 CXXFLAGS += -std=c++20
 
@@ -64,6 +64,10 @@ CPPFLAGS := -I $(SRCDIR) -I $(DUKEDIR)/include -I $(LIBULTRADIR)/include/2.0I -I
             -D_FINALROM -DNON_MATCHING -DMODERN -DAVOID_UB -D_OLD_AUDIO_LIBRARY -DENABLE_OPENGL
 
 LDLIBS += -static-libgcc -static-libstdc++
+
+ifeq ($(OS), LINUX)
+  LDLIBS += -ldl
+endif
 
 ifeq ($(DEBUG), 1)
 CFLAGS += -g -fsanitize=bounds-strict -fsanitize-undefined-trap-on-error -fstack-protector-all

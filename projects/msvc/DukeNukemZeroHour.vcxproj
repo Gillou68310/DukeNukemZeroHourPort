@@ -86,7 +86,7 @@
       <AdditionalDependencies>../../libs/SDL2-2.28.5/lib/x86/SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>cp $(ProjectDir)/../../libs/SDL2-2.28.5/lib/x86/SDL2.dll $(OutDir)</Command>
+      <Command>copy $(ProjectDir)..\..\libs\SDL2-2.28.5\lib\x86\SDL2.dll $(OutDir)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -109,7 +109,7 @@
       <AdditionalDependencies>../../libs/SDL2-2.28.5/lib/x86/SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>cp $(ProjectDir)/../../libs/SDL2-2.28.5/lib/x86/SDL2.dll $(OutDir)</Command>
+      <Command>copy $(ProjectDir)..\..\libs\SDL2-2.28.5\lib\x86\SDL2.dll $(OutDir)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -128,7 +128,7 @@
       <AdditionalDependencies>../../libs/SDL2-2.28.5/lib/x64/SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>cp $(ProjectDir)/../../libs/SDL2-2.28.5/lib/x64/SDL2.dll $(OutDir)</Command>
+      <Command>copy $(ProjectDir)..\..\libs\SDL2-2.28.5\lib\x64\SDL2.dll $(OutDir)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -151,7 +151,7 @@
       <AdditionalDependencies>../../libs/SDL2-2.28.5/lib/x64/SDL2.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>cp $(ProjectDir)/../../libs/SDL2-2.28.5/lib/x64/SDL2.dll $(OutDir)</Command>
+      <Command>copy $(ProjectDir)..\..\libs\SDL2-2.28.5\lib\x64\SDL2.dll $(OutDir)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stddef.h>
 #include <assert.h>
 #include "common.h"
 #include "code0/code0.h"
@@ -17,6 +18,8 @@
 #include "libmus_data.h"
 #include "player.h"
 
+/*TODO: swap all palettes and remove the swap from fast3d*/
+
 #ifdef _WIN32
 #define SWAP_S16(A) ((s16)_byteswap_ushort(A))
 #define SWAP_S32(A) ((s32)_byteswap_ulong(A))
@@ -29,6 +32,15 @@
 #define SWAP_U32(A) ((u32)__builtin_bswap32(A))
 #endif
 
+#define READ_S32(A) SWAP_S32(*((s32*)A)); A+=sizeof(s32);
+#define READ_U32(A) SWAP_U32(*((u32*)A)); A+=sizeof(u32);
+#define READ_S16(A) SWAP_S16(*((s16*)A)); A+=sizeof(s16);
+#define READ_U16(A) SWAP_U16(*((u16*)A)); A+=sizeof(u16);
+
+#define ALIGN16(A) A = (void*)ALIGN(A, 16)
+#define MEMBER_SIZE(type, member) sizeof(((type *)0)->member)
+#define BASE_OFFSET(A, B) A->B = (void*)((intptr_t)A->B - (intptr_t)A)
+
 typedef struct
 {
     edlUnkStruct1 *edl;
@@ -36,8 +48,6 @@ typedef struct
     _E0640UnkStruct *info;
     u8 *data;
 } Art;
-
-/*TODO: swap all palettes and remove the swap from fast3d*/
 
 static u8 _buffer[0x4000000];
 static u8 *_pBuffer;
@@ -419,11 +429,26 @@ static void load_model(ModelInfo *info, FILE *fp)
     info->ramaddr = _pBuffer;
     info->vertex_info->ramaddr = (u8 *)((((intptr_t)info->ramaddr + info->unk8) + 3) & ~3);
     _pBuffer += size;
+    ALIGN16(_pBuffer);
 }
 
 static void load_models(FILE *fp)
 {
     s32 i;
+
+    assert(sizeof(code0UnkStruct18) == 0x06);
+    assert(sizeof(ModelLight) == 0x06);
+    assert(sizeof(ModelTextureInfo) == 0x08);
+
+    assert(offsetof(code0UnkStruct18, x) == 0x00);
+    assert(offsetof(code0UnkStruct18, y) == 0x02);
+    assert(offsetof(code0UnkStruct18, z) == 0x04);
+
+    assert(offsetof(ModelLight, n) == 0x00);
+
+    assert(offsetof(ModelTextureInfo, dimx) == 0x00);
+    assert(offsetof(ModelTextureInfo, dimy) == 0x02);
+    assert(offsetof(ModelTextureInfo, offset) == 0x04);
 
     for (i = 0; i < ARRAY_COUNT(_models); i++)
         load_model(_models[i], fp);
@@ -463,11 +488,23 @@ static void load_blk(_D8D20UnkStruct2 *blk, FILE *fp)
     blk->unk18 = (_D8D20UnkStruct3 *)blk->ramaddr;
     blk->unk1C = &((_D8D20UnkStruct1 *)blk->ramaddr)[blk->unk14];
     _pBuffer += size;
+    ALIGN16(_pBuffer);
 }
 
 static void load_blks(FILE *fp)
 {
     s32 i;
+
+    assert(sizeof(_D8D20UnkStruct3) == 0x6);
+    assert(sizeof(_D8D20UnkStruct1) == 0x6);
+
+    assert(offsetof(_D8D20UnkStruct3, unk0) == 0x00);
+    assert(offsetof(_D8D20UnkStruct3, unk2) == 0x02);
+    assert(offsetof(_D8D20UnkStruct3, unk4) == 0x04);
+
+    assert(offsetof(_D8D20UnkStruct1, unk0) == 0x00);
+    assert(offsetof(_D8D20UnkStruct1, unk2) == 0x02);
+    assert(offsetof(_D8D20UnkStruct1, unk4) == 0x04);
 
     for (i = 0; i < ARRAY_COUNT(_blks); i++)
         load_blk(_blks[i], fp);
@@ -537,6 +574,7 @@ static void load_map(MapInfo *map, FILE *fp)
     free(vertex);
     vertex = (Vertex *)_pBuffer;
     _pBuffer += (count * sizeof(Vertex));
+    ALIGN16(_pBuffer);
 
     for (i = 0; i < count; i++)
     {
@@ -552,6 +590,7 @@ static void load_map(MapInfo *map, FILE *fp)
     free(wall);
     wall = (WallType *)_pBuffer;
     _pBuffer += (map->walls * sizeof(WallType));
+    ALIGN16(_pBuffer);
 
     for (i = 0; i < map->walls; i++)
     {
@@ -572,12 +611,14 @@ static void load_map(MapInfo *map, FILE *fp)
     map->sector_offset = _pBuffer - start;
     memcpy(_pBuffer, _sectors, map->sectors*sizeof(SectorType));
     _pBuffer += (map->sectors * sizeof(SectorType));
+    ALIGN16(_pBuffer);
 
     map->sprite_offset = _pBuffer - start;
     assert(decompressEDL(sprite, _pBuffer) == 0);
     free(sprite);
     sprite = (SpriteType *)_pBuffer;
     _pBuffer += (map->sprites * sizeof(SpriteType));
+    ALIGN16(_pBuffer);
 
     for (i = 0; i < map->sprites; i++)
     {
@@ -605,6 +646,94 @@ static void load_map(MapInfo *map, FILE *fp)
 static void load_maps(FILE *fp)
 {
     s32 i;
+
+    assert(sizeof(Vertex) == 0x0E);
+    assert(sizeof(SectorType) == 0x30);
+    assert(sizeof(WallType) == 0x28);
+    assert(sizeof(SpriteType) == 0x2C);
+
+    assert(offsetof(VertexN, ob) == 0x00);
+    assert(offsetof(VertexN, tc) == 0x06);
+    assert(offsetof(VertexN, n) == 0x0A);
+    assert(offsetof(VertexN, a) == 0x0D);
+
+    assert(offsetof(VertexV, ob) == 0x00);
+    assert(offsetof(VertexV, tc) == 0x06);
+    assert(offsetof(VertexV, cn) == 0x0A);
+
+    assert(offsetof(SectorType, ceilingz) == 0x00);
+    assert(offsetof(SectorType, floorz) == 0x04);
+    assert(offsetof(SectorType, wallptr) == 0x08);
+    assert(offsetof(SectorType, wallnum) == 0x0A);
+    assert(offsetof(SectorType, ceilingstat) == 0x0C);
+    assert(offsetof(SectorType, floorstat) == 0x0E);
+    assert(offsetof(SectorType, ceilingpicnum) == 0x10);
+    assert(offsetof(SectorType, ceilingheinum) == 0x12);
+    assert(offsetof(SectorType, floorpicnum) == 0x14);
+    assert(offsetof(SectorType, floorheinum) == 0x16);
+    assert(offsetof(SectorType, unk18) == 0x18);
+    assert(offsetof(SectorType, unk1A) == 0x1A);
+    assert(offsetof(SectorType, unk1C) == 0x1C);
+    assert(offsetof(SectorType, floorvtxptr) == 0x1E);
+    assert(offsetof(SectorType, ceilingvtxptr) == 0x20);
+    assert(offsetof(SectorType, unk22) == 0x22);
+    assert(offsetof(SectorType, unk23) == 0x23);
+    assert(offsetof(SectorType, pad) == 0x24);
+    assert(offsetof(SectorType, unk26) == 0x26);
+    assert(offsetof(SectorType, unk27) == 0x27);
+    assert(offsetof(SectorType, pad2) == 0x28);
+    assert(offsetof(SectorType, unk2A) == 0x2A);
+    assert(offsetof(SectorType, floorvtxnum) == 0x2B);
+    assert(offsetof(SectorType, ceilingvtxnum) == 0x2C);
+    assert(offsetof(SectorType, pad3) == 0x2D);
+
+    assert(offsetof(WallType, x) == 0x00);
+    assert(offsetof(WallType, y) == 0x04);
+    assert(offsetof(WallType, point2) == 0x08);
+    assert(offsetof(WallType, nextwall) == 0x0A);
+    assert(offsetof(WallType, nextsector) == 0x0C);
+    assert(offsetof(WallType, cstat) == 0x0E);
+    assert(offsetof(WallType, picnum) == 0x10);
+    assert(offsetof(WallType, overpicnum) == 0x12);
+    assert(offsetof(WallType, unk14) == 0x14);
+    assert(offsetof(WallType, unk16) == 0x16);
+    assert(offsetof(WallType, unk18) == 0x18);
+    assert(offsetof(WallType, unk1A) == 0x1A);
+    assert(offsetof(WallType, unk1C) == 0x1C);
+    assert(offsetof(WallType, unk1D) == 0x1D);
+    assert(offsetof(WallType, unk1E) == 0x1E);
+    assert(offsetof(WallType, unk1F) == 0x1F);
+    assert(offsetof(WallType, unk20) == 0x20);
+    assert(offsetof(WallType, unk21) == 0x21);
+    assert(offsetof(WallType, unk22) == 0x22);
+    assert(offsetof(WallType, unk23) == 0x23);
+    assert(offsetof(WallType, unk24) == 0x24);
+    assert(offsetof(WallType, unk25) == 0x25);
+    assert(offsetof(WallType, pad3) == 0x26);
+
+    assert(offsetof(SpriteType, x) == 0x00);
+    assert(offsetof(SpriteType, y) == 0x04);
+    assert(offsetof(SpriteType, z) == 0x08);
+    assert(offsetof(SpriteType, cstat) == 0x0C);
+    assert(offsetof(SpriteType, picnum) == 0x0E);
+    assert(offsetof(SpriteType, sectnum) == 0x10);
+    assert(offsetof(SpriteType, statnum) == 0x12);
+    assert(offsetof(SpriteType, ang) == 0x14);
+    assert(offsetof(SpriteType, unk16) == 0x16);
+    assert(offsetof(SpriteType, unk18) == 0x18);
+    assert(offsetof(SpriteType, unk1A) == 0x1A);
+    assert(offsetof(SpriteType, unk1C) == 0x1C);
+    assert(offsetof(SpriteType, lotag) == 0x1E);
+    assert(offsetof(SpriteType, hitag) == 0x20);
+    assert(offsetof(SpriteType, unk22) == 0x22);
+    assert(offsetof(SpriteType, unk24) == 0x24);
+    assert(offsetof(SpriteType, unk25) == 0x25);
+    assert(offsetof(SpriteType, clipdist) == 0x26);
+    assert(offsetof(SpriteType, xrepeat) == 0x27);
+    assert(offsetof(SpriteType, yrepeat) == 0x28);
+    assert(offsetof(SpriteType, unk29) == 0x29);
+    assert(offsetof(SpriteType, unk2A) == 0x2A);
+    assert(offsetof(SpriteType, unk2B) == 0x2B);
 
     for (i = 0; i < ARRAY_COUNT(_maps); i++)
         load_map(_maps[i], fp);
@@ -653,6 +782,7 @@ static void load_tile(TileInfo *tile, FILE *fp)
             ptr += 2;
         }
     }
+    ALIGN16(_pBuffer);
 }
 
 static void load_tiles(FILE *fp)
@@ -705,6 +835,7 @@ static void load_swapped_texture(Art *art, FILE *fp)
 
     func_8007FD8C(art->data, art->info);
     _pBuffer += dsize;
+    ALIGN16(_pBuffer);
 }
 
 static void load_special_model(Art *art, FILE *fp)
@@ -740,163 +871,317 @@ static void load_special_model(Art *art, FILE *fp)
         }
     }
     _pBuffer += dsize;
+    ALIGN16(_pBuffer);
 }
 
 static void load_pbank(FILE *fp)
 {
-    s32 i, size;
+    s32 i, size, length;
     ptr_bank_t *ptrfile_addr;
-    ALWaveTable **wave_list;
-    ALWaveTable *wave;
-    ALADPCMloop *loop;
-    ALADPCMBook *book;
+    u8 *wave_list, *basenote, *detune;
+    u8 *wave, *loop, *book;
+    u8 *ptr, *start;
+    ALWaveTable* _wave;
 
     fread(&size, 4, 1, fp);
-    fread(_pBuffer, size, 1, fp);
+    start = ptr = malloc(size);
+    assert(ptr != NULL);
+    fread(ptr, size, 1, fp);
 
     ptrfile_addr = (ptr_bank_t *)_pBuffer;
-    _pBuffer += size;
+    _pBuffer += sizeof(ptr_bank_t);
+    ALIGN16(_pBuffer);
 
-    ptrfile_addr->count = SWAP_S32(ptrfile_addr->count);
+    memcpy(ptrfile_addr->header_name, ptr, 16); ptr+=16;
+    ptrfile_addr->flags = READ_U32(ptr);
     assert(ptrfile_addr->flags == 0);
-    ptrfile_addr->basenote = (unsigned char *)SWAP_S32((intptr_t)ptrfile_addr->basenote);
-    ptrfile_addr->detune = (float *)SWAP_S32((intptr_t)ptrfile_addr->detune);
-    ptrfile_addr->wave_list = (ALWaveTable **)SWAP_S32((intptr_t)ptrfile_addr->wave_list);
-    wave_list = (ALWaveTable **)((intptr_t)ptrfile_addr + (intptr_t)ptrfile_addr->wave_list);
+    memcpy(ptrfile_addr->wbk_name, ptr, 12); ptr+=12;
+    ptrfile_addr->count = READ_S32(ptr);
+    basenote = start + READ_S32(ptr);
+    detune = start + READ_S32(ptr);
+    wave_list = start + READ_S32(ptr);
 
-    for (i = 0; i<ptrfile_addr->count; i++)
-        wave_list[i] = (ALWaveTable *)SWAP_S32((intptr_t)wave_list[i]);
+    assert((ptrfile_addr->count*4) == (basenote - wave_list));
+    assert(wave_list < basenote);
+    assert(basenote < detune);
 
-    for (i = 0; i<ptrfile_addr->count; i++)
+    /*Allocate space for wave_list*/
+    ptrfile_addr->wave_list = (ALWaveTable **)_pBuffer;
+    _pBuffer += (ptrfile_addr->count*sizeof(ALWaveTable	*));
+    ALIGN16(_pBuffer);
+
+    /*Copy basenote*/
+    ptrfile_addr->basenote = (unsigned char	*)_pBuffer;
+    length = detune - basenote;
+    memcpy(ptrfile_addr->basenote, basenote, length);
+    _pBuffer += length;
+    ALIGN16(_pBuffer);
+
+    /*Copy detune*/
+    ptrfile_addr->detune = (float *)_pBuffer;
+    length = &start[size] - detune;
+    memcpy(ptrfile_addr->detune, detune, length);
+    _pBuffer += length;
+    ALIGN16(_pBuffer);
+
+    for (i = 0; i < ptrfile_addr->count; i++)
     {
-        wave = (ALWaveTable *)((intptr_t)ptrfile_addr + (intptr_t)wave_list[i]);
-        s32 book_len, next;
+        _wave = ptrfile_addr->wave_list[i] = (ALWaveTable *)_pBuffer;
+        _pBuffer += sizeof(ALWaveTable);
+        ALIGN16(_pBuffer);
+        wave = start + READ_S32(wave_list);
 
-        wave->base = (u8 *)SWAP_S32((s32)wave->base); /*offset in wbank*/
-        wave->len = SWAP_S32(wave->len); /*offset in wbank*/
-        assert(wave->type == AL_ADPCM_WAVE);
-        assert(wave->flags == 0);
-        wave->waveInfo.adpcmWave.loop = (ALADPCMloop *)SWAP_S32((intptr_t)wave->waveInfo.adpcmWave.loop);
-        wave->waveInfo.adpcmWave.book = (ALADPCMBook *)SWAP_S32((intptr_t)wave->waveInfo.adpcmWave.book);
-        assert(wave->waveInfo.adpcmWave.book != 0); /*ALRAWWaveInfo?*/
+        _wave->base = READ_S32(wave); /*offset in wbank*/
+        _wave->len = READ_S32(wave);
+        _wave->type = *wave++;
+        _wave->flags = *wave++;
+        wave += 2; /*padding*/
+        assert(_wave->type == AL_ADPCM_WAVE);
+        assert(_wave->flags == 0);
+        loop = start + READ_S32(wave);
+        book = start + READ_S32(wave);
+        assert(book != 0); /*ALRAWWaveInfo?*/
 
-        if ((i+1)<ptrfile_addr->count)
-            next = (intptr_t)wave_list[i+1];
-        else
-            next = (intptr_t)ptrfile_addr->wave_list;
-
-        if (wave->waveInfo.adpcmWave.loop != 0)
+        if (loop != start)
         {
-            book_len = (intptr_t)wave->waveInfo.adpcmWave.loop - (intptr_t)wave->waveInfo.adpcmWave.book;
-            assert(((next - (intptr_t)wave->waveInfo.adpcmWave.loop) == (sizeof(ALADPCMloop))) ||
-                ((next - (intptr_t)wave->waveInfo.adpcmWave.loop) == (sizeof(ALADPCMloop))+4)); /*always 1 element?*/
-            assert(book_len == 0x88); /*always 1 element with 64 books?*/
-        }
-        else
-        {
-            book_len = next - (intptr_t)wave->waveInfo.adpcmWave.book;
-            assert(book_len == 0x88); /*always 1 element with 64 books?*/
-        }
-        if (wave->waveInfo.adpcmWave.loop)
-        {
-            loop = (ALADPCMloop *)((intptr_t)ptrfile_addr + (intptr_t)wave->waveInfo.adpcmWave.loop);
-            loop->start = SWAP_U32(loop->start);
-            loop->end = SWAP_U32(loop->end);
-            loop->count = SWAP_U32(loop->count);
+            assert(book < loop);
+            _wave->waveInfo.adpcmWave.loop = (ALADPCMloop *)_pBuffer;
+            _pBuffer += sizeof(ALADPCMloop);
+            ALIGN16(_pBuffer);
 
-            for (int j = 0; j<16; j++)
-                loop->state[j] = SWAP_S16(loop->state[j]);
-        }
-        if (wave->type == AL_ADPCM_WAVE)
-        {
-            book = (ALADPCMBook *)((intptr_t)ptrfile_addr + (intptr_t)wave->waveInfo.adpcmWave.book);
-            book->order = SWAP_S32(book->order);
-            assert(book->order == 2);
-            book->npredictors = SWAP_U32(book->npredictors);
-            assert(book->npredictors == 4);
+            _wave->waveInfo.adpcmWave.loop->start = READ_U32(loop);
+            _wave->waveInfo.adpcmWave.loop->end = READ_U32(loop);
+            _wave->waveInfo.adpcmWave.loop->count = READ_U32(loop);
 
-            for (int j = 0; j<64; j++)
-                book->book[j] = SWAP_S16(book->book[j]);
+            for (int j = 0; j < 16; j++)
+            {
+                _wave->waveInfo.adpcmWave.loop->state[j] = READ_S16(loop);
+            }
+            BASE_OFFSET(ptrfile_addr, wave_list[i]->waveInfo.adpcmWave.loop);
         }
+        if (_wave->type == AL_ADPCM_WAVE)
+        {
+            _wave->waveInfo.adpcmWave.book = (ALADPCMBook *)_pBuffer;
+            _pBuffer += sizeof(ALADPCMBook);
+            ALIGN16(_pBuffer);
+
+            _wave->waveInfo.adpcmWave.book->order = READ_U32(book);
+            assert(_wave->waveInfo.adpcmWave.book->order == 2);
+            _wave->waveInfo.adpcmWave.book->npredictors = READ_U32(book);
+            assert(_wave->waveInfo.adpcmWave.book->npredictors == 4);
+
+            for (int j = 0; j < 64; j++)
+            {
+                _wave->waveInfo.adpcmWave.book->book[j] = READ_S16(book);
+            }
+            BASE_OFFSET(ptrfile_addr, wave_list[i]->waveInfo.adpcmWave.book);
+        }
+        BASE_OFFSET(ptrfile_addr, wave_list[i]);
     }
+
+    BASE_OFFSET(ptrfile_addr, wave_list);
+    BASE_OFFSET(ptrfile_addr, basenote);
+    BASE_OFFSET(ptrfile_addr, detune);
+
+    free(start);
 }
 
 static void load_song(MusicInfo *info, FILE *fp)
 {
-    s32 i, size;
+    s32 i, size, length;
     song_t *song_addr;
-    unsigned char **list;
-    unsigned short *wave_table;
+    u8 *data_list, *volume_list, *pbend_list, *env_table,
+       *drum_table, *wave_table, *master_track;
+    u8 *ptr, *start, *data;
 
     fread(&size, 4, 1, fp);
-    fread(_pBuffer, size, 1, fp);
+    start = ptr = malloc(size);
+    assert(ptr != NULL);
+    fread(ptr, size, 1, fp);
 
     song_addr = (song_t *)_pBuffer;
+    _pBuffer += sizeof(song_t);
+    ALIGN16(_pBuffer);
 
-    song_addr->version = SWAP_S32(song_addr->version);
-    song_addr->num_channels = SWAP_S32(song_addr->num_channels);
-    song_addr->num_waves = SWAP_S32(song_addr->num_waves);
+    song_addr->version = READ_U32(ptr);
+    song_addr->num_channels = READ_S32(ptr);
+    song_addr->num_waves = READ_S32(ptr);
+    data_list = start + READ_S32(ptr);
+    volume_list = start + READ_S32(ptr);
+    pbend_list = start + READ_S32(ptr);
+    env_table = start + READ_S32(ptr);
+    drum_table = start + READ_S32(ptr);
+    wave_table = start + READ_S32(ptr);
+    master_track = start + READ_S32(ptr);
+    song_addr->flags = READ_U32(ptr);
+    song_addr->reserved1 = READ_U32(ptr);
+    song_addr->reserved2 = READ_U32(ptr);
+    song_addr->reserved3 = READ_U32(ptr);
+
     assert(song_addr->flags == 0);
-    assert((intptr_t)song_addr->drum_table == (intptr_t)song_addr->env_table);
+    assert(drum_table == env_table);
 
-    song_addr->data_list = (unsigned char **)SWAP_S32((intptr_t)song_addr->data_list);
-    song_addr->volume_list = (unsigned char **)SWAP_S32((intptr_t)song_addr->volume_list);
-    song_addr->pbend_list = (unsigned char **)SWAP_S32((intptr_t)song_addr->pbend_list);
-    song_addr->env_table = (unsigned char *)SWAP_S32((intptr_t)song_addr->env_table);
-    song_addr->drum_table = (drum_t *)SWAP_S32((intptr_t)song_addr->drum_table);
-    song_addr->wave_table = (unsigned short *)SWAP_S32((intptr_t)song_addr->wave_table);
-    song_addr->master_track = (unsigned char *)SWAP_S32((intptr_t)song_addr->master_track);
+    assert(data_list < volume_list);
+    assert(volume_list < pbend_list);
+    assert(pbend_list < wave_table);
+    assert(wave_table < env_table);
+    assert(env_table < master_track);
+    assert((song_addr->num_channels*4) == (volume_list - data_list));
+    assert((song_addr->num_channels*4) == (pbend_list - volume_list));
+    assert((song_addr->num_channels*4) == (wave_table - pbend_list));
 
-    list = (unsigned char **)((intptr_t)song_addr + (intptr_t)song_addr->data_list);
-    for (i = 0; i<song_addr->num_channels; i++)
-        list[i] = (unsigned char *)SWAP_S32((intptr_t)list[i]);
+    /*Allocate space for data_list*/
+    song_addr->data_list = (unsigned char **)_pBuffer;
+    _pBuffer += (song_addr->num_channels*sizeof(unsigned char **));
+    ALIGN16(_pBuffer);
 
-    list = (unsigned char **)((intptr_t)song_addr + (intptr_t)song_addr->volume_list);
-    for (i = 0; i<song_addr->num_channels; i++)
-        list[i] = (unsigned char *)SWAP_S32((intptr_t)list[i]);
+    /*Allocate space for volume_list*/
+    song_addr->volume_list = (unsigned char **)_pBuffer;
+    _pBuffer += (song_addr->num_channels*sizeof(unsigned char **));
+    ALIGN16(_pBuffer);
 
-    list = (unsigned char **)((intptr_t)song_addr + (intptr_t)song_addr->pbend_list);
-    for (i = 0; i<song_addr->num_channels; i++)
-        list[i] = (unsigned char *)SWAP_S32((intptr_t)list[i]);
+    /*Allocate space for pbend_list*/
+    song_addr->pbend_list = (unsigned char **)_pBuffer;
+    _pBuffer += (song_addr->num_channels*sizeof(unsigned char **));
+    ALIGN16(_pBuffer);
 
-    wave_table = (unsigned short *)((intptr_t)song_addr + (intptr_t)song_addr->wave_table);
-    for (i = 0; i<song_addr->num_waves; i++)
-        wave_table[i] = SWAP_U16(wave_table[i]);
+    /*Allocate space for wave_table*/
+    song_addr->wave_table = (unsigned short	*)_pBuffer;
+    _pBuffer += (song_addr->num_waves*sizeof(unsigned short));
+    ALIGN16(_pBuffer);
 
-    _pBuffer += size;
+    /*Copy wave_table*/
+    for (i = 0; i < song_addr->num_waves; i++)
+    {
+        song_addr->wave_table[i] = READ_U16(wave_table);
+    }
+
+    /*Copy env_table/drum_table*/
+    song_addr->env_table = (unsigned char *)_pBuffer;
+    song_addr->drum_table = (drum_t*)_pBuffer;
+    length = master_track - env_table;
+    memcpy(song_addr->env_table, env_table, length);
+    _pBuffer += length;
+    ALIGN16(_pBuffer);
+
+    /*Copy master_track*/
+    song_addr->master_track = (unsigned char *)_pBuffer;
+    length = &start[size] - master_track;
+    memcpy(song_addr->master_track, master_track, length);
+    _pBuffer += length;
+    ALIGN16(_pBuffer);
+
+    /*Copy data_list*/
+    for (i = 0; i < song_addr->num_channels; i++)
+    {
+        data = start + READ_S32(data_list);
+        if(data != start)
+        {
+            assert((data >= master_track) && (data <= &start[size]));
+            song_addr->data_list[i] = song_addr->master_track + (data - master_track);
+            BASE_OFFSET(song_addr, data_list[i]);
+        }
+    }
+
+    /*Copy volume_list*/
+    for (i = 0; i < song_addr->num_channels; i++)
+    {
+        data = start + READ_S32(volume_list);
+        if(data != start)
+        {
+            assert((data >= env_table) && (data <= master_track));
+            song_addr->volume_list[i] = song_addr->env_table + (data - env_table);
+            BASE_OFFSET(song_addr, volume_list[i]);
+        }
+    }
+
+    /*Copy pbend_list*/
+    for (i = 0; i < song_addr->num_channels; i++)
+    {
+        data = start + READ_S32(pbend_list);
+        if(data != start)
+        {
+            assert((data >= env_table) && (data <= master_track));
+            song_addr->pbend_list[i] = song_addr->env_table + (data - env_table);
+            BASE_OFFSET(song_addr, pbend_list[i]);
+        }
+    }
+
+    BASE_OFFSET(song_addr, master_track);
+    BASE_OFFSET(song_addr, wave_table);
+    BASE_OFFSET(song_addr, drum_table);
+    BASE_OFFSET(song_addr, env_table);
+    BASE_OFFSET(song_addr, pbend_list);
+    BASE_OFFSET(song_addr, volume_list);
+    BASE_OFFSET(song_addr, data_list);
+
     info->music_start = (u8 *)song_addr;
     info->music_end = _pBuffer;
+
+    free(start);
 }
 
 static void load_sfx(FILE *fp)
 {
-    s32 i, size;
+    s32 i, size, length;
     fx_header_t *header;
-    unsigned short *wave_table;
+    u8 *ptr_addr, *wave_table, *effects;
+    unsigned char *_effects, *fxdata;
+    u8 *ptr, *start;
 
     fread(&size, 4, 1, fp);
-    fread(_pBuffer, size, 1, fp);
+    start = ptr = malloc(size);
+    assert(ptr != NULL);
+    fread(ptr, size, 1, fp);
 
     header = (fx_header_t *)_pBuffer;
 
-    header->number_of_components = SWAP_S32(header->number_of_components);
-    header->number_of_effects = SWAP_S32(header->number_of_effects);
-    header->num_waves = SWAP_S32(header->num_waves);
+    header->number_of_components = READ_S32(ptr);
+    header->number_of_effects = READ_S32(ptr);
+    header->num_waves = READ_S32(ptr);
+    header->flags = READ_U32(ptr);
+    ptr_addr = start + READ_S32(ptr);
+    wave_table = start + READ_S32(ptr);
     assert(header->flags == 0);
-    assert(header->ptr_addr == 0);
-    header->wave_table = (u16 *)SWAP_S32((intptr_t)header->wave_table);
+    assert(ptr_addr == start);
 
-    wave_table = (unsigned short *)((intptr_t)header + (intptr_t)header->wave_table);
-    for (i = 0; i<header->num_waves; i++)
-        wave_table[i] = SWAP_U16(wave_table[i]);
+    _pBuffer += sizeof(fx_header_t) - MEMBER_SIZE(fx_header_t, effects);
+    _pBuffer += (header->number_of_components*sizeof(fx_t));
+    ALIGN16(_pBuffer);
 
-    for (i = 0; i<header->number_of_components; i++)
+    /*Copy effects*/
+    _effects = (unsigned char *)_pBuffer;
+    effects = start + (24+header->number_of_components*8); /*effects base addr*/
+    assert(effects < wave_table);
+    length = wave_table - effects;
+    memcpy(_pBuffer, effects, length);
+    _pBuffer += length;
+    ALIGN16(_pBuffer);
+
+    /*Allocate space for wave_table*/
+    header->wave_table = (unsigned short *)_pBuffer;
+    _pBuffer += (header->num_waves*sizeof(unsigned short));
+    ALIGN16(_pBuffer);
+
+    /*Copy wave_table*/
+    for (i = 0; i < header->num_waves; i++)
     {
-        header->effects[i].fxdata = (u8 *)SWAP_S32((intptr_t)header->effects[i].fxdata);
-        header->effects[i].priority = SWAP_S32(header->effects[i].priority);
+        header->wave_table[i] = READ_U16(wave_table);
     }
 
-    _pBuffer += size;
+    /*Copy effects table*/
+    for (i = 0; i < header->number_of_components; i++)
+    {
+        fxdata = start + READ_S32(ptr);
+        assert((fxdata - effects) >= 0);
+        header->effects[i].fxdata = _effects + (fxdata - effects);
+        header->effects[i].priority = READ_S32(ptr);
+        BASE_OFFSET(header, effects[i].fxdata);
+    }
+
+    BASE_OFFSET(header, wave_table);
+
+    free(start);
 }
 
 static void load_audio(FILE *fp)
@@ -977,6 +1262,7 @@ static void load_art(Art *art, FILE *fp)
         fread(&art->data[3], size-3, 1, fp);
         _pBuffer += size;
     }
+    ALIGN16(_pBuffer);
 }
 
 static void load_arts(FILE *fp)
@@ -1012,6 +1298,7 @@ static void load_demos(FILE *fp)
         fread(_pBuffer, size, 1, fp);
         D_801CBCE8[i] = _pBuffer;
         _pBuffer += size;
+        ALIGN16(_pBuffer);
     }
 }
 
@@ -1022,6 +1309,8 @@ void load_assets(void)
     fp = fopen("assets.bin", "rb");
     assert(fp != NULL);
     _pBuffer = _buffer;
+    ALIGN16(_pBuffer);
+    memset(_buffer, 0, sizeof(_buffer));
 
     load_tiles(fp);
     load_models(fp);

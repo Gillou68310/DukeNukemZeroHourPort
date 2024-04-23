@@ -3,16 +3,18 @@ import pylibyaml  # pyright: ignore
 import yaml
 import struct
 
+VERSION = 'us'
+
 def write_bin(path, f):
-    with open('DukeNukemZeroHour/assets/'+path, 'rb') as a:
+    with open('DukeNukemZeroHour/assets/' + VERSION + '/' +path, 'rb') as a:
         data = a.read()
     f.write(struct.pack('<i', len(data)))
     f.write(data)
 
-with open('DukeNukemZeroHour/dukenukemzerohour.yaml', 'r') as f:
+with open('DukeNukemZeroHour/versions/' + VERSION + '/dukenukemzerohour.yaml', 'r') as f:
     config = yaml.load(f.read(), Loader=yaml.SafeLoader)
 
-assets = open('assets.bin', 'wb')
+assets = open('assets.' + VERSION + '.bin', 'wb')
 
 for segment in config['segments']:
     if isinstance(segment, dict):

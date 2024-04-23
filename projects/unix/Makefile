@@ -45,6 +45,7 @@ ifneq ("$(filter pentium i%86,$(HOST_CPU))","")
   ARCH_DETECTED := 32BITS
 endif
 
+VERSION ?= us
 ROOTDIR = ../..
 DUKEDIR = $(ROOTDIR)/DukeNukemZeroHour
 LIBSDIR = $(DUKEDIR)/libs
@@ -71,6 +72,14 @@ endif
 
 ifeq ($(DEBUG), 1)
 CFLAGS += -g -fsanitize=bounds-strict -fsanitize-undefined-trap-on-error -fstack-protector-all
+endif
+
+ifeq ($(VERSION),us)
+    CPPFLAGS += -DVERSION_US=1
+else ifeq ($(VERSION),fr)
+    CPPFLAGS += -DVERSION_FR=1
+else
+$(error Invalid VERSION variable detected. Please use either 'us' or 'fr')
 endif
 
 # tweak flags for 32-bit build on 64-bit system

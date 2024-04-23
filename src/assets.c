@@ -1306,7 +1306,11 @@ void load_assets(void)
 {
     FILE *fp;
 
-    fp = fopen("assets.bin", "rb");
+#if VERSION_US
+    fp = fopen("assets.us.bin", "rb");
+#elif VERSION_FR
+    fp = fopen("assets.fr.bin", "rb");
+#endif
     assert(fp != NULL);
     _pBuffer = _buffer;
     ALIGN16(_pBuffer);

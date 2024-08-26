@@ -56,7 +56,7 @@ OBJDIR = _obj
 
 # base CFLAGS, LDLIBS, and LDFLAGS
 OPTFLAGS ?= -O2
-WARNFLAGS ?= -Wall -Wno-missing-braces -Wno-unused-variable -Wno-unused-function -Wno-unused-result
+WARNFLAGS ?= -Wall -Wno-missing-braces -Wno-unused-variable -Wno-unused-function -Wno-unused-result -Wno-implicit-function-declaration -Wno-incompatible-pointer-types -Wno-int-conversion
 CFLAGS += $(WARNFLAGS) $(OPTFLAGS)
 CXXFLAGS += -std=c++20
 
@@ -71,7 +71,9 @@ ifeq ($(OS), LINUX)
 endif
 
 ifeq ($(DEBUG), 1)
-CFLAGS += -g -fsanitize=bounds-strict -fsanitize-undefined-trap-on-error -fstack-protector-all
+CFLAGS += -g
+OPTFLAGS =
+#CFLAGS += -fsanitize=bounds-strict -fsanitize-undefined-trap-on-error -fstack-protector-all
 endif
 
 ifeq ($(VERSION),us)
@@ -156,7 +158,7 @@ else
 endif
 
 # list of source files to compile
-SRCDIRS := $(DUKEDIR)/src/code0 $(DUKEDIR)/src/code0/data $(DUKEDIR)/src/code1 $(DUKEDIR)/src/static \
+SRCDIRS := $(DUKEDIR)/src/code0 $(DUKEDIR)/src/code0/data $(DUKEDIR)/src/code0/data/actors $(DUKEDIR)/src/code1 $(DUKEDIR)/src/static \
            $(LIBULTRADIR)/src/audio $(LIBULTRADIR)/src/gu $(LIBMUSDIR)/src \
            $(SRCDIR) $(SRCDIR)/fast3d $(SRCDIR)/fast3d/glad $(SRCDIR)/audio $(SRCDIR)/controller
 

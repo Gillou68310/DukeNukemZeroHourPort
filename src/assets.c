@@ -605,7 +605,7 @@ static void load_map(MapInfo *map, FILE *fp)
         wall[i].unk14 = SWAP_S16(wall[i].unk14);
         wall[i].unk16 = SWAP_S16(wall[i].unk16);
         wall[i].unk18 = SWAP_S16(wall[i].unk18);
-        wall[i].unk1A = SWAP_U16(wall[i].unk1A);
+        wall[i].sectnum = SWAP_U16(wall[i].sectnum);
     }
 
     map->sector_offset = _pBuffer - start;
@@ -698,17 +698,17 @@ static void load_maps(FILE *fp)
     assert(offsetof(WallType, unk14) == 0x14);
     assert(offsetof(WallType, unk16) == 0x16);
     assert(offsetof(WallType, unk18) == 0x18);
-    assert(offsetof(WallType, unk1A) == 0x1A);
+    assert(offsetof(WallType, sectnum) == 0x1A);
     assert(offsetof(WallType, unk1C) == 0x1C);
     assert(offsetof(WallType, unk1D) == 0x1D);
     assert(offsetof(WallType, unk1E) == 0x1E);
     assert(offsetof(WallType, unk1F) == 0x1F);
     assert(offsetof(WallType, unk20) == 0x20);
     assert(offsetof(WallType, unk21) == 0x21);
-    assert(offsetof(WallType, unk22) == 0x22);
-    assert(offsetof(WallType, unk23) == 0x23);
-    assert(offsetof(WallType, unk24) == 0x24);
-    assert(offsetof(WallType, unk25) == 0x25);
+    assert(offsetof(WallType, xrepeat) == 0x22);
+    assert(offsetof(WallType, yrepeat) == 0x23);
+    assert(offsetof(WallType, xpanning) == 0x24);
+    assert(offsetof(WallType, ypanning) == 0x25);
     assert(offsetof(WallType, pad3) == 0x26);
 
     assert(offsetof(SpriteType, x) == 0x00);

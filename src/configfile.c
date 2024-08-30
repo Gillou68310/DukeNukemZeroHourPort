@@ -30,39 +30,103 @@ struct ConfigOption {
  *Config options and default values
  */
 bool configFullscreen = false;
+bool configDebug = false;
 // Keyboard mappings (scancode values)
-unsigned int configKeyA = 16;
-unsigned int configKeyB = 18;
-unsigned int configKeyStart = 28;
-unsigned int configKeyR = 0x39;
-unsigned int configKeyL = 15;
-unsigned int configKeyZ = 42;
-unsigned int configKeyCUp = 0x11;
-unsigned int configKeyCDown = 0x1F;
-unsigned int configKeyCLeft = 0x1E;
-unsigned int configKeyCRight = 0x20;
-unsigned int configKeyStickUp = 0x148;
-unsigned int configKeyStickDown = 0x150;
-unsigned int configKeyStickLeft = 0x14B;
-unsigned int configKeyStickRight = 0x14D;
+unsigned int configKeyA[4] = {16,75,0,0};
+unsigned int configKeyB[4] = {18,77,0,0};
+unsigned int configKeyStart[4] = {28,284,0,0};
+unsigned int configKeyR[4] = {0x39,83,0,0};
+unsigned int configKeyL[4] = {15,82,0,0};
+unsigned int configKeyZ[4] = {42,78,0,0};
+unsigned int configKeyCUp[4] = {0x11,76,0,0};
+unsigned int configKeyCDown[4] = {0x1F,80,0,0};
+unsigned int configKeyCLeft[4] = {0x1E,79,0,0};
+unsigned int configKeyCRight[4] = {0x20,81,0,0};
+unsigned int configKeyStickUp[4] = {0x148,0,0,0};
+unsigned int configKeyStickDown[4] = {0x150,0,0,0};
+unsigned int configKeyStickLeft[4] = {0x14B,0,0,0};
+unsigned int configKeyStickRight[4] = {0x14D,0,0,0};
+unsigned int configKeyJoyUp[4] = {0,309,0,0};
+unsigned int configKeyJoyDown[4] = {0,72,0,0};
+unsigned int configKeyJoyLeft[4] = {0,71,0,0};
+unsigned int configKeyJoyRight[4] = {0,73,0,0};
 
 
 static const struct ConfigOption options[] = {
-    {.name = "fullscreen",     .type = CONFIG_TYPE_BOOL, .boolValue = &configFullscreen},
-    {.name = "key_a",          .type = CONFIG_TYPE_UINT, .uintValue = &configKeyA},
-    {.name = "key_b",          .type = CONFIG_TYPE_UINT, .uintValue = &configKeyB},
-    {.name = "key_start",      .type = CONFIG_TYPE_UINT, .uintValue = &configKeyStart},
-    {.name = "key_r",          .type = CONFIG_TYPE_UINT, .uintValue = &configKeyR},
-    {.name = "key_l",          .type = CONFIG_TYPE_UINT, .uintValue = &configKeyL},
-    {.name = "key_z",          .type = CONFIG_TYPE_UINT, .uintValue = &configKeyZ},
-    {.name = "key_cup",        .type = CONFIG_TYPE_UINT, .uintValue = &configKeyCUp},
-    {.name = "key_cdown",      .type = CONFIG_TYPE_UINT, .uintValue = &configKeyCDown},
-    {.name = "key_cleft",      .type = CONFIG_TYPE_UINT, .uintValue = &configKeyCLeft},
-    {.name = "key_cright",     .type = CONFIG_TYPE_UINT, .uintValue = &configKeyCRight},
-    {.name = "key_stickup",    .type = CONFIG_TYPE_UINT, .uintValue = &configKeyStickUp},
-    {.name = "key_stickdown",  .type = CONFIG_TYPE_UINT, .uintValue = &configKeyStickDown},
-    {.name = "key_stickleft",  .type = CONFIG_TYPE_UINT, .uintValue = &configKeyStickLeft},
-    {.name = "key_stickright", .type = CONFIG_TYPE_UINT, .uintValue = &configKeyStickRight},
+    {.name = "fullscreen",           .type = CONFIG_TYPE_BOOL, .boolValue = &configFullscreen},
+    {.name = "debug",                .type = CONFIG_TYPE_BOOL, .boolValue = &configDebug},
+    {.name = "cont1_key_a",          .type = CONFIG_TYPE_UINT, .uintValue = &configKeyA[0]},
+    {.name = "cont1_key_b",          .type = CONFIG_TYPE_UINT, .uintValue = &configKeyB[0]},
+    {.name = "cont1_key_start",      .type = CONFIG_TYPE_UINT, .uintValue = &configKeyStart[0]},
+    {.name = "cont1_key_r",          .type = CONFIG_TYPE_UINT, .uintValue = &configKeyR[0]},
+    {.name = "cont1_key_l",          .type = CONFIG_TYPE_UINT, .uintValue = &configKeyL[0]},
+    {.name = "cont1_key_z",          .type = CONFIG_TYPE_UINT, .uintValue = &configKeyZ[0]},
+    {.name = "cont1_key_cup",        .type = CONFIG_TYPE_UINT, .uintValue = &configKeyCUp[0]},
+    {.name = "cont1_key_cdown",      .type = CONFIG_TYPE_UINT, .uintValue = &configKeyCDown[0]},
+    {.name = "cont1_key_cleft",      .type = CONFIG_TYPE_UINT, .uintValue = &configKeyCLeft[0]},
+    {.name = "cont1_key_cright",     .type = CONFIG_TYPE_UINT, .uintValue = &configKeyCRight[0]},
+    {.name = "cont1_key_stickup",    .type = CONFIG_TYPE_UINT, .uintValue = &configKeyStickUp[0]},
+    {.name = "cont1_key_stickdown",  .type = CONFIG_TYPE_UINT, .uintValue = &configKeyStickDown[0]},
+    {.name = "cont1_key_stickleft",  .type = CONFIG_TYPE_UINT, .uintValue = &configKeyStickLeft[0]},
+    {.name = "cont1_key_stickright", .type = CONFIG_TYPE_UINT, .uintValue = &configKeyStickRight[0]},
+    {.name = "cont1_key_joyup",      .type = CONFIG_TYPE_UINT, .uintValue = &configKeyJoyUp[0]},
+    {.name = "cont1_key_joydown",    .type = CONFIG_TYPE_UINT, .uintValue = &configKeyJoyDown[0]},
+    {.name = "cont1_key_joyleft",    .type = CONFIG_TYPE_UINT, .uintValue = &configKeyJoyLeft[0]},
+    {.name = "cont1_key_joyright",   .type = CONFIG_TYPE_UINT, .uintValue = &configKeyJoyRight[0]},
+    {.name = "cont2_key_a",          .type = CONFIG_TYPE_UINT, .uintValue = &configKeyA[1]},
+    {.name = "cont2_key_b",          .type = CONFIG_TYPE_UINT, .uintValue = &configKeyB[1]},
+    {.name = "cont2_key_start",      .type = CONFIG_TYPE_UINT, .uintValue = &configKeyStart[1]},
+    {.name = "cont2_key_r",          .type = CONFIG_TYPE_UINT, .uintValue = &configKeyR[1]},
+    {.name = "cont2_key_l",          .type = CONFIG_TYPE_UINT, .uintValue = &configKeyL[1]},
+    {.name = "cont2_key_z",          .type = CONFIG_TYPE_UINT, .uintValue = &configKeyZ[1]},
+    {.name = "cont2_key_cup",        .type = CONFIG_TYPE_UINT, .uintValue = &configKeyCUp[1]},
+    {.name = "cont2_key_cdown",      .type = CONFIG_TYPE_UINT, .uintValue = &configKeyCDown[1]},
+    {.name = "cont2_key_cleft",      .type = CONFIG_TYPE_UINT, .uintValue = &configKeyCLeft[1]},
+    {.name = "cont2_key_cright",     .type = CONFIG_TYPE_UINT, .uintValue = &configKeyCRight[1]},
+    {.name = "cont2_key_stickup",    .type = CONFIG_TYPE_UINT, .uintValue = &configKeyStickUp[1]},
+    {.name = "cont2_key_stickdown",  .type = CONFIG_TYPE_UINT, .uintValue = &configKeyStickDown[1]},
+    {.name = "cont2_key_stickleft",  .type = CONFIG_TYPE_UINT, .uintValue = &configKeyStickLeft[1]},
+    {.name = "cont2_key_stickright", .type = CONFIG_TYPE_UINT, .uintValue = &configKeyStickRight[1]},
+    {.name = "cont2_key_joyup",      .type = CONFIG_TYPE_UINT, .uintValue = &configKeyJoyUp[1]},
+    {.name = "cont2_key_joydown",    .type = CONFIG_TYPE_UINT, .uintValue = &configKeyJoyDown[1]},
+    {.name = "cont2_key_joyleft",    .type = CONFIG_TYPE_UINT, .uintValue = &configKeyJoyLeft[1]},
+    {.name = "cont2_key_joyright",   .type = CONFIG_TYPE_UINT, .uintValue = &configKeyJoyRight[1]},
+    {.name = "cont3_key_a",          .type = CONFIG_TYPE_UINT, .uintValue = &configKeyA[2]},
+    {.name = "cont3_key_b",          .type = CONFIG_TYPE_UINT, .uintValue = &configKeyB[2]},
+    {.name = "cont3_key_start",      .type = CONFIG_TYPE_UINT, .uintValue = &configKeyStart[2]},
+    {.name = "cont3_key_r",          .type = CONFIG_TYPE_UINT, .uintValue = &configKeyR[2]},
+    {.name = "cont3_key_l",          .type = CONFIG_TYPE_UINT, .uintValue = &configKeyL[2]},
+    {.name = "cont3_key_z",          .type = CONFIG_TYPE_UINT, .uintValue = &configKeyZ[2]},
+    {.name = "cont3_key_cup",        .type = CONFIG_TYPE_UINT, .uintValue = &configKeyCUp[2]},
+    {.name = "cont3_key_cdown",      .type = CONFIG_TYPE_UINT, .uintValue = &configKeyCDown[2]},
+    {.name = "cont3_key_cleft",      .type = CONFIG_TYPE_UINT, .uintValue = &configKeyCLeft[2]},
+    {.name = "cont3_key_cright",     .type = CONFIG_TYPE_UINT, .uintValue = &configKeyCRight[2]},
+    {.name = "cont3_key_stickup",    .type = CONFIG_TYPE_UINT, .uintValue = &configKeyStickUp[2]},
+    {.name = "cont3_key_stickdown",  .type = CONFIG_TYPE_UINT, .uintValue = &configKeyStickDown[2]},
+    {.name = "cont3_key_stickleft",  .type = CONFIG_TYPE_UINT, .uintValue = &configKeyStickLeft[2]},
+    {.name = "cont3_key_stickright", .type = CONFIG_TYPE_UINT, .uintValue = &configKeyStickRight[2]},
+    {.name = "cont3_key_joyup",      .type = CONFIG_TYPE_UINT, .uintValue = &configKeyJoyUp[2]},
+    {.name = "cont3_key_joydown",    .type = CONFIG_TYPE_UINT, .uintValue = &configKeyJoyDown[2]},
+    {.name = "cont3_key_joyleft",    .type = CONFIG_TYPE_UINT, .uintValue = &configKeyJoyLeft[2]},
+    {.name = "cont3_key_joyright",   .type = CONFIG_TYPE_UINT, .uintValue = &configKeyJoyRight[2]},
+    {.name = "cont4_key_a",          .type = CONFIG_TYPE_UINT, .uintValue = &configKeyA[3]},
+    {.name = "cont4_key_b",          .type = CONFIG_TYPE_UINT, .uintValue = &configKeyB[3]},
+    {.name = "cont4_key_start",      .type = CONFIG_TYPE_UINT, .uintValue = &configKeyStart[3]},
+    {.name = "cont4_key_r",          .type = CONFIG_TYPE_UINT, .uintValue = &configKeyR[3]},
+    {.name = "cont4_key_l",          .type = CONFIG_TYPE_UINT, .uintValue = &configKeyL[3]},
+    {.name = "cont4_key_z",          .type = CONFIG_TYPE_UINT, .uintValue = &configKeyZ[3]},
+    {.name = "cont4_key_cup",        .type = CONFIG_TYPE_UINT, .uintValue = &configKeyCUp[3]},
+    {.name = "cont4_key_cdown",      .type = CONFIG_TYPE_UINT, .uintValue = &configKeyCDown[3]},
+    {.name = "cont4_key_cleft",      .type = CONFIG_TYPE_UINT, .uintValue = &configKeyCLeft[3]},
+    {.name = "cont4_key_cright",     .type = CONFIG_TYPE_UINT, .uintValue = &configKeyCRight[3]},
+    {.name = "cont4_key_stickup",    .type = CONFIG_TYPE_UINT, .uintValue = &configKeyStickUp[3]},
+    {.name = "cont4_key_stickdown",  .type = CONFIG_TYPE_UINT, .uintValue = &configKeyStickDown[3]},
+    {.name = "cont4_key_stickleft",  .type = CONFIG_TYPE_UINT, .uintValue = &configKeyStickLeft[3]},
+    {.name = "cont4_key_stickright", .type = CONFIG_TYPE_UINT, .uintValue = &configKeyStickRight[3]},
+    {.name = "cont4_key_joyup",      .type = CONFIG_TYPE_UINT, .uintValue = &configKeyJoyUp[3]},
+    {.name = "cont4_key_joydown",    .type = CONFIG_TYPE_UINT, .uintValue = &configKeyJoyDown[3]},
+    {.name = "cont4_key_joyleft",    .type = CONFIG_TYPE_UINT, .uintValue = &configKeyJoyLeft[3]},
+    {.name = "cont4_key_joyright",   .type = CONFIG_TYPE_UINT, .uintValue = &configKeyJoyRight[3]},
 };
 
 // Reads an entire line from a file (excluding the newline character) and returns an allocated string

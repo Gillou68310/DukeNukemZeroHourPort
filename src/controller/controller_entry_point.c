@@ -13,16 +13,20 @@ static struct ControllerAPI *controller_implementations[] = {
 
 s32 osContInit(UNUSED OSMesgQueue *mq, u8 *controllerBits, UNUSED OSContStatus *status)
 {
-    /*TODO: other controllers?*/
-    status[0].type = 5;
-    status[0].status = 1;
-    status[0].errno = 0;
+    *controllerBits = 0;
+    for (s32 i = 0; i < MAXCONTROLLERS; i++)
+    {
+      status[i].type = CONT_TYPE_NORMAL;
+      status[i].status = 1;
+      status[i].errno = 0;
+      *controllerBits |= (1<<i);
+    }
 
     for (size_t i = 0; i < sizeof(controller_implementations) / sizeof(struct ControllerAPI *); i++)
     {
         controller_implementations[i]->init();
     }
-    *controllerBits = 1;
+
     return 0;
 }
 
@@ -33,10 +37,13 @@ s32 osContStartReadData(UNUSED OSMesgQueue *mesg)
 
 void osContGetReadData(OSContPad *pad)
 {
-    pad->button = 0;
-    pad->stick_x = 0;
-    pad->stick_y = 0;
-    pad->errno = 0;
+    for (s32 i = 0; i < MAXCONTROLLERS; i++)
+    {
+        pad[i].button = 0;
+        pad[i].stick_x = 0;
+        pad[i].stick_y = 0;
+        pad[i].errno = 0;
+    }
 
     for (size_t i = 0; i < sizeof(controller_implementations) / sizeof(struct ControllerAPI *); i++)
     {

@@ -639,6 +639,14 @@ static void load_map(MapInfo *map, FILE *fp)
         sprite[i].unk22 = SWAP_S16(sprite[i].unk22);
     }
 
+    assert(map->skybottom_r >= 0.0f && map->skybottom_r < 256.f);
+    assert(map->skybottom_g >= 0.0f && map->skybottom_g < 256.f);
+    assert(map->skybottom_b >= 0.0f && map->skybottom_b < 256.f);
+
+    assert(map->skytop_r >= 0.0f && map->skytop_r < 256.f);
+    assert(map->skytop_g >= 0.0f && map->skytop_g < 256.f);
+    assert(map->skytop_b >= 0.0f && map->skytop_b < 256.f);
+    
     map->rom_start = start;
     map->rom_end = _pBuffer;
 }
@@ -676,11 +684,11 @@ static void load_maps(FILE *fp)
     assert(offsetof(SectorType, unk1C) == 0x1C);
     assert(offsetof(SectorType, floorvtxptr) == 0x1E);
     assert(offsetof(SectorType, ceilingvtxptr) == 0x20);
-    assert(offsetof(SectorType, unk22) == 0x22);
-    assert(offsetof(SectorType, unk23) == 0x23);
+    assert(offsetof(SectorType, ceilingshade) == 0x22);
+    assert(offsetof(SectorType, ceilingpal) == 0x23);
     assert(offsetof(SectorType, pad) == 0x24);
-    assert(offsetof(SectorType, unk26) == 0x26);
-    assert(offsetof(SectorType, unk27) == 0x27);
+    assert(offsetof(SectorType, floorshade) == 0x26);
+    assert(offsetof(SectorType, floorpal) == 0x27);
     assert(offsetof(SectorType, pad2) == 0x28);
     assert(offsetof(SectorType, unk2A) == 0x2A);
     assert(offsetof(SectorType, floorvtxnum) == 0x2B);
@@ -699,12 +707,12 @@ static void load_maps(FILE *fp)
     assert(offsetof(WallType, unk16) == 0x16);
     assert(offsetof(WallType, unk18) == 0x18);
     assert(offsetof(WallType, sectnum) == 0x1A);
-    assert(offsetof(WallType, unk1C) == 0x1C);
+    assert(offsetof(WallType, shade) == 0x1C);
     assert(offsetof(WallType, unk1D) == 0x1D);
     assert(offsetof(WallType, unk1E) == 0x1E);
     assert(offsetof(WallType, unk1F) == 0x1F);
     assert(offsetof(WallType, unk20) == 0x20);
-    assert(offsetof(WallType, unk21) == 0x21);
+    assert(offsetof(WallType, pal) == 0x21);
     assert(offsetof(WallType, xrepeat) == 0x22);
     assert(offsetof(WallType, yrepeat) == 0x23);
     assert(offsetof(WallType, xpanning) == 0x24);

@@ -1,21 +1,22 @@
 #include <stdbool.h>
+#include <assert.h>
 #include <ultra64.h>
 
 #include "controller_api.h"
 #include "../configfile.h"
 
-static int keyboard_buttons_down;
+#define MAXMAPPING 18
+static int keyboard_buttons_down[MAXCONTROLLERS];
+static int keyboard_mapping[MAXCONTROLLERS][MAXMAPPING][2];
 
-static int keyboard_mapping[14][2];
-
-static int keyboard_map_scancode(int scancode)
+static int keyboard_map_scancode(int cont, int scancode)
 {
     int ret = 0;
-    for (size_t i = 0; i < sizeof(keyboard_mapping) / sizeof(keyboard_mapping[0]); i++)
+    for (size_t i = 0; i < sizeof(keyboard_mapping[cont]) / sizeof(keyboard_mapping[cont][0]); i++)
     {
-        if (keyboard_mapping[i][0] == scancode)
+        if (keyboard_mapping[cont][i][0] == scancode)
         {
-            ret |= keyboard_mapping[i][1];
+            ret |= keyboard_mapping[cont][i][1];
         }
     }
     return ret;
@@ -23,67 +24,89 @@ static int keyboard_map_scancode(int scancode)
 
 bool keyboard_on_key_down(int scancode)
 {
-    int mapped = keyboard_map_scancode(scancode);
-    keyboard_buttons_down |= mapped;
-    return mapped != 0;
+    int mapped;
+    for (s32 i = 0; i < MAXCONTROLLERS; i++)
+    {
+        mapped = keyboard_map_scancode(i, scancode);
+        keyboard_buttons_down[i] |= mapped;
+    }
+    return true;
 }
 
 bool keyboard_on_key_up(int scancode)
 {
-    int mapped = keyboard_map_scancode(scancode);
-    keyboard_buttons_down &= ~mapped;
-    return mapped != 0;
+    int mapped;
+    for (s32 i = 0; i < MAXCONTROLLERS; i++)
+    {
+        mapped = keyboard_map_scancode(i, scancode);
+        keyboard_buttons_down[i] &= ~mapped;
+    }
+    return true;
 }
 
 void keyboard_on_all_keys_up(void)
 {
-    keyboard_buttons_down = 0;
+    for (s32 i = 0; i < MAXCONTROLLERS; i++)
+    {
+        keyboard_buttons_down[i] = 0;
+    }
 }
 
-static void set_keyboard_mapping(int index, int mask, int scancode)
+static void set_keyboard_mapping(int cont, int index, int mask, int scancode)
 {
-    keyboard_mapping[index][0] = scancode;
-    keyboard_mapping[index][1] = mask;
+    assert(cont < MAXCONTROLLERS);
+    assert(index < MAXMAPPING);
+    keyboard_mapping[cont][index][0] = scancode;
+    keyboard_mapping[cont][index][1] = mask;
 }
 
 static void keyboard_init(void)
 {
-    int i = 0;
-
-    set_keyboard_mapping(i++, 0x80000, configKeyStickUp);
-    set_keyboard_mapping(i++, 0x10000, configKeyStickLeft);
-    set_keyboard_mapping(i++, 0x40000, configKeyStickDown);
-    set_keyboard_mapping(i++, 0x20000, configKeyStickRight);
-    set_keyboard_mapping(i++, A_BUTTON, configKeyA);
-    set_keyboard_mapping(i++, B_BUTTON, configKeyB);
-    set_keyboard_mapping(i++, Z_TRIG, configKeyZ);
-    set_keyboard_mapping(i++, U_CBUTTONS, configKeyCUp);
-    set_keyboard_mapping(i++, L_CBUTTONS, configKeyCLeft);
-    set_keyboard_mapping(i++, D_CBUTTONS, configKeyCDown);
-    set_keyboard_mapping(i++, R_CBUTTONS, configKeyCRight);
-    set_keyboard_mapping(i++, R_TRIG, configKeyR);
-    set_keyboard_mapping(i++, L_TRIG, configKeyL);
-    set_keyboard_mapping(i++, START_BUTTON, configKeyStart);
+    for (s32 i = 0; i < MAXCONTROLLERS; i++)
+    {
+        int j = 0;
+        set_keyboard_mapping(i, j++, 0x80000, configKeyStickUp[i]);
+        set_keyboard_mapping(i, j++, 0x10000, configKeyStickLeft[i]);
+        set_keyboard_mapping(i, j++, 0x40000, configKeyStickDown[i]);
+        set_keyboard_mapping(i, j++, 0x20000, configKeyStickRight[i]);
+        set_keyboard_mapping(i, j++, U_JPAD, configKeyJoyUp[i]);
+        set_keyboard_mapping(i, j++, L_JPAD, configKeyJoyLeft[i]);
+        set_keyboard_mapping(i, j++, D_JPAD, configKeyJoyDown[i]);
+        set_keyboard_mapping(i, j++, R_JPAD, configKeyJoyRight[i]);
+        set_keyboard_mapping(i, j++, A_BUTTON, configKeyA[i]);
+        set_keyboard_mapping(i, j++, B_BUTTON, configKeyB[i]);
+        set_keyboard_mapping(i, j++, Z_TRIG, configKeyZ[i]);
+        set_keyboard_mapping(i, j++, U_CBUTTONS, configKeyCUp[i]);
+        set_keyboard_mapping(i, j++, L_CBUTTONS, configKeyCLeft[i]);
+        set_keyboard_mapping(i, j++, D_CBUTTONS, configKeyCDown[i]);
+        set_keyboard_mapping(i, j++, R_CBUTTONS, configKeyCRight[i]);
+        set_keyboard_mapping(i, j++, R_TRIG, configKeyR[i]);
+        set_keyboard_mapping(i, j++, L_TRIG, configKeyL[i]);
+        set_keyboard_mapping(i, j++, START_BUTTON, configKeyStart[i]);
+    }
 }
 
 static void keyboard_read(OSContPad *pad)
 {
-    pad->button |= keyboard_buttons_down;
-    if ((keyboard_buttons_down & 0x30000) == 0x10000)
+    for (s32 i = 0; i < MAXCONTROLLERS; i++)
     {
-        pad->stick_x = -128;
-    }
-    if ((keyboard_buttons_down & 0x30000) == 0x20000)
-    {
-        pad->stick_x = 127;
-    }
-    if ((keyboard_buttons_down & 0xc0000) == 0x40000)
-    {
-        pad->stick_y = -128;
-    }
-    if ((keyboard_buttons_down & 0xc0000) == 0x80000)
-    {
-        pad->stick_y = 127;
+        pad[i].button |= keyboard_buttons_down[i];
+        if ((keyboard_buttons_down[i] & 0x30000) == 0x10000)
+        {
+            pad[i].stick_x = -128;
+        }
+        if ((keyboard_buttons_down[i] & 0x30000) == 0x20000)
+        {
+            pad[i].stick_x = 127;
+        }
+        if ((keyboard_buttons_down[i] & 0xc0000) == 0x40000)
+        {
+            pad[i].stick_y = -128;
+        }
+        if ((keyboard_buttons_down[i] & 0xc0000) == 0x80000)
+        {
+            pad[i].stick_y = 127;
+        }
     }
 }
 

@@ -20,6 +20,7 @@
 
 #define CONFIG_FILE "config.txt"
 
+extern bool gDebugMenu;
 extern u8 *gCacheMemStart;
 extern u8 *gCacheMemEnd;
 extern Gfx *gDisplayList[];
@@ -117,6 +118,7 @@ int main(UNUSED int argc, UNUSED char *argv[])
 
     audio_api->init();
 
+    gDebugMenu = configDebug;
     gCacheMemStart = &gMemory[0];
     gCacheMemEnd = &gMemory[0x800000];
     memset(gMemory, 0, sizeof(gMemory));

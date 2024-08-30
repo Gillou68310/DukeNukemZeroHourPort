@@ -788,6 +788,9 @@
     <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\data\actors\zombie.c">
       <Filter>src\DukeNukemZeroHour\code0\data\actors</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\943B0.c">
+      <Filter>src\DukeNukemZeroHour\code0</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\data\D8D20.h">
@@ -1182,6 +1185,9 @@
     </ClInclude>
     <ClInclude Include="..\..\DukeNukemZeroHour\include\names.h">
       <Filter>include\DukeNukemZeroHour</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\943B0.h">
+      <Filter>include\DukeNukemZeroHour\code0</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

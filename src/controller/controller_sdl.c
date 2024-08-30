@@ -54,11 +54,11 @@ static void controller_sdl_read(OSContPad *pad)
         }
     }
 
-    if (SDL_GameControllerGetButton(sdl_cntrl, SDL_CONTROLLER_BUTTON_START)) pad->button |= START_BUTTON;
-    if (SDL_GameControllerGetButton(sdl_cntrl, SDL_CONTROLLER_BUTTON_LEFTSHOULDER)) pad->button |= Z_TRIG;
-    if (SDL_GameControllerGetButton(sdl_cntrl, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER)) pad->button |= R_TRIG;
-    if (SDL_GameControllerGetButton(sdl_cntrl, SDL_CONTROLLER_BUTTON_A)) pad->button |= A_BUTTON;
-    if (SDL_GameControllerGetButton(sdl_cntrl, SDL_CONTROLLER_BUTTON_X)) pad->button |= B_BUTTON;
+    if (SDL_GameControllerGetButton(sdl_cntrl, SDL_CONTROLLER_BUTTON_START)) pad[0].button |= START_BUTTON;
+    if (SDL_GameControllerGetButton(sdl_cntrl, SDL_CONTROLLER_BUTTON_LEFTSHOULDER)) pad[0].button |= Z_TRIG;
+    if (SDL_GameControllerGetButton(sdl_cntrl, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER)) pad[0].button |= R_TRIG;
+    if (SDL_GameControllerGetButton(sdl_cntrl, SDL_CONTROLLER_BUTTON_A)) pad[0].button |= A_BUTTON;
+    if (SDL_GameControllerGetButton(sdl_cntrl, SDL_CONTROLLER_BUTTON_X)) pad[0].button |= B_BUTTON;
 
     int16_t leftx = SDL_GameControllerGetAxis(sdl_cntrl, SDL_CONTROLLER_AXIS_LEFTX);
     int16_t lefty = SDL_GameControllerGetAxis(sdl_cntrl, SDL_CONTROLLER_AXIS_LEFTY);
@@ -68,21 +68,21 @@ static void controller_sdl_read(OSContPad *pad)
     int16_t ltrig = SDL_GameControllerGetAxis(sdl_cntrl, SDL_CONTROLLER_AXIS_TRIGGERLEFT);
     int16_t rtrig = SDL_GameControllerGetAxis(sdl_cntrl, SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
 
-    if (rightx < -0x4000) pad->button |= L_CBUTTONS;
-    if (rightx > 0x4000) pad->button |= R_CBUTTONS;
-    if (righty < -0x4000) pad->button |= U_CBUTTONS;
-    if (righty > 0x4000) pad->button |= D_CBUTTONS;
+    if (rightx < -0x4000) pad[0].button |= L_CBUTTONS;
+    if (rightx > 0x4000) pad[0].button |= R_CBUTTONS;
+    if (righty < -0x4000) pad[0].button |= U_CBUTTONS;
+    if (righty > 0x4000) pad[0].button |= D_CBUTTONS;
 
-    if (ltrig > 30 * 256) pad->button |= Z_TRIG;
-    if (rtrig > 30 * 256) pad->button |= R_TRIG;
+    if (ltrig > 30 * 256) pad[0].button |= Z_TRIG;
+    if (rtrig > 30 * 256) pad[0].button |= R_TRIG;
 
     uint32_t magnitude_sq = (uint32_t)(leftx * leftx) + (uint32_t)(lefty * lefty);
     if (magnitude_sq > (uint32_t)(DEADZONE * DEADZONE))
     {
         // Game expects stick coordinates within -80..80
         // 32768 / 409 = ~80
-        pad->stick_x = leftx / 409;
-        pad->stick_y = -lefty / 409;
+        pad[0].stick_x = leftx / 409;
+        pad[0].stick_y = -lefty / 409;
     }
 }
 

@@ -80,8 +80,10 @@ ifeq ($(VERSION),us)
     CPPFLAGS += -DVERSION_US=1
 else ifeq ($(VERSION),fr)
     CPPFLAGS += -DVERSION_FR=1
+else ifeq ($(VERSION),eu)
+    CPPFLAGS += -DVERSION_EU=1
 else
-$(error Invalid VERSION variable detected. Please use either 'us' or 'fr')
+$(error Invalid VERSION variable detected. Please use either 'us' or 'fr' or 'eu')
 endif
 
 # tweak flags for 32-bit build on 64-bit system

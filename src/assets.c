@@ -1318,6 +1318,8 @@ void load_assets(void)
     fp = fopen("assets.us.bin", "rb");
 #elif VERSION_FR
     fp = fopen("assets.fr.bin", "rb");
+#elif VERSION_EU
+    fp = fopen("assets.eu.bin", "rb");
 #endif
     assert(fp != NULL);
     _pBuffer = _buffer;

@@ -39,7 +39,7 @@ float __libm_qnan_f = 0x7F810000;
 u32	osMemSize = 0x800000;
 #if VERSION_US
 s32 osTvType = OS_TV_NTSC;
-#elif VERSION_FR
+#elif defined(VERSION_FR) || defined(VERSION_EU)
 s32 osTvType = OS_TV_PAL;
 #endif
 OSViMode osViModeTable[42];

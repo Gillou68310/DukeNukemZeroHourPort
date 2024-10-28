@@ -37,7 +37,7 @@ u32 __MusIntSamplesCurrent(u32 samples);
 
 float __libm_qnan_f = 0x7F810000;
 u32	osMemSize = 0x800000;
-#if VERSION_US
+#if defined(VERSION_US) || defined(VERSION_PROTO)
 s32 osTvType = OS_TV_NTSC;
 #elif defined(VERSION_FR) || defined(VERSION_EU)
 s32 osTvType = OS_TV_PAL;

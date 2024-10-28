@@ -82,6 +82,8 @@ else ifeq ($(VERSION),fr)
     CPPFLAGS += -DVERSION_FR=1
 else ifeq ($(VERSION),eu)
     CPPFLAGS += -DVERSION_EU=1
+else ifeq ($(VERSION),proto)
+    CPPFLAGS += -DVERSION_PROTO=1
 else
 $(error Invalid VERSION variable detected. Please use either 'us' or 'fr' or 'eu')
 endif

@@ -1320,6 +1320,8 @@ void load_assets(void)
     fp = fopen("assets.fr.bin", "rb");
 #elif VERSION_EU
     fp = fopen("assets.eu.bin", "rb");
+#elif VERSION_PROTO
+    fp = fopen("assets.proto.bin", "rb");
 #endif
     assert(fp != NULL);
     _pBuffer = _buffer;
@@ -1333,6 +1335,10 @@ void load_assets(void)
     load_demos(fp);
     load_arts(fp);
     load_audio(fp);
+
+#if VERSION_PROTO
+    D_800D52B0.vertex_info->ramaddr = (u8 *)((((intptr_t)D_800C199C.ramaddr + D_800D52B0.unk8) + 3) & ~3);
+#endif
 
     assert(((intptr_t)_pBuffer - (intptr_t)_buffer) <= sizeof(_buffer));
     fclose(fp);

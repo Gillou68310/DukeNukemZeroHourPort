@@ -242,6 +242,9 @@ extern u8 *sounds_sfx_bfx_ROM_END;
 #define tiles_0322_bin 0
 #define tiles_0325_bin 0
 #define tiles_0326_bin 0
+#define tiles_0336_bin 0
+#define tiles_0337_bin 0
+#define tiles_0338_bin 0
 #define tiles_0341_bin 0
 #define tiles_0342_bin 0
 #define tiles_0343_bin 0

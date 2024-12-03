@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "DukeNukemZeroHour"
+		}
+	],
+    "settings": {
+        "C_Cpp.autoAddFileAssociations": false,
+        "files.exclude": {
+            "DukeNukemZeroHour": true
+        }
+    }
+}

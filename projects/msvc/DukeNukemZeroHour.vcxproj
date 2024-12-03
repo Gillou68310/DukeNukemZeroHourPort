@@ -74,7 +74,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LANGUAGE_C;F3DEX_GBI_2;_FINALROM;NON_MATCHING;MODERN;AVOID_UB;_OLD_AUDIO_LIBRARY;_CRT_SECURE_NO_WARNINGS;VERSION_US=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LANGUAGE_C;F3DEX_GBI_2;_FINALROM;AVOID_UB;_OLD_AUDIO_LIBRARY;_CRT_SECURE_NO_WARNINGS;VERSION_US=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>../../src;../../DukeNukemZeroHour/include;../../DukeNukemZeroHour/libs/libmus/src;../../DukeNukemZeroHour/libs/libmus/include;../../DukeNukemZeroHour/libs/libultra/include/2.0I;../../DukeNukemZeroHour/libs/libultra/include/2.0I/PR;../../libs/SDL2-2.28.5/include;../../libs/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
@@ -95,7 +95,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LANGUAGE_C;F3DEX_GBI_2;_FINALROM;NON_MATCHING;MODERN;AVOID_UB;_OLD_AUDIO_LIBRARY;_CRT_SECURE_NO_WARNINGS;VERSION_US=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LANGUAGE_C;F3DEX_GBI_2;_FINALROM;AVOID_UB;_OLD_AUDIO_LIBRARY;_CRT_SECURE_NO_WARNINGS;VERSION_US=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>../../src;../../DukeNukemZeroHour/include;../../DukeNukemZeroHour/libs/libmus/src;../../DukeNukemZeroHour/libs/libmus/include;../../DukeNukemZeroHour/libs/libultra/include/2.0I;../../DukeNukemZeroHour/libs/libultra/include/2.0I/PR;../../libs/SDL2-2.28.5/include;../../libs/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
@@ -116,7 +116,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;_LANGUAGE_C;F3DEX_GBI_2;_FINALROM;NON_MATCHING;MODERN;AVOID_UB;_OLD_AUDIO_LIBRARY;_CRT_SECURE_NO_WARNINGS;VERSION_US=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;_LANGUAGE_C;F3DEX_GBI_2;_FINALROM;AVOID_UB;_OLD_AUDIO_LIBRARY;_CRT_SECURE_NO_WARNINGS;VERSION_US=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>../../src;../../DukeNukemZeroHour/include;../../DukeNukemZeroHour/libs/libmus/src;../../DukeNukemZeroHour/libs/libmus/include;../../DukeNukemZeroHour/libs/libultra/include/2.0I;../../DukeNukemZeroHour/libs/libultra/include/2.0I/PR;../../libs/SDL2-2.28.5/include;../../libs/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
@@ -137,7 +137,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;_LANGUAGE_C;F3DEX_GBI_2;_FINALROM;NON_MATCHING;MODERN;AVOID_UB;_OLD_AUDIO_LIBRARY;_CRT_SECURE_NO_WARNINGS;VERSION_US=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;_LANGUAGE_C;F3DEX_GBI_2;_FINALROM;AVOID_UB;_OLD_AUDIO_LIBRARY;_CRT_SECURE_NO_WARNINGS;VERSION_US=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>../../src;../../DukeNukemZeroHour/include;../../DukeNukemZeroHour/libs/libmus/src;../../DukeNukemZeroHour/libs/libmus/include;../../DukeNukemZeroHour/libs/libultra/include/2.0I;../../DukeNukemZeroHour/libs/libultra/include/2.0I/PR;../../libs/SDL2-2.28.5/include;../../libs/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
@@ -288,11 +288,11 @@
     <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\17B30.c" />
     <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\1A7C0.c" />
     <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\1E7A0.c" />
-    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\20490.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\viewport.c" />
     <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\21500.c" />
     <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\24610.c" />
-    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\2ABE0.c" />
-    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\35D90.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\getangle.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\tile.c" />
     <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\35EA0.c" />
     <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\36410.c" />
     <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\37090.c" />
@@ -389,11 +389,11 @@
     <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\17B30.h" />
     <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\1A7C0.h" />
     <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\1E7A0.h" />
-    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\20490.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\viewport.h" />
     <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\21500.h" />
     <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\24610.h" />
-    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\2ABE0.h" />
-    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\35D90.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\getangle.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\tile.h" />
     <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\35EA0.h" />
     <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\36410.h" />
     <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\37090.h" />
@@ -516,6 +516,7 @@
     <ClInclude Include="..\..\src\fast3d\glad\khrplatform.h" />
     <ClInclude Include="..\..\src\ld_symbols.h" />
     <ClInclude Include="..\..\src\mixer.h" />
+    <ClInclude Include="..\..\src\port.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

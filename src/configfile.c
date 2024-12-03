@@ -31,6 +31,7 @@ struct ConfigOption {
  */
 bool configFullscreen = false;
 bool configDebug = false;
+bool configSkipIntro = false;
 // Keyboard mappings (scancode values)
 unsigned int configKeyA[4] = {16,75,0,0};
 unsigned int configKeyB[4] = {18,77,0,0};
@@ -55,6 +56,7 @@ unsigned int configKeyJoyRight[4] = {0,73,0,0};
 static const struct ConfigOption options[] = {
     {.name = "fullscreen",           .type = CONFIG_TYPE_BOOL, .boolValue = &configFullscreen},
     {.name = "debug",                .type = CONFIG_TYPE_BOOL, .boolValue = &configDebug},
+    {.name = "skipintro",            .type = CONFIG_TYPE_BOOL, .boolValue = &configSkipIntro},
     {.name = "cont1_key_a",          .type = CONFIG_TYPE_UINT, .uintValue = &configKeyA[0]},
     {.name = "cont1_key_b",          .type = CONFIG_TYPE_UINT, .uintValue = &configKeyB[0]},
     {.name = "cont1_key_start",      .type = CONFIG_TYPE_UINT, .uintValue = &configKeyStart[0]},

@@ -62,7 +62,7 @@ CXXFLAGS += -std=c++20
 
 CPPFLAGS := -I $(SRCDIR) -I $(DUKEDIR)/include -I $(LIBULTRADIR)/include/2.0I -I $(LIBMUSDIR)/include \
             -I $(LIBULTRADIR)/include/2.0I/PR -I $(LIBMUSDIR)/src -D_LANGUAGE_C -DF3DEX_GBI_2 \
-            -D_FINALROM -DNON_MATCHING -DMODERN -DAVOID_UB -D_OLD_AUDIO_LIBRARY -DENABLE_OPENGL
+            -D_FINALROM -DAVOID_UB -D_OLD_AUDIO_LIBRARY -DENABLE_OPENGL
 
 LDLIBS += -static-libgcc -static-libstdc++
 

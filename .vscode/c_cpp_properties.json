@@ -8,16 +8,16 @@
                 "${workspaceFolder}/DukeNukemZeroHour/include",
                 "${workspaceFolder}/DukeNukemZeroHour/libs/libultra/include/2.0I",
                 "${workspaceFolder}/DukeNukemZeroHour/libs/libultra/include/2.0I/PR",
-                "${workspaceFolder}/DukeNukemZeroHour/libs/libmus/include"
+                "${workspaceFolder}/DukeNukemZeroHour/libs/libmus/include",
+                "${workspaceFolder}/DukeNukemZeroHour/libs/libmus/src"
             ],
             "defines": [
                 "F3DEX_GBI_2",
                 "_LANGUAGE_C",
                 "_MIPS_SZLONG=32",
                 "_FINALROM",
-                "NON_MATCHING",
-                "__CTX__",
-                "AVOID_UB"
+                "AVOID_UB",
+                "VERSION_US"
             ],
             "cStandard": "c89",
             "cppStandard": "c++17",

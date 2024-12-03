@@ -400,6 +400,10 @@ static void load_model(ModelInfo *info, FILE *fp)
     fread(&size, 4, 1, fp);
     fread(_pBuffer, size, 1, fp);
 
+    assert(info->xmin <= info->xmax);
+    assert(info->ymin <= info->ymax);
+    assert(info->zmin <= info->zmax);
+
     assert(info->unk8 == info->unkA);
     assert(info->vertex_info->size == info->vertex_size);
 
@@ -463,6 +467,9 @@ static void load_blk(_D8D20UnkStruct2 *blk, FILE *fp)
     fread(&size, 4, 1, fp);
     fread(_pBuffer, size, 1, fp);
 
+    assert(blk->dsize == blk->csize);
+    assert(((blk->dsize + 3) & ~3) == size);
+
     ptr = (_D8D20UnkStruct3 *)_pBuffer;
     for (i = 0; i < blk->unk14; i++)
     {
@@ -471,8 +478,8 @@ static void load_blk(_D8D20UnkStruct2 *blk, FILE *fp)
         ptr->unk4 = SWAP_S16(ptr->unk4);
         ptr++;
     }
-    assert(((blk->unk10-(blk->unk14*sizeof(_D8D20UnkStruct3))) % sizeof(_D8D20UnkStruct1)) == 0);
-    count = (blk->unk10-(blk->unk14*sizeof(_D8D20UnkStruct3))) / sizeof(_D8D20UnkStruct1);
+    assert(((blk->dsize-(blk->unk14*sizeof(_D8D20UnkStruct3))) % sizeof(_D8D20UnkStruct1)) == 0);
+    count = (blk->dsize-(blk->unk14*sizeof(_D8D20UnkStruct3))) / sizeof(_D8D20UnkStruct1);
 
     ptr2 = &((_D8D20UnkStruct1 *)_pBuffer)[blk->unk14];
     assert((intptr_t)ptr == (intptr_t)ptr2);
@@ -512,7 +519,7 @@ static void load_blks(FILE *fp)
 
 static void load_map(MapInfo *map, FILE *fp)
 {
-    s32 i, count, size;
+    s32 i, count, size, ret;
     Vertex *vertex;
     SectorType *sector;
     WallType *wall;
@@ -540,7 +547,8 @@ static void load_map(MapInfo *map, FILE *fp)
     fread(sprite, size, 1, fp);
 
     start = _pBuffer;
-    assert(decompressEDL(sector, _sectors) == 0);
+    ret = decompressEDL(sector, _sectors);
+    assert(ret == 0);
     free(sector);
 
     for (i = 0; i < map->sectors; i++)
@@ -570,7 +578,8 @@ static void load_map(MapInfo *map, FILE *fp)
     }
     count *= 3;
 
-    assert(decompressEDL(vertex, _pBuffer) == 0);
+    ret = decompressEDL(vertex, _pBuffer);
+    assert(ret == 0);
     free(vertex);
     vertex = (Vertex *)_pBuffer;
     _pBuffer += (count * sizeof(Vertex));
@@ -586,7 +595,8 @@ static void load_map(MapInfo *map, FILE *fp)
     }
 
     map->wall_offset = _pBuffer - start;
-    assert(decompressEDL(wall, _pBuffer) == 0);
+    ret = decompressEDL(wall, _pBuffer);
+    assert(ret == 0);
     free(wall);
     wall = (WallType *)_pBuffer;
     _pBuffer += (map->walls * sizeof(WallType));
@@ -614,7 +624,8 @@ static void load_map(MapInfo *map, FILE *fp)
     ALIGN16(_pBuffer);
 
     map->sprite_offset = _pBuffer - start;
-    assert(decompressEDL(sprite, _pBuffer) == 0);
+    ret = decompressEDL(sprite, _pBuffer);
+    assert(ret == 0);
     free(sprite);
     sprite = (SpriteType *)_pBuffer;
     _pBuffer += (map->sprites * sizeof(SpriteType));
@@ -749,7 +760,7 @@ static void load_maps(FILE *fp)
 
 static void load_tile(TileInfo *tile, FILE *fp)
 {
-    s32 i, dsize, size;
+    s32 i, dsize, size, ret;
     u8 *ptr;
     u8 val;
     u8 buf[3];
@@ -766,7 +777,8 @@ static void load_tile(TileInfo *tile, FILE *fp)
         memcpy(ptr, buf, 3);
         fread(&ptr[3], size-3, 1, fp);
         dsize = SWAP_S32(*(u32 *)&ptr[8]);
-        assert(decompressEDL(ptr, _pBuffer) == 0);
+        ret = decompressEDL(ptr, _pBuffer);
+        assert(ret == 0);
         _pBuffer += dsize;
         tile->filesize = dsize;
         free(ptr);
@@ -829,7 +841,7 @@ static void func_8007FD8C(u8 *data, _E0640UnkStruct *arg0)
 
 static void load_swapped_texture(Art *art, FILE *fp)
 {
-    s32 size, dsize;
+    s32 size, dsize, ret;
     u8 *ptr;
 
     fread(&size, 4, 1, fp);
@@ -838,7 +850,8 @@ static void load_swapped_texture(Art *art, FILE *fp)
     fread(ptr, size, 1, fp);
 
     dsize = SWAP_S32(*(u32 *)&ptr[8]);
-    assert(decompressEDL(ptr, art->data) == 0);
+    ret = decompressEDL(ptr, art->data);
+    assert(ret == 0);
     free(ptr);
 
     func_8007FD8C(art->data, art->info);
@@ -848,7 +861,7 @@ static void load_swapped_texture(Art *art, FILE *fp)
 
 static void load_special_model(Art *art, FILE *fp)
 {
-    s32 i, j, size, dsize;
+    s32 i, j, size, dsize, ret;
     u8 *ptr;
     s16 *ptr2;
     s32 *offset;
@@ -860,7 +873,8 @@ static void load_special_model(Art *art, FILE *fp)
     fread(ptr, size, 1, fp);
 
     dsize = SWAP_S32(*(u32 *)&ptr[8]);
-    assert(decompressEDL(ptr, art->data) == 0);
+    ret = decompressEDL(ptr, art->data);
+    assert(ret == 0);
     free(ptr);
 
     offset = art->edl->offset;
@@ -1246,7 +1260,7 @@ static void load_audio(FILE *fp)
 
 static void load_art(Art *art, FILE *fp)
 {
-    s32 size, dsize;
+    s32 size, dsize, ret;
     u8 *ptr;
     char buf[3];
 
@@ -1260,7 +1274,8 @@ static void load_art(Art *art, FILE *fp)
         memcpy(ptr, buf, 3);
         fread(&ptr[3], size-3, 1, fp);
         dsize = SWAP_S32(*(u32 *)&ptr[8]);
-        assert(decompressEDL(ptr, art->data) == 0);
+        ret = decompressEDL(ptr, art->data);
+        assert(ret == 0);
         free(ptr);
         _pBuffer += dsize;
     }

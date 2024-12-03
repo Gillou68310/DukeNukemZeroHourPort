@@ -1,0 +1,31 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build VS2022",
+            "type": "shell",
+            "command": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Msbuild\\Current\\Bin\\msbuild.exe",
+            "args": [
+                "projects\\msvc\\DukeNukemZeroHour.vcxproj",
+                "/t:build",
+                "/p:config=Debug",
+                "/p:platform=x64"
+            ],
+            "group": "build",
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "Clean VS2022",
+            "type": "shell",
+            "command": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Msbuild\\Current\\Bin\\msbuild.exe",
+            "args": [
+                "projects\\msvc\\DukeNukemZeroHour.vcxproj",
+                "/t:clean",
+                "/p:config=Debug",
+                "/p:platform=x64"
+            ],
+            "group": "build",
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}

@@ -590,7 +590,7 @@
     <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\1E7A0.c">
       <Filter>src\DukeNukemZeroHour\code0</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\2ABE0.c">
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\getangle.c">
       <Filter>src\DukeNukemZeroHour\code0</Filter>
     </ClCompile>
     <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\3FAD0.c">
@@ -629,7 +629,7 @@
     <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\17B30.c">
       <Filter>src\DukeNukemZeroHour\code0</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\35D90.c">
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\tile.c">
       <Filter>src\DukeNukemZeroHour\code0</Filter>
     </ClCompile>
     <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\35EA0.c">
@@ -1048,7 +1048,7 @@
     <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\1E7A0.h">
       <Filter>include\DukeNukemZeroHour\code0</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\2ABE0.h">
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\getangle.h">
       <Filter>include\DukeNukemZeroHour\code0</Filter>
     </ClInclude>
     <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\3FAD0.h">
@@ -1087,7 +1087,7 @@
     <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\17B30.h">
       <Filter>include\DukeNukemZeroHour\code0</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\35D90.h">
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\tile.h">
       <Filter>include\DukeNukemZeroHour\code0</Filter>
     </ClInclude>
     <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\35EA0.h">
@@ -1188,6 +1188,9 @@
     </ClInclude>
     <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\94050.h">
       <Filter>include\DukeNukemZeroHour\code0</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\port.h">
+      <Filter>include\Port</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

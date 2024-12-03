@@ -71,7 +71,7 @@ static void on_fullscreen_changed(bool is_now_fullscreen)
     configFullscreen = is_now_fullscreen;
 }
 
-static void audio_task(void)
+void audio_task(void)
 {
     Acmd *cmdp;
     u32 samples;

@@ -400,6 +400,10 @@ static void load_model(ModelInfo *info, FILE *fp)
     fread(&size, 4, 1, fp);
     fread(_pBuffer, size, 1, fp);
 
+    assert(info->xmin <= info->xmax);
+    assert(info->ymin <= info->ymax);
+    assert(info->zmin <= info->zmax);
+
     assert(info->unk8 == info->unkA);
     assert(info->vertex_info->size == info->vertex_size);
 
@@ -463,6 +467,9 @@ static void load_blk(_D8D20UnkStruct2 *blk, FILE *fp)
     fread(&size, 4, 1, fp);
     fread(_pBuffer, size, 1, fp);
 
+    assert(blk->dsize == blk->csize);
+    assert(((blk->dsize + 3) & ~3) == size);
+
     ptr = (_D8D20UnkStruct3 *)_pBuffer;
     for (i = 0; i < blk->unk14; i++)
     {
@@ -471,8 +478,8 @@ static void load_blk(_D8D20UnkStruct2 *blk, FILE *fp)
         ptr->unk4 = SWAP_S16(ptr->unk4);
         ptr++;
     }
-    assert(((blk->unk10-(blk->unk14*sizeof(_D8D20UnkStruct3))) % sizeof(_D8D20UnkStruct1)) == 0);
-    count = (blk->unk10-(blk->unk14*sizeof(_D8D20UnkStruct3))) / sizeof(_D8D20UnkStruct1);
+    assert(((blk->dsize-(blk->unk14*sizeof(_D8D20UnkStruct3))) % sizeof(_D8D20UnkStruct1)) == 0);
+    count = (blk->dsize-(blk->unk14*sizeof(_D8D20UnkStruct3))) / sizeof(_D8D20UnkStruct1);
 
     ptr2 = &((_D8D20UnkStruct1 *)_pBuffer)[blk->unk14];
     assert((intptr_t)ptr == (intptr_t)ptr2);

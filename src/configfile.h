@@ -4,6 +4,7 @@
 extern bool         configFullscreen;
 extern bool         configDebug;
 extern bool         configSkipIntro;
+extern bool         configNoBorder;
 extern unsigned int configKeyA[4];
 extern unsigned int configKeyB[4];
 extern unsigned int configKeyStart[4];

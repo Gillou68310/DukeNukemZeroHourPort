@@ -291,8 +291,8 @@
     <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\20490.c" />
     <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\21500.c" />
     <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\24610.c" />
-    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\2ABE0.c" />
-    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\35D90.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\getangle.c" />
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\tile.c" />
     <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\35EA0.c" />
     <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\36410.c" />
     <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\37090.c" />
@@ -392,8 +392,8 @@
     <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\20490.h" />
     <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\21500.h" />
     <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\24610.h" />
-    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\2ABE0.h" />
-    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\35D90.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\getangle.h" />
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\tile.h" />
     <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\35EA0.h" />
     <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\36410.h" />
     <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\37090.h" />

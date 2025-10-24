@@ -1189,5 +1189,8 @@
     <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\94050.h">
       <Filter>include\DukeNukemZeroHour\code0</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\port.h">
+      <Filter>include\Port</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

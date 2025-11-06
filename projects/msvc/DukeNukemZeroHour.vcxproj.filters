@@ -641,7 +641,7 @@
     <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\96A80.c">
       <Filter>src\DukeNukemZeroHour\code0</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\416A0.c">
+    <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\timer.c">
       <Filter>src\DukeNukemZeroHour\code0</Filter>
     </ClCompile>
     <ClCompile Include="..\..\DukeNukemZeroHour\src\code0\609D0.c">
@@ -1099,7 +1099,7 @@
     <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\96A80.h">
       <Filter>include\DukeNukemZeroHour\code0</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\416A0.h">
+    <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\timer.h">
       <Filter>include\DukeNukemZeroHour\code0</Filter>
     </ClInclude>
     <ClInclude Include="..\..\DukeNukemZeroHour\include\code0\609D0.h">
